@@ -19,7 +19,12 @@ IDs below are from **Focus8080** (Atlas). Confirm with `cCore_Vouchers_0` in oth
 ### Cube formulas (PT III Atlas XML)
 
 ```text
-Adv. Rct Amount = Credit4609 + Credit256 + Credit4610 + Credit4608 + Credit8707 + Credit4096
+Adv. Rct Amount = ROUND(
+  ROUND(Credit4609,2) + ROUND(Credit256,2) + ROUND(Credit4610,0)
+  + ROUND(Credit4608,2) + ROUND(Credit8707,2) + ROUND(Credit4096,2)
+, 0)
+
+Cube XML sets DecimalInColumn=0 only on CRM Adv (4610); other credit splits use 2 decimals; Adv formula uses 0.
 Balance Amount  = Total Contract Amount - Adv. Rct Amount   -- signed
 SJO Balance     = Total Contract Amount - Sales Job Order
 Plan Value      = SUM(PlanValue) / COUNT(PlanValue) on cube; Query usually uses master PlanValue

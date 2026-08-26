@@ -57,9 +57,9 @@ LEFT JOIN (
     SELECT
         AccName,
         MIN(SODate) AS SODate,
-        ABS(SUM(CASE WHEN iVoucherType = 5634 THEN VoucherAmt ELSE 0 END)) AS ContractAmt,
-        ABS(SUM(CASE WHEN iVoucherType = 5635 THEN VoucherAmt ELSE 0 END)) AS SjoAmt,
-        ABS(SUM(CASE WHEN iVoucherType = 6145 THEN VoucherAmt ELSE 0 END)) AS ProdNoteAmt
+        ROUND(ABS(SUM(CASE WHEN iVoucherType = 5634 THEN VoucherAmt ELSE 0 END)), 0) AS ContractAmt,
+        ROUND(ABS(SUM(CASE WHEN iVoucherType = 5635 THEN VoucherAmt ELSE 0 END)), 0) AS SjoAmt,
+        ROUND(ABS(SUM(CASE WHEN iVoucherType = 6145 THEN VoucherAmt ELSE 0 END)), 0) AS ProdNoteAmt
     FROM (
         SELECT
             a.sName AS AccName,
@@ -86,51 +86,67 @@ LEFT JOIN (
     GROUP BY AccName
 ) doc ON doc.AccName = acc.sName
 LEFT JOIN (
+    /* Cube Adv = sum of 6 Credit columns then DecimalInColumn=0.
+       Per XML: type 4610 (CRM Adv) DecimalInColumn=0; other credits = 2. */
     SELECT
         AccName,
-        SUM(CreditAmt) AS AdvRctAmt
+        ROUND(SUM(
+            CASE
+                WHEN iVoucherType = 4610 THEN ROUND(TypeAmt, 0)
+                ELSE ROUND(TypeAmt, 2)
+            END
+        ), 0) AS AdvRctAmt
     FROM (
         SELECT
-            a.sName AS AccName,
-            CASE WHEN d.mAmount1 > 0 THEN d.mAmount1 ELSE 0 END AS CreditAmt
-        FROM dbo.tCore_Header_0 h
-        INNER JOIN dbo.tCore_Data_0 d
-            ON d.iHeaderId = h.iHeaderId
-           AND h.iVoucherType IN (256, 4096, 4608, 4609, 4610, 8707)
-           AND d.bUpdateFA = 1
-           AND d.iFaTag = 2040
-           AND d.iCode > 0
-           AND ISNULL(d.iType, 0) = 0
-           AND ISNULL(h.iAuth, 1) = 1
-           AND ISNULL(d.iAuthStatus, 0) < 2
-           AND ISNULL(h.bCancelled, 0) = 0
-           AND ISNULL(h.bVersion, 0) = 0
-           AND ISNULL(h.bSuspended, 0) = 0
-           AND ISNULL(d.bVoid, 0) = 0
-        INNER JOIN dbo.mCore_Account a
-            ON a.iMasterId = d.iCode
-        UNION ALL
-        SELECT
-            a.sName AS AccName,
-            CASE WHEN d.mAmount2 > 0 THEN d.mAmount2 ELSE 0 END AS CreditAmt
-        FROM dbo.tCore_Header_0 h
-        INNER JOIN dbo.tCore_Data_0 d
-            ON d.iHeaderId = h.iHeaderId
-           AND h.iVoucherType IN (256, 4096, 4608, 4609, 4610, 8707)
-           AND d.bUpdateFA = 1
-           AND d.iFaTag = 2040
-           AND d.iBookNo > 0
-           AND d.iBookNo <> d.iCode
-           AND ISNULL(d.iType, 0) = 0
-           AND ISNULL(h.iAuth, 1) = 1
-           AND ISNULL(d.iAuthStatus, 0) < 2
-           AND ISNULL(h.bCancelled, 0) = 0
-           AND ISNULL(h.bVersion, 0) = 0
-           AND ISNULL(h.bSuspended, 0) = 0
-           AND ISNULL(d.bVoid, 0) = 0
-        INNER JOIN dbo.mCore_Account a
-            ON a.iMasterId = d.iBookNo
-    ) Cr
+            AccName,
+            iVoucherType,
+            SUM(CreditAmt) AS TypeAmt
+        FROM (
+            SELECT
+                a.sName AS AccName,
+                h.iVoucherType,
+                CASE WHEN d.mAmount1 > 0 THEN d.mAmount1 ELSE 0 END AS CreditAmt
+            FROM dbo.tCore_Header_0 h
+            INNER JOIN dbo.tCore_Data_0 d
+                ON d.iHeaderId = h.iHeaderId
+               AND h.iVoucherType IN (256, 4096, 4608, 4609, 4610, 8707)
+               AND d.bUpdateFA = 1
+               AND d.iFaTag = 2040
+               AND d.iCode > 0
+               AND ISNULL(d.iType, 0) = 0
+               AND ISNULL(h.iAuth, 1) = 1
+               AND ISNULL(d.iAuthStatus, 0) < 2
+               AND ISNULL(h.bCancelled, 0) = 0
+               AND ISNULL(h.bVersion, 0) = 0
+               AND ISNULL(h.bSuspended, 0) = 0
+               AND ISNULL(d.bVoid, 0) = 0
+            INNER JOIN dbo.mCore_Account a
+                ON a.iMasterId = d.iCode
+            UNION ALL
+            SELECT
+                a.sName AS AccName,
+                h.iVoucherType,
+                CASE WHEN d.mAmount2 > 0 THEN d.mAmount2 ELSE 0 END AS CreditAmt
+            FROM dbo.tCore_Header_0 h
+            INNER JOIN dbo.tCore_Data_0 d
+                ON d.iHeaderId = h.iHeaderId
+               AND h.iVoucherType IN (256, 4096, 4608, 4609, 4610, 8707)
+               AND d.bUpdateFA = 1
+               AND d.iFaTag = 2040
+               AND d.iBookNo > 0
+               AND d.iBookNo <> d.iCode
+               AND ISNULL(d.iType, 0) = 0
+               AND ISNULL(h.iAuth, 1) = 1
+               AND ISNULL(d.iAuthStatus, 0) < 2
+               AND ISNULL(h.bCancelled, 0) = 0
+               AND ISNULL(h.bVersion, 0) = 0
+               AND ISNULL(h.bSuspended, 0) = 0
+               AND ISNULL(d.bVoid, 0) = 0
+            INNER JOIN dbo.mCore_Account a
+                ON a.iMasterId = d.iBookNo
+        ) Cr
+        GROUP BY AccName, iVoucherType
+    ) ByType
     GROUP BY AccName
 ) fa ON fa.AccName = acc.sName
 WHERE acc.iMasterId > 0

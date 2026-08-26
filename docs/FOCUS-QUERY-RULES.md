@@ -93,6 +93,18 @@ Returning `'31/03/2026'` or `'Yes'` into a Fraction/Date layout column.
 5. Match authorization with `tCore_Header_0.iAuth` / DocumentOption bits.
 6. Group the same way as the cube (`Account2.Name` may merge duplicate customer names).
 
+## Column Sign (`-/+`)
+
+Focus packs **Sign** into `cCore_ReportColumns_0.iAlignment` (same as cube `ColumnAlignment`):
+
+```text
+iAlignment = (sign << 5) | (horizontalAlign << 3) | decimalsInPackedBits
+ColumnSign: None=0, -/+ =1, DR/CR=2, (BRACKET)=3
+```
+
+Cube **Balance Amount** uses Sign **`-/+`** → `iAlignment = 48`. Contract/Adv use **None** → `16`.  
+Set this in Column Properties → **Sign** → `-/+`, or update `iAlignment` for that FieldId.
+
 ## Report metadata tables (Focus8080)
 
 | Table | Use |
