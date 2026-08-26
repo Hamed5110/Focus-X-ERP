@@ -62,11 +62,15 @@ Microsoft note: SQL Server `ROUND` uses half-away-from-zero; default .NET `Math.
 ## Reconciliation lessons
 
 1. **Unauthorized SJO** (`iAuth` 0 or 4) inflate SJO if not filtered — TR 180 run behaves like DocumentOption **30** (authorized only).
-2. **Same customer name, other account codes** (e.g. Closed-IV twin) still add into cube name totals.
-3. Cube Excel **Grand Total footer** may not equal `SUM(rows)` (e.g. Contract footer `2266050` vs row-sum `2284734`). Compare **row sums** and per-code amounts — not the cube Grand Total line.
-4. Focus Query export may show absolute Balance on rows while Grand Total stays signed — layout Absolute/Reverse setting.
+2. **Same customer name, other account codes** (e.g. Closed-IV twin **AC-7997** Status 4, or Status 0 twins) still add into cube name totals when the Status-3 row is shown.
+3. Cube Excel **Grand Total footer** may not equal `SUM(rows)` (e.g. Contract footer often **~18,684 low**). Compare **row sums** and per-code amounts — not the cube Grand Total line.
+4. Focus Query export may show absolute Balance on rows while Grand Total stays signed — layout Absolute / Sign `-/+` setting.
 5. **Apply Customization** errors after SQL edits → layout FieldId sequence must match SELECT order; keep Sales Order Date / `iDate` as **Fraction**, not Date.
 6. Raw 2-decimal SQL can look “wrong” next to cube Excel integers; apply cube `DecimalInColumn` rounding above.
+7. **Trade Receivables overlay (critical):** filename `Trade_Receivables_180_*_Project_Tracking_III_*` means the cube was opened **from Trade Receivables**. That run only lists accounts in that TR session. The SQL Query lists **all** Report Status = 3 accounts.  
+   - Latest check (26 Aug 2026): **222 common codes → Contract/Adv diffs = 0**; SQL-only **AC-3488** (+7673) and **AC-5850** (+7597) = entire total gap **15,270**.  
+   - Same codes drop in/out of different TR exports (e.g. `225784` had AC-3488; `527369` had neither).  
+   - To compare amounts: match on **Code**, ignore cube Grand Total, and either accept SQL’s full Status-3 set or restrict SQL to the TR account list for that run.
 
 ## Worked examples (Focus8080)
 
