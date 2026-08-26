@@ -1,0 +1,20 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Secrets / local DB dumps
+.env
+*.fbak
+*.bak
+credentials*
+*password*
+
+# Python / temp recon
+__pycache__/
+*.pyc
+pt3_*.py
+pt3_*.txt
+focus_*.py

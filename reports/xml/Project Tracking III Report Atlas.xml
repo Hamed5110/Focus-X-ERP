@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="utf-8"?>
+<_Reports xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ReportId>70153</ReportId>
+  <ReportName>Project Tracking III Report Atlas</ReportName>
+  <Module>CoreTransactions</Module>
+  <ReportType>Cubes</ReportType>
+  <DataSourceType>Default</DataSourceType>
+  <FilterGroupId>0</FilterGroupId>
+  <GroupStyle>NONE</GroupStyle>
+  <CreatedBy>1</CreatedBy>
+  <CreatedDate>132712205</CreatedDate>
+  <ModifiedBy>1</ModifiedBy>
+  <ModifedDate>132713236</ModifedDate>
+  <MenuGroupId>502</MenuGroupId>
+  <Parameters />
+  <Groupings>
+    <_Grouping>
+      <DisplayValue />
+      <GroupId>0</GroupId>
+      <FieldId>5002</FieldId>
+      <SubParentId>3</SubParentId>
+      <ParentId>0</ParentId>
+      <IsAscending>false</IsAscending>
+      <OrderBy>0</OrderBy>
+      <MiscellaneousOptions>1024</MiscellaneousOptions>
+      <GroupingType>Row</GroupingType>
+      <DateTypeId>Text</DateTypeId>
+    </_Grouping>
+  </Groupings>
+  <TransactionSets>
+    <_TransactionSet>
+      <TransactionId>4697</TransactionId>
+      <TransactionSetId>AccountingTransactionsOfanAccount</TransactionSetId>
+      <VoucherType>0</VoucherType>
+      <FilterGroupId>0</FilterGroupId>
+      <BRS>3</BRS>
+      <DocumentOption>62</DocumentOption>
+    </_TransactionSet>
+    <_TransactionSet>
+      <TransactionId>4698</TransactionId>
+      <TransactionSetId>AllTransactionsOfDocumentType</TransactionSetId>
+      <VoucherType>5634</VoucherType>
+      <FilterGroupId>0</FilterGroupId>
+      <BRS>3</BRS>
+      <DocumentOption>62</DocumentOption>
+    </_TransactionSet>
+    <_TransactionSet>
+      <TransactionId>4699</TransactionId>
+      <TransactionSetId>AllTransactionsOfDocumentType</TransactionSetId>
+      <VoucherType>5635</VoucherType>
+      <FilterGroupId>0</FilterGroupId>
+      <BRS>3</BRS>
+      <DocumentOption>62</DocumentOption>
+    </_TransactionSet>
+    <_TransactionSet>
+      <TransactionId>4700</TransactionId>
+      <TransactionSetId>AllTransactionsOfDocumentType</TransactionSetId>
+      <VoucherType>6145</VoucherType>
+      <FilterGroupId>0</FilterGroupId>
+      <BRS>3</BRS>
+      <DocumentOption>62</DocumentOption>
+    </_TransactionSet>
+  </TransactionSets>
+  <Filters>
+    <_Filter>
+      <FilterId>8766</FilterId>
+      <FilterGroupId>0</FilterGroupId>
+      <FieldId>5042</FieldId>
+      <SubParentId>536870915</SubParentId>
+      <ParentId>0</ParentId>
+      <IsGroup>false</IsGroup>
+      <Operator>EqualTo</Operator>
+      <CompareWith>Value</CompareWith>
+      <Conjuction>Where</Conjuction>
+      <CompareValue>2040</CompareValue>
+      <CompareText>Atlas Aluminum</CompareText>
+      <FilterType>Report</FilterType>
+      <DataType>Number</DataType>
+    </_Filter>
+  </Filters>
+  <Layout>
+    <ReportId>0</ReportId>
+    <SubReportId>0</SubReportId>
+    <LayoutId>6732</LayoutId>
+    <LayoutName>Standard</LayoutName>
+    <IsDefault>false</IsDefault>
+    <IsLandscape>false</IsLandscape>
+    <IsPrintZeroValue>false</IsPrintZeroValue>
+    <InvoiceLayout>
+      <ID>0</ID>
+    </InvoiceLayout>
+    <RowConditional />
+    <Columns>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91367</ColumnId>
+        <FieldId>5002</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Name</ColumnName>
+        <AliasName>Name</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>0</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>2</Miscelleneous>
+        <DataTypeId>Text</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91368</ColumnId>
+        <FieldId>304927</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.CPR/CR Number</ColumnName>
+        <AliasName>CPR/CR Number</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Text</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91369</ColumnId>
+        <FieldId>5003</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Code</ColumnName>
+        <AliasName>Code</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Text</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91370</ColumnId>
+        <FieldId>300083</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.City</ColumnName>
+        <AliasName>City</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91371</ColumnId>
+        <FieldId>303573</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Tel No</ColumnName>
+        <AliasName>Phone No.</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Text</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91372</ColumnId>
+        <FieldId>307022</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Salesman name</ColumnName>
+        <AliasName>Salesman name</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91373</ColumnId>
+        <FieldId>307023</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Designer name</ColumnName>
+        <AliasName>Designer name</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91374</ColumnId>
+        <FieldId>307077</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Pipeline</ColumnName>
+        <AliasName>Pipeline</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91375</ColumnId>
+        <FieldId>307059</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Site Status</ColumnName>
+        <AliasName>Site Status</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91376</ColumnId>
+        <FieldId>171</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Voucher amount</ColumnName>
+        <AliasName>Total Contract Amount</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8767</FilterId>
+            <FilterGroupId>91376</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>5634</CompareValue>
+            <CompareText>Contract / Sales Order</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91377</ColumnId>
+        <FieldId>19</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Credit</ColumnName>
+        <AliasName>Credit Adv Rct</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>18</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8768</FilterId>
+            <FilterGroupId>91377</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>4609</CompareValue>
+            <CompareText>Advance Receipts</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>2</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91378</ColumnId>
+        <FieldId>19</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Credit</ColumnName>
+        <AliasName>Credit opt</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>18</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8769</FilterId>
+            <FilterGroupId>91378</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>256</CompareValue>
+            <CompareText>Opening Balances</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>2</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91379</ColumnId>
+        <FieldId>19</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Credit</ColumnName>
+        <AliasName>CRM Adv rct</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8770</FilterId>
+            <FilterGroupId>91379</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>4610</CompareValue>
+            <CompareText>Advance Receipts CRM</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91380</ColumnId>
+        <FieldId>19</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Credit</ColumnName>
+        <AliasName>Credit rct</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>18</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8771</FilterId>
+            <FilterGroupId>91380</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>4608</CompareValue>
+            <CompareText>Receipts</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>2</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91381</ColumnId>
+        <FieldId>19</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Credit</ColumnName>
+        <AliasName>Credit jv</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>18</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8772</FilterId>
+            <FilterGroupId>91381</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>8707</CompareValue>
+            <CompareText>Journal Entries Receipts Transfer </CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>2</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91382</ColumnId>
+        <FieldId>19</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Credit</ColumnName>
+        <AliasName>Credit Note</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>18</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8773</FilterId>
+            <FilterGroupId>91382</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>4096</CompareValue>
+            <CompareText>Credit Notes</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>2</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91383</ColumnId>
+        <FieldId>-2</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>1</SubParentId>
+        <ColumnName>Programmable Field</ColumnName>
+        <AliasName>Adv. Rct Amount</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>80</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <Formula>c11+c12+c13+c14+c15+c16</Formula>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91384</ColumnId>
+        <FieldId>-2</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>2</SubParentId>
+        <ColumnName>Programmable Field</ColumnName>
+        <AliasName>Balance Amount</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>48</ColumnAlignment>
+        <Miscelleneous>80</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <Formula>c10-c17</Formula>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91385</ColumnId>
+        <FieldId>171</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Voucher amount</ColumnName>
+        <AliasName>Sales Job Order</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8774</FilterId>
+            <FilterGroupId>91385</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>5635</CompareValue>
+            <CompareText>Sales Job Orders</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91386</ColumnId>
+        <FieldId>171</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>0</SubParentId>
+        <ColumnName>Voucher amount</ColumnName>
+        <AliasName>Production Note Amount </AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8775</FilterId>
+            <FilterGroupId>91386</FilterGroupId>
+            <FieldId>114</FieldId>
+            <SubParentId>0</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>6145</CompareValue>
+            <CompareText>Production Note</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>ExternalTable</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91387</ColumnId>
+        <FieldId>307095</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Sales Module</ColumnName>
+        <AliasName>Sales Module</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91388</ColumnId>
+        <FieldId>-2</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Programmable Field</ColumnName>
+        <AliasName>Sales Job Order Balance</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>80</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <Formula>c10-c19</Formula>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91389</ColumnId>
+        <FieldId>307094</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Plan Value</ColumnName>
+        <AliasName>Plan Value hidd</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFunction>
+          <FunctionId>3603</FunctionId>
+          <Function>Sum</Function>
+          <FunctionType>Formula</FunctionType>
+        </ColumnFunction>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91390</ColumnId>
+        <FieldId>307094</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Plan Value</ColumnName>
+        <AliasName>Count Plan Value</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>66</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <ColumnFunction>
+          <FunctionId>3604</FunctionId>
+          <Function>Count</Function>
+          <FunctionType>Formula</FunctionType>
+        </ColumnFunction>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91391</ColumnId>
+        <FieldId>-2</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>4</SubParentId>
+        <ColumnName>Programmable Field</ColumnName>
+        <AliasName>Plan Value</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>16</ColumnAlignment>
+        <Miscelleneous>80</Miscelleneous>
+        <DataTypeId>Fraction</DataTypeId>
+        <ColumnFont />
+        <Formula>c23/c24</Formula>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91392</ColumnId>
+        <FieldId>307096</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Planning month</ColumnName>
+        <AliasName>Planning month</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Text</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91393</ColumnId>
+        <FieldId>307060</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Account  Controller</ColumnName>
+        <AliasName>Account  Controller</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91394</ColumnId>
+        <FieldId>307152</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Final Measurement - Employee name</ColumnName>
+        <AliasName>Final Measurement - Employee name</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91395</ColumnId>
+        <FieldId>307153</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Final Measurement Status</ColumnName>
+        <AliasName>Final Measurement Status</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91396</ColumnId>
+        <FieldId>307119</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Report Status</ColumnName>
+        <AliasName>Account2.Report Status</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>70</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <ColumnFilter>
+          <_Filter>
+            <FilterId>8776</FilterId>
+            <FilterGroupId>91396</FilterGroupId>
+            <FieldId>307119</FieldId>
+            <SubParentId>3</SubParentId>
+            <ParentId>0</ParentId>
+            <IsGroup>false</IsGroup>
+            <Operator>EqualTo</Operator>
+            <CompareWith>Value</CompareWith>
+            <Conjuction>Where</Conjuction>
+            <CompareValue>3</CompareValue>
+            <CompareText>3 Partial Consumed - III</CompareText>
+            <FilterType>Column</FilterType>
+            <DataType>Master</DataType>
+          </_Filter>
+        </ColumnFilter>
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91397</ColumnId>
+        <FieldId>307180</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Comprehensive Report Atlas</ColumnName>
+        <AliasName>Comprehensive Report Atlas</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Boolean</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91398</ColumnId>
+        <FieldId>307184</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.SJO processing</ColumnName>
+        <AliasName>SJO processing</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Boolean</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+      <_Column>
+        <Sequence>0</Sequence>
+        <ColumnId>91399</ColumnId>
+        <FieldId>307151</FieldId>
+        <ParentId>0</ParentId>
+        <SubParentId>3</SubParentId>
+        <ColumnName>Account2.Advance Payment Status</ColumnName>
+        <AliasName>Advance Payment Status</AliasName>
+        <GroupName />
+        <ColumnToolTip />
+        <ColumnWidth>80</ColumnWidth>
+        <ColumnAlignment>0</ColumnAlignment>
+        <Miscelleneous>64</Miscelleneous>
+        <DataTypeId>Master</DataTypeId>
+        <ColumnFont />
+        <IsApplyOnFinalCalculation>false</IsApplyOnFinalCalculation>
+        <IsApplyFormulaOnTotal>false</IsApplyFormulaOnTotal>
+        <Format />
+        <DecimalInColumn>0</DecimalInColumn>
+      </_Column>
+    </Columns>
+    <SelectClause>None</SelectClause>
+    <ClauseValue>0</ClauseValue>
+    <IsRestrictionOnRoles>false</IsRestrictionOnRoles>
+    <ExtraValues>
+      <IdValuePair>
+        <ID>4</ID>
+        <Value xsi:type="xsd:string">320</Value>
+      </IdValuePair>
+    </ExtraValues>
+    <ColumnHeadingAlignment>0</ColumnHeadingAlignment>
+  </Layout>
+  <ReportLevel>0</ReportLevel>
+  <AdvancedEngine>true</AdvancedEngine>
+  <DelayFetch>false</DelayFetch>
+</_Reports>
