@@ -1,0 +1,2493 @@
+﻿Focus8 Data Dictionary,,,,,,,
+,,,,,,,
+Master Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,mCore_Account,All-Masters,Account master information ,\Home\Masters\Account,Multiple Tables,iMasterId,iMasterId
+2,mCore_Account_Props,All-Masters,Stores account specific properties information,\Home\Masters\Account->Select an Account and left click->select Properties,mCore_Account,iMasterId,iMasterId
+3,mCore_AccountLanguage,All-Masters,,Use alterrnate language ->\Home\Master\Account->Alias ,mCore_Account,iLanguageId,iMasterId
+4,mCore_AccountTree,All-Masters,Contains list of account tree defined ,\Home\Masters\Account->Tools->Customize Tree,"mCore_AccountTreeDetails
+mCore_AccountTreeFields",itreeid,itreeid
+5,mCore_AccountTreeDetails,All-Masters,"Details of tree like iTreeId,iMasterId,iParentId,iSequence,iLevel",\Home\Masters\Account->Tools->Customize Tree,mCore_AccountTree,itreeid,"itreeid,iMasterid"
+6,mCore_AccountTreeFields,All-Masters,Lists the fields in tree,\Home\Masters\Account->Tools->Customize Tree,mCore_AccountTree,itreeid,itreeid
+7,mCore_AcctBudget,All-Masters,Stores budget information specific to the account,\Home\Masters\Account->Tools->Select Account->Click Budget,mCore_Account,iAccId,iMasterId
+8,mCore_AdvImportMapping,All-Masters,Import Mapping,\Home\Masters\Account->Tools->Select Account->Click Import/Export,None,iMapId,None
+9,mCore_AdvImportMasterFieldsMapping,All-Masters,Import master field mapping ,\Home\Masters\Account->Tools->Select Account->Click Import/Export,mCore_AdvImportMapping,iMapId,iMapId
+10,mCore_Alert,All-Masters,Alerts Header Data Table,"\Home\Settings\TransactionAuthorization->Alerts                                                                          \Home\Settings\MasterAuthorization->Alerts
+",mCore_AlertDetails,iAlertId,iAlertId
+11,mCore_AlertDetails,All-Masters,Alerts Body Data Table,"\Home\Settings\TransactionAuthorization->Alerts                                                                          \Home\Settings\MasterAuthorization->Alerts
+",mCore_Alert ,iAlertId,iAlertId
+12,mCore_Amortization,All-Masters,Amoritization Header data table,\Home\Settings\ConfigureTransactions\Preferences\Accounts\Depreciation&Amortization,mCore_AmortizationDetails,iAmortizationId,iAmortizationId
+13,mCore_AmortizationDetails,All-Masters,Amoritization Body data table,\Home\Settings\ConfigureTransactions\Preferences\Accounts\Depreciation&Amortization,,,
+14,mCore_AuthAllLevelsCheck_0,All-Masters,Stores completely authorized vouchers and master information ,For every user selected to authorize:Go to voucher/master screen->Authorize ,mCore_AuthorizationDetails_0,iAuthid,iAuthorizationDetailId
+15,mCore_Authorization_0,All-Masters,Authorizations table,\Home\Settings\TransactionAuthorization                                                                          \Home\Settings\MasterAuthorization,mCore_AuthorizationAccountTypeDetails_0 mCore_AuthorizationDetails_0 cCore_vouchers_0(when iAuthorizationType = 2)    cCore_masterDef(When iAuthorizationType = 1)             ,iAuthorizationId,iAuthorizationId iMasterTypeId iVoucherType     
+16,mCore_AuthorizationAccountTypeDetails_0,All-Masters,Authorization account type details,\Home\Settings\TransactionAuthorization                                                                          \Home\Settings\MasterAuthorization,,iAuthorizationId,iAuthorizationId
+17,mCore_AuthorizationDetails_0,All-Masters,Detailed information of the declared authorizations,\Home\Settings\TransactionAuthorization                                                                          \Home\Settings\MasterAuthorization,"mCore_Authorization_0
+mCore_AuthorizationEscalation_0
+mCore_AuthorizationFilterCondition_0
+mCore_AuthorizationUserSelection_0 tCore_MasterAuth               
+tCore_TransAuth_0
+",iAuthorizationDetailId,"iAuthorizationId
+iAuthorizationDetailId
+iAuthId
+IAuthNodeId"
+18,mCore_AuthorizationEscalation_0,All-Masters,Authorization Escalation Data,\Home\Settings\TransactionAuthorization->Escalation                                                                       \Home\Settings\MasterAuthorization->Escalation,mCore_AuthorizationDetails_0,iAuthorizationEscalationId,iAuthorizationDetailId
+19,mCore_AuthorizationEscalationDetails_0,All-Masters,Authorization Escalation Data with respect to users,\Home\Settings\TransactionAuthorization->Escalation                                                                       \Home\Settings\MasterAuthorization->Escalation,mCore_AuthorizationEscalation_0,iAuthorizationEscalationId,iAuthorizationEscalationId
+20,mCore_AuthorizationFilterCondition_0,All-Masters,Stores information of the filter condition related to authorization,\Home\Settings\TransactionAuthorization                                                                          \Home\Settings\MasterAuthorization,mCore_AuthorizationDetails_0,iAuthorizationDetailId,iAuthorizationDetailId
+21,mCore_AuthorizationUserFilterCondition_0,All-Masters,User filter condition data of authorization,\Home\Settings\TransactionAuthorization                                                                          \Home\Settings\MasterAuthorization,mCore_AuthorizationUserSelection_0,iAuthorizationUserSelectionId,iAuthorizationUserSelectionId
+22,mCore_AuthorizationUserSelection_0,All-Masters,User selection screen details for authorization,\Home\Settings\TransactionAuthorization-> User Selection                                                                          \Home\Settings\MasterAuthorization->User Selection,mCore_AuthorizationDetails_0        mCore_AuthorizationUserFilterCondition_0,iAuthorizationUserSelectionId,iAuthorizationDetailId
+23,mCore_Bins,All-Masters,Master list of Bins ,\Home\Masters\Bins,"mCore_BinsLanguage                       mCore_BinsLanguage
+mCore_BinsTreeDetails                           muCore_Product
+muCore_Warehouse                                            mSec_Users ",iMasterId,iModifiedBy                                  iCreatedBy                                      iMasterId                                           iBins                                                    iBin
+24,mCore_BinsLanguage,All-Masters,Stores Bin Alias information in alternate languages ,Use alterrnate language ->\Home\Master\Bins->Alias ,mCore_Bins                                          cCore_LanguageSupported ,iMasterId                                  iLanguageId,iMasterId                                  iLanguageId
+25,mCore_BinsTree,All-Masters,Stores Hierachial Structure of Bins,\Home\Masters\Bins,mCore_BinsTreeDetails                mCore_BinsTreeFields,iTreeId,iTreeId
+26,mCore_BinsTreeDetails,All-Masters,Details of Bin tree,\Home\Masters\Bins,"mCore_Bins 
+mCore_BinsTree",iTreeId,iTreeId                                           iMasterid
+27,mCore_BinsTreeFields,All-Masters,Bin field details,\Home\Masters\Bins,"cCore_MasterFields 
+mCore_BinsTree 
+",itreeid,iTreeId                                            iSequence
+28,mCore_BuyingPriceBookDetails,All-Masters,Declared Data of buyer price book,\Home\Masters\Product\BuyerPriceBook,"mCore_Currency
+mCore_BuyingPriceBookHeader 
+mCore_Product 
+",iSequenceNumber,iCurrency                    iPriceBookId                   iProductId  
+29,mCore_BuyingPriceBookHeader,All-Masters,Header Details of all the Declared Buyer Price Books ,\Home\Masters\Product\BuyerPriceBook,mCore_BuyingPriceBookDetails,iPriceBookId,iPriceBookId
+30,mCore_City,All-Masters,City master Data,\Home\Masters\City,"mSec_Users 
+mSec_Users 
+mCore_CityLanguage
+mCore_CityTreeDetails 
+ muCore_Account_Details  
+muPay_Employee_ContactDetails  muPos_Member_ContactDetails                    muPos_Outlet",iMasterId,iCreatedBy                                                                                  iModifiedBy                             iMasterid                                   iParentId                                        iCity                                        iDeliveryCity                                                      
+31,mCore_CityLanguage,All-Masters,Table stores languages in Alias for city master,\Home\Masters\City,"cCore_LanguageSupported
+mCore_City ",iMasterId                                  iLanguageId,iLanguageId                                       iMasterid
+32,mCore_CityTree,All-Masters,Stores City tree structure,\Home\Masters\City,"mCore_CityTreeDetails
+mCore_CityTreeFields",itreeid,iTreeId
+33,mCore_CityTreeDetails,All-Masters,Stores city tree details,\Home\Masters\City,mCore_City                                                     mCore_CityTree ,iTreeId,iMasterId                                  iTreeId                                     iParentId
+34,mCore_CityTreeFields,All-Masters,Contains tree fields data,\Home\Masters\City,cCore_MasterFields                                       mCore_CityTree ,itreeid                                              iSequence,itreeid                                              iSequence                                         iFieldId
+35,mCore_CloseCompany,All-Masters,Stores data of the company that filed closure for  fiscal year,\Home\Company\YearEndProcess\CloseCompany,_mCore_CloseCompanyDetails,iCloseCompanyId,iCloseCompanyId
+36,mCore_CloseCompanyDetails,All-Masters,Stores additional information of closed company,\Home\Company\YearEndProcess\CloseCompany                                                           ,mCore_CloseCompany,iCloseCompanyId,iCloseCompanyId
+37,mCore_Company,All-Masters,General company information ,\Home\Company\NewCompany\CreateNewCompany,tCore_Company_Details,iCompanyId,iCompanyId
+38,mCore_Company_RegistrationDetails,All-Masters,Customized Tab to stored additional information about company,\Home\Company\EditCompany\FieldCustomization->AddTab,,iCompanyId,
+39,mCore_CostCenter,All-Masters,Stores cost center info,\Home\Masters\CostCenter,"mSec_Users                                                                                          mCore_CostCenterLanguage 
+mCore_CostCenterTreeDetails
+muMrp_WorkCenter_Capacity_Details",iMasterId,iModifiedBy                  iCreatedBy                     iCostCenter                      iParentId 
+40,mCore_CostCenterLanguage,All-Masters,Alias info in alternate language,\Home\Masters\CostCenter,"cCore_LanguageSupported 
+mCore_CostCenter",iMasterId                                  iLanguageId,iMasterId                                  iLanguageId
+41,mCore_CostCenterTree,All-Masters,Cost center tree structure,\Home\Masters\CostCenter,"mCore_CostCenterTreeDetails
+mCore_CostCenterTreeFields",iTreeId,iTreeId
+42,mCore_CostCenterTreeDetails,All-Masters,Details of tree structure,\Home\Masters\CostCenter,"mCore_CostCenter
+mCore_CostCenterTree",iTreeId,iTreeId                                               ImasterId                                          iParentId
+43,mCore_CostCenterTreeFields,All-Masters,Contains tree fields data,\Home\Masters\CostCenter,cCore_MasterFields                     mCore_CostCenterTree,iTreeId,iTreeId                                                IFieldId
+44,mCore_Country,All-Masters,Country Master,\Home\Masters\Country,"mSec_Users                                                                                             mCore_CountryLanguage
+mCore_CountryTreeDetails
+muCore_State
+muFixA_FixedAsset
+muPos_Member_ContactDetails
+muPos_Outlet",iMasterId,iCreatedBy                                         iModifiedBy                            iMasterId                                             iParentId                              iCountry                                              iTag2
+45,mCore_CountryLanguage,All-Masters,Alias info in alternate language,\Home\Masters\Country,"cCore_LanguageSupported
+mCore_Country ",iMasterId,iMasterId                                         iLanguageId
+46,mCore_CountryTree,All-Masters,Country Tree Structure,\Home\Masters\Country,"mCore_CountryTreeDetails
+mCore_CountryTreeFields",iTreeId,iTreeId
+47,mCore_CountryTreeDetails,All-Masters,Tree Structure Details,\Home\Masters\Country,"mCore_Country
+mCore_CountryTree ",iTreeId,iTreeId                                     iMasterId                                  iParentId
+48,mCore_CountryTreeFields,All-Masters,Tree Structure Fields,\Home\Masters\Country,"cCore_MasterFields 
+mCore_CountryTree",iTreeId,iTreeId                                            iFieldId
+49,mCore_CreditLimitAuth,All-Masters,Contains list of defined credit limit based authorizations(Header),\Home\Settings\CreditLimitAuthorization,"mCore_CreditLimitAuthDtls
+mCore_DefineCreditLimitByFATag
+mCore_MapCreditLimit",iCrLmtAuthId,iCrLmtAuthId
+50,mCore_CreditLimitAuthDtls,All-Masters,Stores credit limit  authorization details(Data) ,\Home\Settings\CreditLimitAuthorization,"mCore_CreditLimitAuth 
+mCore_CrLmtAuthRestrictUser",iCrLmtAuthDtlsId    iCrLmtAuthId,iCrLmtAuthDtlsId    iCrLmtAuthId
+51,mCore_CrLmtAuthRestrictUser,All-Masters,Stores authorized users against the credit limit authorizations,\Home\Settings\CreditLimitAuthorization,"mCore_CreditLimitAuthDtls 
+mSec_Users ",iUserId,iUserId                            iCrLmtAuthId
+52,mCore_Currency,All-Masters,Currency Master data table,\Home\Masters\Currency\CurrencyMaster,"mCore_BuyingPriceBookDetails
+mCore_DenominationDetails
+mCore_ExchangeRate
+mCore_ExchangeRateDefinition
+mCore_LetterOfCredit
+mCore_SellingPriceBookDetails
+mPos_CashInOut
+mPos_CashInOutBody
+mPos_CashInOutDenomination
+tCore_Data_FX_0
+tPos_PaymentBody
+tPos_PaymentHeader",iCurrencyId,iPaidCurrencyId     iLocalCurrency                 iCurrency                           iCurrencyId         iBaseCurrencyId        iCurrencyNameId                              iDefinedAs(iCurrencyId)
+53,mCore_DefaultDashboard,All-Masters,Displays Default dashboard for Users,Click select Dashboard dropdown->Select Dashboard,"cCore_DashBoard 
+mSec_Users ",iDashBoardId,iDashBoardId                                 iUserId
+54,mCore_DefineCreditLimitByFATag,All-Masters,Stores credit limit defination by FATag upon activation,\Home\Settings\ConfigureTransactions\Preferences\AR/AP\Check Tag and select,mCore_CreditLimitAuth   tCore_CreditLimitAuthUsers,iId,iCrLmtAuthId
+55,mCore_DenominationDetails,All-Masters,Stores Currency denomination Data for transactions ,\Home\Masters\Currency\CurrencyMaster,"mCore_Currency 
+mPos_CashInOutDenomination
+tPos_PaymentDenomination",iDenominationId,iDenominationId                                   iCurrencyId
+56,mCore_Department,All-Masters,Department master information,\Home\Masters\Department,"mSec_Users  m                   mCore_DepartmentLanguage mCore_DepartmentTreeDetai muCore_Product_Reorder_Details
+muFixA_FixedAsset
+muPay_Employee
+tCore_Data_0",iMasterId,iCreatedby                                       iModifiedBy                                 iUsedId                                       iParentId                                                                  iTag1                                                iTag2                                           iFaTag                                      iInvTag
+57,mCore_DepartmentLanguage,All-Masters,Alias info in alternate language,\Home\Masters\Department->Create New->Alias,"cCore_LanguageSupported 
+
+mCore_Department ",iMasterId,iLanguageId                                       iMasterid
+58,mCore_DepartmentTree,All-Masters,Tree Structure for department,\Home\Masters\Department->Tools->Customize Tree,"mCore_DepartmentTreeDetails
+mCore_DepartmentTreeFields",iTreeId,iTreeId
+59,mCore_DepartmentTreeDetails,All-Masters,Details of Department master tree,\Home\Masters\Department->Tools->Customize Tree,"mCore_Department 
+mCore_DepartmentTree ",iTreeId                                              iMasterId,iParentId                                iMasterId                                                     iTreeId
+60,mCore_DepartmentTreeFields,All-Masters,Department tree fields data,\Home\Masters\Department->Tools->Customize Tree,"cCore_MasterFields 
+mCore_DepartmentTree ",iTreeId,ifieldId                                        iSequence                             iTreeId
+61,vaiPos_BankCardType,All-Masters,Bank card type details,\Home\Masters\Account->Select Income/Expense A/c->Tools->DepartmentAppropriation,mCore_Account,iAccountId,iMasterId
+62,mCore_ExchangeAdjustment,All-Masters,Point of sales category details ,\Home\Utilities\AdjustForiegnExchange,mCore_ExchangeAdjustmentAccount,iExAdjustmentId,iExAdjustmentId
+63,mCore_ExchangeAdjustmentAccount,All-Masters,Contains account information of forex exchange adjustments ,\Home\Utilities\AdjustForiegnExchange,mCore_ExchangeAdjustment ,iExAdjustmentId,iExAdjustmentId
+64,mCore_ExchangeRate,All-Masters,Stores Exchange Rate header data,\Home\Masters\Currency\ExchangeRate,mCore_Currency                      mCore_ExchangeRateDefinition,iExchangeRateId,iCurrency                    iBaseCurrencyId            iExchangeRateId  
+65,mCore_ExchangeRateDefinition,All-Masters,Stores exchange rate body data,\Home\Masters\Currency\ExchangeRate,"mCore_Currency 
+mCore_ExchangeRate ",iExchangeRateId,iCurrency                    iExchangeRateId  
+66,mCore_ExchangeRateDownload,All-Masters,Stores details of exchange rate downloaded data,\Home\Masters\Currency\ExchangeRate->Import from Excel,"mCore_ExRateDownloadMapping
+mCore_ExRateDownloadRecurrence",iExRateDownloadId,iExRateDownloadId
+67,mCore_ExRateDownloadMapping,All-Masters,Stores details of exchange rate Downloaded data's mapped fields,\Home\Masters\Currency\ExchangeRate->Import from Excel,mCore_ExchangeRateDownload ,iExRateDownloadId,iExRateDownloadId
+68,mCore_ExRateDownloadRecurrence,All-Masters,Stores details of recurred exchange rate downloaded data,\Home\Masters\Currency\ExchangeRate->Import from Excel,mCore_ExchangeRateDownload ,iExRateDownloadId,iExRateDownloadId
+69,mCore_FinanceTerms,All-Masters,Finance Terms header data,\Finance\CreditManagement\FinanceTerms,mCore_FinanceTermsDetails,iFinanceTermId,iFinanceTermId
+70,mCore_FinanceTermsDetails,All-Masters,Finance Terms Body data,\Finance\CreditManagement\FinanceTerms,tCore_PostInterestDetails_0,iFinanceTermId,iFinanceTermId
+71,mCore_ImportFieldsMapping,All-Masters,Stores import field mapping data to company data,\Home\Settings\Export/ImportSettings,,,
+72,mCore_InterCompanySetting_0,All-Masters,Stores inter company transaction sharing related settings ,\Home\InterCompanyTransactions\InterCompanySettings,,iInterCompanySettingId,
+73,mCore_LCSupportingDocument,All-Masters,Stores data of supporting documents provided in Letter of credit.,\Financials\ReceivablesAndPayables\Analysis\LetterofCredit->new->SupportingDocuments,mCore_LetterOfCredit ,iLCSupportingDocumentId,iLetterOfCreditId
+74,mCore_LetterOfCredit,All-Masters,Stores letter of credit data.,\Financials\ReceivablesAndPayables\Analysis\LetterofCredit,mCore_Account                                              mCore_Currency                                                 mCore_Account                                  mCore_LCSupportingDocument,iLetterOfCreditId,iAccountId(iMasterId)                                    iCurrencyId                                      iIssueingBankId                        iReceivingBankId                       iLetterOfCreditId
+75,mCore_LinkFields_0,All-Masters,Vouchers are linked based on value and key fields using workflow. The table Contains information of the Key fields for the link.  ,\Home\Settings\DesignWorkflow->New->Select Vouchers to link->Link->Choose the Key fields for the link,mCore_LinkPath_0 ,iLinkPathId,iLinkPathId
+76,mCore_LinkNodes_0,All-Masters,"Stores workflow nodes(vouchers),their positions in workflow screen and node sequence .",\Home\Settings\DesignWorkflow->New->Select Vouchers to link,"cCore_Vouchers_0 
+mCore_LinkPath_0
+mCore_LinkPath_0",iLinkId,"iVoucherType
+iLinkId"
+77,mCore_LinkPath_0,All-Masters,Stores linkpath data. This table carries information that is unique to links.,\Home\Settings\DesignWorkflow->New->Select Vouchers to link,"mCore_LinkNodes_0 
+mCore_WorkFlow_0 
+mCore_LinkFields_0
+mCore_MapLinkFields_0
+tCore_Links_0",iLinkPathId,"iFromLinkId
+iToLinkId                     iWorkFlowId                  iLinkPathId"
+78,mCore_LockDatabase_0,All-Masters,Table holds database lock options data,\Home\DataManagement\Lock/UnlockDatabase,mCore_LockExeption_0,iVoucherType,iVoucherType
+79,mCore_LockExeption_0,All-Masters,Table holds database lock user exceptions data,\Home\DataManagement\Lock/UnlockDatabase->UserExceptions,mCore_LockDatabase_0 ,iVoucherType,iVoucherType
+80,mCore_MangeCreditComments,All-Masters,Store credit comments data,Not Applicable,mSec_Users ,iCommentId,iUserId                            
+81,mCore_Mapping,All-Masters,Stores intercompany transaction mapping details,\Home\Company\InterCompanyTransactions\Mapping,"mCore_MasterMapping
+mCore_VoucherMapping_0",iMapId,iMapId
+82,mCore_MasterMapping,All-Masters,Table stores master tag wise inter company mapping details.MasterType are mapped such as account master to account master or product master to product master,\Home\Company\InterCompanyTransactions\Mapping,"
+cCore_MasterDef 
+mCore_Mapping 
+mCore_MasterMappingDetails",iMasterMappingId,"iCurrentMasterTypeId 
+iMapId                               iMasterMappingId"
+83,mCore_MasterMappingDetails,All-Masters,Contains detailed master Id wise inter company mapping. The account.iMasterId of base company is displayed along with the mapped account.iMasterId of target company.,\Home\Company\InterCompanyTransactions\Mapping,mCore_MasterMapping ,iMasterMappingId,iMasterMappingId
+84,mCore_Menu,All-Masters,Stores menus for all screens ,Not Applicable,"mCore_Menu 
+cCore_MenuLanguages
+mSec_MenuExceptions
+mSec_MenuSpecificRights
+mSec_ProfileDetails
+mSec_RolesExtraRights",iMenuId,"iMenuGroupId
+iMenuId"
+85,mCore_ModifierIndexCaption,All-Masters,Stores modifier index data.  Modifiers are defined in product masters. Modifiers have iProductType value of 6 in product master table. ,\Home\Masters\Product\Product->select product->modifier->define modifier,mCore_Product ,iMasterId,iMasterId
+86,mCore_PaymentTerms,All-Masters,Stores payment terms data,\Financials\CreditManagement\PaymentTerms,mCore_Account ,iPaymentTermId,iAccountId
+87,mCore_Product,All-Masters,Stores Product master data,\Home\Masters\Product\Product,mSec_Users                                                                              This table is referenced by multiple tables ,iMasterId,iCreatedBy                   iModifiedBy
+88,mCore_WorkFlow_0,All-Masters,Stores work flow master data.,\Home\Settings\DesignWorkFlow,mCore_LinkPath_0,iWorkFlowId,iWorkFlowId
+89,mCal_Calendar,Calendar,Stores master data for calendar,\Home\Utilities\Calendar,"mCal_Exceptions
+mCal_ShiftHeader
+mCal_WorkWeek",iCalId,iCalId
+90,mMnt_Breakdownstandardreason,Maintenance Management,Stores master data of breakdown standard reason ,\Home\Masters\Maintenance\BreakDownStandardReason,"mSec_Users 
+mMnt_BreakdownstandardreasonLanguage
+mMnt_BreakdownstandardreasonTreeDetails
+mMnt_BreakdownstandardreasonTreeDetails",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId"
+91,mMRP_BomHeader,Material Requirement Planning,Stores Bills of material header data,\Production\BillOfMaterial,"mMRP_BomExtraHeader
+mMRP_BomVariantHeader",iBomId,iBomId
+92,mMRP_BOMBody,Material Requirement Planning,Stores Bills of material body data,\Production\BillOfMaterial,"mCore_Product 
+mMRP_BomVariantHeader 
+mMRP_BomExtraBody",iBomBodyId,"iProduct
+iVariantId
+iBomBodyId"
+93,mMrp_Capacity,Material Requirement Planning,Stores Capacity masters data ,\Home\Masters\MRP\Capacity,"mSec_Users 
+mMrp_CapacityLanguage
+mMrp_CapacityTreeDetails
+mMrp_CapacityTreeDetails
+muMrp_WorkCenter_Capacity_Details",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId"
+94,mMrp_Holiday,Material Requirement Planning,Table contains master data of plant holiday,\Home\Masters\MRP\Holiday,"mSec_Users 
+mMrp_HolidayLanguage
+mMrp_HolidayTreeDetails
+mMrp_HolidayTreeDetails",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId"
+95,mPay_Employee,Payroll,Stores employee master data,\Home\Masters\Payroll\Employee,"mSec_Users 
+mPay_EmployeeLanguage
+mPay_EmployeeTreeDetails
+mPos_EmployeeDiscountDefinition
+mPos_HomeDelivery
+muCore_Bins_TaskManager_Details
+muFixA_FixedAsset
+muMrp_WorkCenter
+muPay_Employee
+muPay_Trainer
+muPos_Counter
+tWms_TaskManager",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId
+iRevisedBy"
+96,mPay_Specialization,Payroll,Table stores payroll modules specialization master information,\Home\Masters\Payroll\Specialization,"mSec_Users                                                                      mPay_SpecializationLanguage
+mPay_SpecializationTreeDetails
+mPay_SpecializationTreeDetails",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId"
+97,mPos_Member,Point of Sales,Member master data in POS. Members are those regular customers who subscribe to stores membership plans to get certain scheme benefits.,\Home\Masters\PointOfSale\Member\Member,"mSec_Users 
+mPos_CreditNote_ConvertPoints
+mPos_GiftVoucherSales
+mPos_HomeDelivery
+mPos_Member_PointsAvl
+mPos_MemberLanguage
+mPos_MemberPointsAcquired
+mPos_MemberTreeDetails
+mPos_MemberTreeDetails
+mPos_ResvTblDtls
+muPos_Member_CardDetails
+tPos_SchemesAppliedBody3",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId
+iMemberId"
+98,mPos_Outlet,Point of Sales,Stores outlet master data,\Home\Masters\PointOfSale\Outlet,"mSec_Users                                                                     mPos_CashInOut
+mPos_DiscountVoucherRegistration
+mPos_FreeSchemeOutlets
+mPos_GiftVoucherRegistration
+mPos_GiftVoucherSales
+mPos_GiftVoucherTransfer
+mPos_HoldTransaction
+mPos_HomeDelivery
+mPos_KdsConfiguration
+mPos_OutletLanguage
+mPos_OutletPreferences
+mPos_OutletTreeDetails
+mPos_OutletTreeDetails
+mPos_ProdPromotionMsgs
+mPos_ResvTblDtls
+mPos_SchemeOutlets
+mPos_SchemesDiscOutlets
+mPos_TblLayout
+mResPos_WaiterDefault
+muCore_Product_Outlet_Details
+muPos_Counter
+muPos_KitchenDisplaySystem
+muPos_Member_OtherDetails
+muPos_Table",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId
+iParentId"
+99,mQC_ProductTestMapping,Quality Control,Stores product test mapping information.,\QualityControl\Transaction\MapTestToProducts,"
+mCore_Product                      mQC_TestDefinitionHeader",iMappingId,iProductId                         iTestDefHeaderId
+100,mSec_Users,Security,Stores user details having acces to application.The table is central to Focus8's security module.,\Home\Security\CreateUsers,"cCore_LanguageSupported 
+mSec_Users                                     mSec_PasswordPolicy 
+mCore_TimeZone                                                                This Table is referenced by multiple tables",iUserId,"iTimeZone
+iPwdPolicyId
+iLanguage
+iGroupId
+iAltLanguage"
+,,,,,,,
+Customization Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,cCore_AllocateUserCustomization,ALL-Customization Data,Provides user rights information related to customization in WMS,Not Applicable,,iScreenTypeId,
+2,cCore_AppMenu,ALL-Customization Data,App Menu is a feature to customize the Focus application menu on mobile device when Focus on Mobile is integrated with Application. The table stores AppMenu data.,\Home\Utilities\AppMenusCustomization,"cCore_AppMenuLanguage
+cCore_AppParam",iAppMenuId,iAppMenuId                                            
+3,cCore_AppMenuGroup,ALL-Customization Data,Stores AppMenu Group data,\Home\Utilities\AppMenusCustomization->CreateGroup,,iGroupId,
+4,cCore_AppMenuLanguage,ALL-Customization Data,Stores AppMenu language data,\Home\Utilities\AppMenusCustomization,cCore_AppMenu ,iId,iAppMenuId                                            
+5,cCore_AppMenuParam,ALL-Customization Data,Stores Appmenu Parameters data,\Home\Utilities\AppMenusCustomization,cCore_AppMenu ,iId,iAppMenuId                                            
+6,cCore_BatchCodeGeneration_0,ALL-Customization Data,Contains Batch code generation body data.,\Home\Settings\BatchCodeGeneration,,iId,
+7,cCore_BRSGridCustomization,ALL-Customization Data,Stores screen customization data of bank reconciliation. Table contains fields present in BR screen at header and body level. ,\Financials\Reports\CashAndBankBooks\BankReconciliation->Customize,,iScreenTypeId,
+8,cCore_CashFlowMasters_0,ALL-Customization Data,Stores cashflow masters data,\Financials\FinalAccounts\CashFlow,cCore_CashFlowTemplate_0 ,iId,iTemplateId
+9,cCore_CashFlowProjected_0,ALL-Customization Data,Stores cashflow projected data,\Financials\FinalAccounts\CashFlow,cCore_CashFlowTemplate_0 ,iId,iTemplateId
+10,cCore_CashFlowTemplate_0,ALL-Customization Data,Stores cashflow template header data,\Financials\FinalAccounts\CashFlow,,iTemplateId,
+11,cCore_CashFlowTemplateData_0,ALL-Customization Data,Stores cashflow template body data,\Financials\FinalAccounts\CashFlow,,iId,
+12,cCore_ChequeDiscounting,ALL-Customization Data,Includes cheque discounting data with respect to Post dated receipt,\Financials\Reports\CashAndBankBooks\ChequeDiscounting,,iPDRTransId,
+13,cCore_ConstraintsFields,ALL-Customization Data,Stores list of constraint fields ,\Home\Settings\ConfigureMaster->Select master->Customize->UniqueConstrains,"cCore_UniqueConstraints 
+cCore_Fields ",iConstraintId,iConstraintId                          iFieldId
+14,cCore_DashBoard,ALL-Customization Data,Stores list of dashboards,Click Select Dashboard,"cCore_DashBoardDashlets
+cCore_DashBoardRights        mCore_DefaultDashboard",iDashBoardId,iDashBoardId
+15,cCore_DashboardAccess,ALL-Customization Data,Contains list of users having rights to access dashboard,Click Select DashboardSettings->Security->select Users->Add or                                                         Click Select DashboardSettings->New->Select Users whom access permissions are granted,,iDashboardId,
+16,cCore_DashboardCatagories,ALL-Customization Data,Stores dashboard catagories data,Click Select DashboardSettings->New->Mention dashboard category name,,iCatagoryId,
+17,cCore_DashBoardDashlets,ALL-Customization Data,Stores dashboards dashlets data,Click Select Dashboard,cCore_DashBoard                                                     cCore_Dashlet ,iDashBoardId                                   iDashletId,iDashBoardId                                   iDashletId
+18,cCore_DashboardDef,ALL-Customization Data,Contains dashboard defination details ,Click Select DashboardSettings->New->Mention dashboard category name,,iDashBoardId,
+19,cCore_DashBoardRights,ALL-Customization Data,Stores dashboard rights data,Click Select DashboardSettings->Security->select Users->Add or                                                         Click Select DashboardSettings->New->Select Users whom access permissions are granted,cCore_DashBoard ,iDashBoardId,iDashBoardId
+20,cCore_Dashlet,ALL-Customization Data,Dashlet  data,Click Select Dashboard,"cCore_DashBoardDashlets
+cCore_DashletDetail
+cCore_DashletExpression",iDashletId,iDashletId
+21,cCore_DashletDetail,ALL-Customization Data,Dashlet  data,Click Select Dashboard,cCore_Dashlet                                               cCore_DashletFilter,iDashletDetailId,iDashletDetailId
+22,cCore_DashletDetails,ALL-Customization Data,Stores dashlet details data,Click DashletSettings->select Dashlet,,iDashletId,
+23,cCore_DashletExpression,ALL-Customization Data,Dashlet  data,Click Select Dashboard,cCore_Dashlet ,iDashletId,iDashletId
+24,cCore_DashletFilter,ALL-Customization Data,Dashlet data,Click Select Dashboard,cCore_DashletDetail ,iDashletDetailId,iDashletDetailId
+25,cCore_DashletNotePages,ALL-Customization Data,Dashlet Data,Click Select Dashboard->OtherDashlets->Note,,iPageId,
+26,cCore_DocumentSetBody_0,ALL-Customization Data,Stores configured printer details  to print a Document,Select Voucher->Print,"cCore_InvoiceLayout_0 
+cCore_DocumentSetHeader_0 cCore_DocumentSetFilter_0",iBodyId,"iHeaderId
+iLayoutId
+iBodyId"
+27,cCore_DocumentSetFilter_0,ALL-Customization Data,Stores configured printer details  to print a Document,Select Voucher->Print,cCore_DocumentSetBody_0 ,iFilterId,iBodyId
+28,cCore_DocumentSetHeader_0,ALL-Customization Data,Stores configured printer details  to print a Document,Select Voucher->Print,"cCore_Vouchers_0 
+cCore_DocumentSetBody_0",iHeaderId,"iVoucherType
+iHeaderId"
+29,cCore_EDIFileNameFormat_0,ALL-Customization Data,Stores EDI file name template format data,\Home\Utilities\ElectronicDataInterchange,"cCore_EDIHeader_0 
+",iFileNameFormatId,iTemplateId
+30,cCore_EDIFilterTree_0,ALL-Customization Data,Stores EDI filter condition information,\Home\Utilities\ElectronicDataInterchange,"cCore_EDITranFilter_0 
+",iFilterTreeId,iTranFilterId
+31,cCore_EDIGridInfo_0,ALL-Customization Data,"Stores header and body grid details such as length,data type etc related to electronic data interchange",\Home\Utilities\ElectronicDataInterchange,"cCore_EDISetBody_0 
+cCore_EDITransformInfo_0",iGridInfoId,iReportSetId                                  iGridInfoId
+32,cCore_EDIHeader_0,ALL-Customization Data,Contains header information of EDI,\Home\Utilities\ElectronicDataInterchange,cCore_EDISetHeader_0            cCore_EDITransactionSet_0,iTemplateId,iTemplateId
+33,cCore_EDISetBody_0,ALL-Customization Data,Contains body data details of EDI,\Home\Utilities\ElectronicDataInterchange,cCore_EDIGridInfo_0,iReportSetId,iReportSetId
+34,cCore_EDITranFilter_0,ALL-Customization Data,Filter condition for a transaction on which data is being done is detailed in this table,\Home\Utilities\ElectronicDataInterchange,cCore_EDITransactionSet_0         cCore_EDIFilterTree_0,iTranFilterId ,iTranFilterId                        iTransactionSetId
+35,cCore_EDITransactionSet_0,ALL-Customization Data,"Stores details such as type of voucher, transaction set etc on which EDI is performed",\Home\Utilities\ElectronicDataInterchange,"cCore_EDIHeader_0 
+cCore_EDITranFilter_0",iTransactionSetId ,iTemplateId                               iTransactionSetId 
+36,cCore_EDITransformData_0,ALL-Customization Data,Stores EDI transform data,\Home\Utilities\ElectronicDataInterchange,"cCore_EDITransformInfo_0 
+",iTransformDataId,iTransformInfoId
+37,cCore_EDITransformInfo_0,ALL-Customization Data,Stores EDI transform information,\Home\Utilities\ElectronicDataInterchange,cCore_EDIGridInfo_0             cCore_EDITransformData_0,iTransformInfoId,iGridInfoId
+38,cCore_ExternalModule,ALL-Customization Data,This table gets populated when any transaction calls an external module. The iLinkTypeId field stores the voucher on which external module is called. ,\Home\Settings\ConfigureTransactions\DocumentCustomization->Voucher->ExternalModule,,iModuleId,
+39,cCore_ExternalScripts,ALL-Customization Data,Stores external scripts information ,\Home\Settings\ConfigureTransactions\DocumentCustomization,,iScriptId,
+40,cCore_Fields,ALL-Customization Data,Stores list of fields in application,Select any master or document and add field,"Table is reference by almost all audit log tables  as well as:                                              cCore_ConstraintsFields
+cCore_FieldsLanguage_0
+cCore_MasterFields
+cCore_MasterFieldsFilter
+cCore_MasterFieldsIncrement
+cCore_MasterViewFields
+cCore_ViewConditions
+cCore_VoucherFields_0
+cCore_VoucherScreenFields_0",iFieldId,iFieldId
+41,cCore_FieldsLanguage_0,ALL-Customization Data,Stores data of alias names of fields and language Id when multiple languages are selected. Choosing an alternate language is mandatory predefined setting to be able to provide alias name for any field.,Select any master or document and add field->Provide Alias,"cCore_Fields 
+cCore_LanguageSupported ",iFieldId,iFieldId                               iLanguageId
+42,cCore_FilterCustomization,ALL-Customization Data,Internal Table for field customization,Not Applicable,cCore_FilterCustomization_iFilterId,iId,iFilterId
+43,cCore_FilterCustomizationBody,ALL-Customization Data,Internal Table for field customization,Not Applicable,cCore_FilterCustomization_iFilterId,iId,iFilterId
+44,cCore_GridCustomizationDetails,ALL-Customization Data,Internal Table for field customization,Not Applicable,cCore_GridCustomizationHeader ,iCustomizationId,iCustomizationId
+45,cCore_GridCustomizationHeader,ALL-Customization Data,Internal Table for field customization,Not Applicable,cCore_GridCustomizationDetails,iCustomizationId,iCustomizationId
+46,cCore_InfoPanelVariables,ALL-Customization Data,Table contains Info Panel Variables details,Select any voucher->Settings->InfoPanel,cCore_MasterInfoPanels ,iPanelId,iPanelId
+47,cCore_InvoiceAreaControl_0,ALL-Customization Data,Print layout related details,Select any voucher->Print->Create,cCore_InvoicePage_0 ,iAreaControlId,iPageId
+48,cCore_InvoiceAttachments_0,ALL-Customization Data,Print layout related details,Select any voucher->Print->Create,,iAttachmentId,
+49,cCore_InvoiceBody_0,ALL-Customization Data,Print layout related body details,Select any voucher->Print->Create,cCore_InvoicePage_0 ,iId,iPageId
+50,cCore_InvoiceBodyFont_0,ALL-Customization Data,Print layout related font details,Select any voucher->Print->Create,,iId,
+51,cCore_InvoiceBodyGroup_0,ALL-Customization Data,Print layout related group details,Select any voucher->Print->Create,,iGroupId,
+52,cCore_InvoiceBodyValue_0,ALL-Customization Data,Print layout related details,Select any voucher->Print->Create,,iId,
+53,cCore_InvoiceHeader_0,ALL-Customization Data,Print layout related header details,Select any voucher->Print->Create,cCore_InvoicePage_0 ,iId,iPageId
+54,cCore_InvoiceLayout_0,ALL-Customization Data,Print layout related details,Select any voucher->Print->Create,cCore_DocumentSetBody_0          cCore_InvoicePage_0,iLayoutId,iLayoutId                                      iHeaderId
+55,cCore_InvoiceNumericProperty_0,ALL-Customization Data,Print layout related details,Select any voucher->Print->Create,,iPropertyId,
+56,cCore_InvoicePage_0,ALL-Customization Data,Print layout related details,Select any voucher->Print->Create,"cCore_InvoiceLayout_0 
+cCore_InvoiceAreaControl_0
+cCore_InvoiceBody_0
+cCore_InvoiceHeader_0",iPageId            ,iPageId                                               iLayoutId                                      iHeaderId
+57,cCore_LanguageSupported,ALL-Customization Data,Stores details of languages supported by company,Assign while creating company or                                                                                        \Home\Company\EditCompany->select languages                                                                                                      Make sure log out operation is performed if we add language using EditCompany option,This table is referenced by all the master based language tables ,iLanguageId,iLanguageId                                       iLanguage
+58,cCore_MasterCustomTemplate,ALL-Customization Data,Stores customized template for masters,\Home\Settings\ConfigureMaster,,iTemplateId,
+59,cCore_MasterDef,ALL-Customization Data,Master defination details ,\Home\Settings\ConfigureMaster,"cCore_MasterReportsLink_0
+cCore_MasterTabs
+cCore_MasterView
+cCore_TreeCustomization
+cCore_TreeView
+cCore_UniqueConstraints
+cCore_VoucherMasters_0
+cCore_VoucherPanelFilterTransOn_0
+cCore_VoucherReports_0
+mCore_MasterMapping
+mSec_RolesMasters
+mSec_RolesMasterTrees
+tCore_MasterAuditLog
+tCore_MasterAuth
+tCore_Refrn_0
+tWms_TaskManager",iMasterTypeId,iMasterTypeId                                
+60,cCore_MasterFields,ALL-Customization Data,Table stores list of all the master fields ,\Home\Settings\ConfigureMaster,Table is referenced by multiple tree based master tables,iFieldId,iFieldId
+61,cCore_MasterFieldsFilter,ALL-Customization Data,Stores master field's filter data,\Home\Settings\ConfigureMaster,cCore_Fields ,iFieldId,iFieldId
+62,cCore_MasterFieldsIncrement,ALL-Customization Data,Stores master fields with incremental valueset,\Home\Settings\ConfigureMaster,cCore_Fields ,iFieldId,iFieldId
+63,cCore_MasterInfoPanelFields,ALL-Customization Data,Stores master data info panel fields,\Home\Settings\ConfigureMaster->Select master->Customize->InfoPanelCustomization,,sFieldName,
+64,cCore_MasterInfoPanels,ALL-Customization Data,Contains the info panel details of master,\Home\Settings\ConfigureMaster->Select master->Customize->InfoPanelCustomization,cCore_Variables,iPanelId,iPanelId
+65,cCore_MasterInfoPanelSeq,ALL-Customization Data,Stores info panel sqeuence data,\Home\Settings\ConfigureMaster->Select master->Customize->InfoPanelCustomization,,iPanelId                                       iuserId,
+66,cCore_MasterLanguage,ALL-Customization Data,Master language links data,\Home\Settings\ConfigureMaster->Alias,cCore_LanguageSupported ,iLinkTypeId                                 iLinkId                                      iLanguageId,iLanguageId
+67,cCore_MasterReportsLink_0,ALL-Customization Data,Table contains reports data that are to be displayed in the master home,\Home\Settings\ConfigureMaster->Select master->Customize->Reports,cCore_MasterDef ,iMasterTypeId,iMasterTypeId
+68,cCore_MasterTables,ALL-Customization Data,Stores the master based tables in backend database,Auto updated om master creation,cCore_MasterTabs ,iTableId,iTabId
+69,cCore_MasterTabs,ALL-Customization Data,Master Tabs,\Home\Settings\ConfigureMaster->Select master->CreateNewTab,cCore_MasterDef                                cCore_MasterTables,iTabId    ,iMasterId                                      iTabId
+70,cCore_MasterView,ALL-Customization Data,Master Views,\Home\Masters->Select Master->Tools->CustomizeView,cCore_MasterDef                        cCore_MasterViewFields,iViewId ,iMasterId
+71,cCore_MasterViewFields,ALL-Customization Data,Stores master view fields,\Home\Masters->Select Master->Tools->CustomizeView,cCore_Fields                                                  cCore_MasterView ,iFieldViewId,iFieldId                                                iViewId
+72,cCore_MenuLanguages,ALL-Customization Data,Menu language details ,Not Applicable,mCore_Menu ,iMenuId,iMenuId
+73,cCore_OneToManyMoveCustomization,ALL-Customization Data,Customization internal data,Not Applicable,,iScreenTypeId,
+74,cCore_OptCtrlColumnsFields_0,ALL-Customization Data,Defines optical control data for fields ,Select any voucher->Select any input master field->Click On the Settings icon ,cCore_OptCtrlFieldSettings_0 ,Id,Id
+75,cCore_OptCtrlFieldSettings_0,ALL-Customization Data,Defines optical control settings data for fields ,Select any voucher->Select any input master field->Click On the Settings icon ,cCore_OptCtrlColumnsField,Id,Id
+76,cCore_OtherMasterDef,ALL-Customization Data,Other Master Definations,Home->Company,,iMasterTypeId,
+77,cCore_OtherMasterFields,ALL-Customization Data,Other master defination based fields,Home->Company->Edit->Customize,cCore_OtherMasterTables ,iFieldId,iTableId
+78,cCore_OtherMasterTables,ALL-Customization Data,Tables having other master definations,Auto created when customization at company level information is done,cCore_OtherMasterTabs               cCore_OtherMasterFields,iTableId,iTabId                                          iTableId
+79,cCore_OtherMasterTabs,ALL-Customization Data,Stores information of the tabs created for other master definations such as company details tabs in edit company  screen,\Home\Company\EditCompany\Customize->Create Tab,cCore_OtherMasterTables,iTabId    ,iTabId    
+80,cCore_PDCGridCustomization,ALL-Customization Data,Post dated cheque sceen customization information,\Financials\Transactions\CashAndBank,,iScreenTypeId,
+81,cCore_PDCMappingDetails_0,ALL-Customization Data,Voucher mapping with post dated cheque based vouchers,\Financials\Transactions\CashAndBank,,iPDCVoucherType,
+82,cCore_PreferenceText_0,ALL-Customization Data,Table stores preference text,\Home\Settings\ConfigureTransactions\Tags,,"iCategory
+iFieldId",
+83,cCore_PreferenceVal_0,ALL-Customization Data,Table stores preference values,\Home\Settings\ConfigureTransactions\Tags,,"iCategory
+iFieldId",
+84,cCore_PrinterConfig,ALL-Customization Data,Stores printer settings data in  POS,\PointofSales\Utilities\PrinterConfig,mCore_Product,iPrinterConfigId,iProductId
+85,cCore_PrinterConfigHeader,ALL-Customization Data,Stores printer settings header data in  POS,\PointofSales\Utilities\PrinterConfig,,bConsAllItems,
+86,cCore_PrintReportParam_0,ALL-Customization Data,Stores printer settings data,\Home\Settings\ConfigureTransactions\Print,cCore_PrintTemplate_0 ,iId,iTemplateId
+87,cCore_PrintTemplate_0,ALL-Customization Data,Stores printer settings data,\Home\Settings\ConfigureTransactions\Print,cCore_PrintReportParam_0,iTemplateId,iTemplateId
+88,cCore_ProvisionalEntryBody_0,ALL-Customization Data,Stores provisional entries information such as opening or closing balances body data for accounts or stocks in reports ,"\Financials\Transactions\Journals\OpeningBalances
+Select Trail Balance Report->Fill provisional entries form",cCore_ProvisionalEntryHeader_0 ,iId,iReportId
+89,cCore_ProvisionalEntryHeader_0,ALL-Customization Data,Stores opening or closing balances header data for accounts or stocks in reports,"\Financials\Transactions\Journals\OpeningBalances
+Select Trail Balance Report->Fill provisional entries form",cCore_ProvisionalEntryBody_0,iReportId,iReportId
+90,cCore_RDQuery_0,ALL-Customization Data,Stores report designer query data and credentials,\Home\utilities\Reportdesigner->Select a query based report,cCore_Reports_0 ,iReportId,iReportId
+91,cCore_RDVirtual_0,ALL-Customization Data,RDVirtual is virtual grouping of report field in report designer such as defining a virtual set for products to be displayed in report. This tables contains Rdvirtual grouping data ,\Home\Utilities\ReportDesigner\Create Report->Next->Right Click on field on which grouping is required in report and Select Create virtual Grouping,cCore_RDVirtualCondition_0,iVirtualId,iVirtualId
+92,cCore_RDVirtualCondition_0,ALL-Customization Data,Stores Virtual condition for grouping in RD ,\Home\Utilities\ReportDesigner\Create Report->Next->Right Click on field on which grouping is required in report and Select Create virtual Grouping,"Core_RDVirtual_0                        cCore_RDVirtualRange_0
+cCore_RDVirtualValue_0",iConditionId,iVirtualId                                    iConditionId
+93,cCore_RDVirtualRange_0,ALL-Customization Data,Stores information of virtual range from which data is selected in virtual condition ,\Home\Utilities\ReportDesigner\Create Report->Next->Right Click on field on which grouping is required in report and Select Create virtual Grouping->Set Range,cCore_RDVirtualCondition_0 ,iId,iConditionId
+94,cCore_RDVirtualValue_0,ALL-Customization Data,Stores data of RDVirtual condition based on field value,\Home\Utilities\ReportDesigner\Create Report->Next->Right Click on field on which grouping is required in report and Select Create virtual Grouping->Set Range,cCore_RDVirtualCondition_0 ,iId,iConditionId
+95,cCore_RegularExpressions,ALL-Customization Data,Stores regular expressions data for any field.,Create any field->Regular Expression,,iRegexId,
+96,cCore_RepFolder_0,ALL-Customization Data,Stores excel report file data,\Home\Utilities\ReportDesigner->Set DataSet as Excel->Define Path of excel file,cCore_Reports_0 ,iFolderId,iReportId
+97,cCore_ReportColumns_0,ALL-Customization Data,Stores report columns data,\Home\Utilities\ReportDesigner,"cCore_ReportLayouts_0 
+cCore_ReportColumnsFilter_0
+cCore_ReportColumnsFunction_0",iColumnId,iLayoutId                                      iColumnId
+98,cCore_ReportColumnsFilter_0,ALL-Customization Data,Stores report column filter data,\Home\Utilities\ReportDesigner,cCore_ReportColumns_0 ,iColumnId,iColumnId
+99,cCore_ReportColumnsFunction_0,ALL-Customization Data,Stores report column function data,\Home\Utilities\ReportDesigner,"
+cCore_ReportColumns_0 ",iFunctionId,iColumnId
+100,cCore_ReportColumnsOrder_0,ALL-Customization Data,Stores data of the order of columns,\Home\Utilities\ReportDesigner->Create Cube Report ,,iOrderId,
+101,cCore_ReportFilter_0,ALL-Customization Data,Report filter condition data,\Home\Utilities\ReportDesigner,,iFilterId                        iFilterGroupId,
+102,cCore_ReportFormatting_0,ALL-Customization Data,Contains report formatting data,\Home\Utilities\ReportDesigner,,iConditionId,
+103,cCore_ReportGrouping_0,ALL-Customization Data,Reports grouping data,\Home\Utilities\ReportDesigner->Create Cube Report ,cCore_Reports_0 ,iRowGroupId,iReportId
+104,cCore_ReportLayouts_0,ALL-Customization Data,Report layouts,\Home\Utilities\ReportDesigner,"cCore_Reports_0                             cCore_ReportColumns_0
+cCore_ReportUserSecurity_0",iLayoutId,iReportId
+105,cCore_ReportParameter_0,ALL-Customization Data,Reports parameter data,\Home\Utilities\ReportDesigner,cCore_Reports_0 ,iParameterId,iReportId
+106,cCore_Reports_0,ALL-Customization Data,The data of all the reports created in Application are stored in this table ,\Home\Utilities\ReportDesigner,"mSec_Users 
+cCore_RDQuery_0
+cCore_RepFolder_0
+cCore_ReportGrouping_0
+cCore_ReportLayouts_0
+cCore_ReportParameter_0
+cCore_ReportTransactionSet_0
+cCore_ReportUser_0",iReportId,iCreatedBy                                   iModifiedBy                                    iReportId
+107,cCore_ReportSchedule_0,ALL-Customization Data,Stores scheduled reports information,\Home\Utilities\ReportDesigner,,iId,
+108,cCore_ReportTopClause_0,ALL-Customization Data,Stores report sorting information ,"\Home\Utilities\ReportDesigner\Customization\Sorting->Select the columns and perform sorting based on top,bottom or none clause",,iClauseId,
+109,cCore_ReportTransactionSet_0,ALL-Customization Data,Stores financial transaction set details ,\Home\Utilities\ReportDesigner,cCore_Reports_0 ,iTranId,iReportId
+110,cCore_ReportUser_0,ALL-Customization Data,Data of users who can access reports,\Home\Utilities\ReportDesigner,"
+cCore_Reports_0 ",iFilterGroupId,iReportId
+111,cCore_ReportUserSecurity_0,ALL-Customization Data,Stores users access rights based on report layout,\Home\Utilities\ReportDesigner,"cCore_ReportLayouts_0 
+",iId,iLayoutId
+112,cCore_Ribbon,ALL-Customization Data,Stores form based ribbon  data--Internal Table,Not Applicable,mSec_Users ,iRibbonId,iUserId
+113,cCore_RibbonButtons,ALL-Customization Data,Stores form based ribbon  data--Internal Table,Not Applicable,cCore_RibbonGroups ,iButtonId,iGroupId
+114,cCore_RibbonGroups,ALL-Customization Data,Stores form based ribbon  data--Internal Table,Not Applicable,cCore_Ribbon ,iGroupId,iRibbonId
+115,cCore_RuleAlert,ALL-Customization Data,Displays information of rule alert for a field,Select a master or voucher field->Rule->Alerts->Define Alert,cCore_RulesConditions ,iRuleAlertId,iRuleConditionId                          iRuleAletrId
+116,cCore_RuleConditionalFormating,ALL-Customization Data,Stores rule based condition formatting data for a field ,Select a master or voucher field->Rule->Give Condition->Set formatting,cCore_RulesConditions ,iRuleCondFormatId,iRuleConditionId
+117,cCore_Rules,ALL-Customization Data,Stores rule information defined in focus8,select a field or voucher->Rules,cCore_RulesConditions,iRuleId,iRuleId
+118,cCore_RulesConditions,ALL-Customization Data,Stores rule based condition for a field,Select a master or voucher field->Rule->Give Condition,"
+cCore_Rules 
+cCore_RuleAlert
+cCore_RuleConditionalFormating
+cCore_RulesConditionsDetails",iRuleConditionId,iRuleConditionId                         iRuleId
+119,cCore_RulesConditionsDetails,ALL-Customization Data,Stores condition statement and other details for a rule ,Select a master or voucher field->Rule->Give Condition,"
+cCore_RulesConditions 
+",iRuleConditionDetId    iRuleConditionId,iRuleConditionId
+120,cCore_ScriptHelp,ALL-Customization Data,"Stores helptext information fields such as iScriptHelpId,sTopic,sFunctionName,sHelpText,sFunctionText",,,iScriptHelpId,
+121,cCore_SettingAuditLog_0,ALL-Customization Data,Settings audit log data,Select any voucher->settings,"
+tSec_UserLog 
+cCore_SettingAuditLogDetails_0",iAuditId,iAuditId                                                  iSessionId
+122,cCore_SettingAuditLogDetails_0,ALL-Customization Data,"Stores settings audit log details such as iLogId,iAuditId,iCategoryId,iFieldId,sValue",Select any voucher->settings,"
+cCore_SettingAuditLog_0 
+",iLogId,iAuditId
+123,cCore_Shortcut,ALL-Customization Data,Stores shortcut menu data on Focus8 home screen,Home Screen->ShortCut,,iUserId                                             iMenuId,
+124,cCore_TaskSchedule,ALL-Customization Data,Stores task schedule menu data on Focus8 home screen,Home Screen->Task Schedule,cCore_TaskScheduleOption,iTaskScheduleId   ,iTaskScheduleId   
+125,cCore_TaskScheduleOption,ALL-Customization Data,Stores task schedule menu options data on Focus8 home screen,Home Screen->Task Schedule,"cCore_TaskSchedule 
+",iOptionId,iTaskScheduleId
+126,cCore_TemplateFields,ALL-Customization Data,"Contains alerts based template fields that can be send to alert assigned users with the help of sms,email etc",Select any master or voucher->Rule->Alerts->CustomizeTemplate->Select template type,,iTemplateId,
+127,cCore_TransHomeCustomization_0,ALL-Customization Data,Stores customization information of transaction home screen views,Select any transaction->At home screen->Press  Customize Voucher option,cCore_TransHomeView_0 ,iViewId,iViewId
+128,cCore_TransHomeView_0,ALL-Customization Data,Stores created views data for transaction home screen,Select any transaction->At home screen->View->Press Create option,"cCore_Vouchers_0 cCore_TransHomeCustomization_0
+cCore_TransHomeViewFilter_0",iViewId,iViewId                               iVoucherType
+129,cCore_TransHomeViewFilter_0,ALL-Customization Data,Stores filter condition data for the transaction home screen view,Select any transaction->At home screen->View->Press Edit option->Set filter condition ,cCore_TransHomeView_0 ,iViewId,iViewId
+130,cCore_TreeCustomization,ALL-Customization Data,The table stores the tree fields that are selected to be displayed in the masters screen. ,\Home\Masters->Select Master->Tools->CustomizeTree,cCore_MasterDef ,iMasterTypeId,iMasterTypeId
+131,cCore_TreeView,ALL-Customization Data,Stores Tree view information for masters, \Home\Masters\Select Any Master->Create or Edit View                          ,"cCore_MasterDef 
+cCore_ViewConditions",iTreeId,iTreeId                                            iMasterTypeId
+132,cCore_UniqueConstraints,ALL-Customization Data,Stores unique constraints declared in masters,\Home\Settings\ConfigureMaster->Select master->Customize->UniqueConstrains,cCore_MasterDef                         cCore_ConstraintsFields,iConstraintId,iConstraintId                      iMasterTypeId 
+133,cCore_UserWiseDefaultDashboard,ALL-Customization Data,Stores default dashboard values for all users,Click Select Dashboard,,iUserId,
+134,cCore_ViewConditions,ALL-Customization Data,Stores condition data placed in view, \Home\Masters\Select Any Master->Create or Edit View->Set Filter Condition                                  ,"cCore_Fields 
+cCore_TreeView                                          cCore_MasterDef",iMasterId                                  iTreeId           ,iMasterId                               iTreeId                                                IFieldId
+135,cCore_ViewPBCustomization,ALL-Customization Data,Stores PriceBook view data, \Home\Masters\Product\BuyerPriceBook                                          \Home\Masters\Product\SellerPriceBook                          ,,iScreenTypeId,
+136,cCore_VoucherDependentMaster_0,ALL-Customization Data,Stores dependency data for a master aligned to voucher,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Documents,cCore_Vouchers_0 ,iId,iVoucherType
+137,cCore_VoucherExportFields_0,ALL-Customization Data,Stores Vouchers export fields data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->ExportFields,cCore_Vouchers_0 ,iVoucherType,iVoucherType
+138,cCore_VoucherExportSettings_0,ALL-Customization Data,Stores additional setting of voucher export fields,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->ExportFields,cCore_Vouchers_0 ,iVoucherType,iVoucherType
+139,cCore_VoucherFieldIncrement_0,ALL-Customization Data,Field value increment data related to vouchers,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher,,iFieldId,
+140,cCore_VoucherFields_0,ALL-Customization Data,Stores voucher specific layout fields data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Layout,"cCore_Fields 
+cCore_Vouchers_0
+cCore_VoucherFilterConditionDetails_0 ",iUniqueId,iVoucherType                              iFieldId
+141,cCore_VoucherFilterConditionDetails_0,ALL-Customization Data,Voucher filter condition details,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Rules,cCore_VoucherFields_0 ,iFieldId,iField
+142,cCore_VoucherHP_0,ALL-Customization Data,Voucher specific hire purchase data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->HirePurchase,"
+cCore_Vouchers_0 
+mCore_Account ",iVoucherType,iVoucherType                              iMasterId(mCore_Account)
+143,cCore_VoucherInfoPanel_0,ALL-Customization Data,Stores info panel information related to vouchers,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,cCore_VoucherPanels_0 ,IPanelId,IPanelId
+144,cCore_VoucherMasters_0,ALL-Customization Data,Stores masters selected for the voucher screen,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Documents,"cCore_MasterDef 
+cCore_Vouchers_0 ",iVoucherType,iVoucherType                           iMasterType
+145,cCore_VoucherPanelFilterTransOn_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,"cCore_MasterDef 
+cCore_VoucherPanels_0 ",IPanelId,iFilterTransOn                         iPanelId
+146,cCore_VoucherPanelRefreshOn_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,cCore_VoucherPanels_0 ,IPanelId,IPanelId
+147,cCore_VoucherPanelReports_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,"cCore_VoucherPanels_0 
+cCore_VoucherPanelRepVTypes_0",iPanelReportId,iPanelReportId                     iPanelId
+148,cCore_VoucherPanelRepVTypes_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,cCore_VoucherPanelReports_0          cCore_Vouchers_0 ,iPanelReportId,iPanelReportId               iVoucherType
+149,cCore_VoucherPanelRoles_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,cCore_VoucherPanels_0                       mSec_RoleHeader ,IPanelId,IPanelId                                        iRoleId
+150,cCore_VoucherPanels_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,"cCore_Vouchers_0                cCore_VoucherInfoPanel_0 cCore_VoucherPanelFilterTransOn_0 cCore_VoucherPanelRefreshOn_0 cCore_VoucherPanelReports_0 cCore_VoucherPanelRoles_0
+cCore_VoucherPanelUsers_0
+cCore_VoucherPanelVoucherTypes_0",iPanelId                             iVoucherType,iPanelId                             iVoucherType
+151,cCore_VoucherPanelUser_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,cCore_VoucherPanels_0                                        mSec_Users ,iPanelId                                       iuserId,iPanelId                                       iuserId
+152,cCore_VoucherPanelVoucherTypes_0,ALL-Customization Data,Voucher info panel specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->InformationPanel,cCore_VoucherPanels_0                        cCore_Vouchers_0 ,iPanelId                             iVoucherType,iPanelId                             iVoucherType
+153,cCore_VoucherReports_0,ALL-Customization Data,Voucher reports specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Reports,cCore_MasterDef                                     cCore_Vouchers_0 ,iId,iMasterId                                     iVoucherType
+154,cCore_Vouchers_0,ALL-Customization Data,Stores voucher data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher or                      Directly the menu path,"cCore_Vouchers_0                 cCore_DocumentSetHeader_0
+cCore_TransHomeView_0
+cCore_VoucherDependentMaster_0
+cCore_VoucherExportFields_0
+cCore_VoucherExportSettings_0
+cCore_VoucherFields_0
+cCore_VoucherHP_0
+cCore_VoucherHP_0
+cCore_VoucherMasters_0
+cCore_VoucherPanelRepVTypes_0
+cCore_VoucherPanels_0
+cCore_VoucherPanelVoucherTypes_0
+cCore_VoucherReports_0 cCore_VoucherScheme_0 cCore_VoucherScreenFields_0
+cCore_VoucherSeries_0
+cCore_VoucherTriggers_0
+cCore_VoucherViews_0
+cPos_HeaderExtraFields
+mCore_LinkNodes_0
+tCore_TransAuditLog_0                                               tCore_Header_0                                 ",iVoucherType,iVoucherType
+155,cCore_VoucherScheme_0,ALL-Customization Data,Stores voucher based schemes specific data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Scheme,dbo.cCore_Vouchers_0 ,Id,iVoucherType
+156,cCore_VoucherScreenFields_0,ALL-Customization Data,Stores voucher screen fields data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->EditScreen,cCore_Fields                                              cCore_Vouchers_0 ,iUniqueId,iFieldId                                    iVoucherType
+157,cCore_VoucherSeries_0,ALL-Customization Data,Stores voucher document numbering body data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->DocumentNumbering,"
+cCore_Vouchers_0 ",iVoucherType,iVoucherType
+158,cCore_VoucherTriggers_0,ALL-Customization Data,Voucher based trigger data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Triggers,"cCore_Vouchers_0            cCore_VoucherTriggersFilter_0
+cCore_VoucherTriggersFldMap_0
+cCore_VoucherTriggers_0",iTriggerId,iVoucherType                                iTriggerId
+159,cCore_VoucherTriggersFilter_0,ALL-Customization Data,Trigger filter condition based on field,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Triggers,cCore_VoucherTriggers_0 ,iTriggerId,iTriggerId
+160,cCore_VoucherTriggersFldMap_0,ALL-Customization Data,Stores data of fields mapped in voucher triggers,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Triggers,cCore_VoucherTriggers_0 ,iTriggerId,iTriggerId
+161,cCore_VoucherTriggersSendTo_0,ALL-Customization Data,Table refers the  users whom trigger is send,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Triggers,"iTriggerId
+REFERENCES Focus80L0.dbo.cCore_VoucherTriggers_0 (iTriggerId)
+iId",iId,iTriggerId
+162,cCore_VoucherViewFields_0,ALL-Customization Data,Stores voucher view fields  data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Views,cCore_VoucherViews_0 ,iViewFieldId,iViewId
+163,cCore_VoucherViewRoles_0,ALL-Customization Data,Stores voucher view roles data,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Views->Logins,"mSec_RoleHeader 
+cCore_VoucherViews_0 ",iRoleId,iRoleId                                              iViewId
+164,cCore_VoucherViews_0,ALL-Customization Data,Stores vioucher specific view. We see these view when we enter any voucher screen.,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Views,"cCore_Vouchers_0              cCore_VoucherViewFields_0
+cCore_VoucherViewRoles_0 
+cCore_VoucherViewUsers_0 cCore_VoucherViewUsers_0",iViewId,iVoucherType                                iViewId
+165,cCore_VoucherViewUsers_0,ALL-Customization Data,Stores userId's that have accessibility to voucher views,\Home\Settings\ConfigureDocuments\DocumentCustomization->Voucher->Views->Logins,"mSec_Users
+cCore_VoucherViews_0",iUserId,iUserId                                                   iViewId
+,,,,,,,
+Transaction Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,tCore_abals_0,ALL-Transaction,"Depreciation related details of financial accounting.Fields in this table are iAccount,iDate,iDep,mDr,mCr",\FixedAsset\PostDepreciationEnteries,,iAccount,
+2,tCore_Account_AuditLogDetails,ALL-Transaction,Audit Logs of accounts master.,\Home\Masters\Account                                                                                                                                              Option to enable audit log for any field can be availed using the following path: \Home\Settings\CustomizeMasters->Select any master->Customize->Select Any field->Edit->Properties->Check AuditTrail CheckBox,tCore_MasterAuditLog                                           cCore_Fields ,iAuditId,iAuditId                                        iFieldId
+3,tCore_AllocateUser_0,ALL-Transaction,Stock allocation header data  assigned to users ,,,iHeaderId,
+4,tCore_AllocateUserDetails_0,ALL-Transaction,Stock allocation body data  assigned to users ,,,iTransactionId,
+5,tCore_AssignPDCDiscountDetails,ALL-Transaction,Details of Post Dated Cheque  discounting ,\Financials\Reports\CashAndBankBooks\ChequeDiscounting,,iBankActId,
+6,tCore_Authorizations_0,ALL-Transaction,"voucher based authorizations based on roleid, istage",\Home\Settings\TransactionAuthorization                                                                   \Home\Settings\MasterAuthorization        ,,iAuthorizationId,
+7,tCore_BarCodeBody,ALL-Transaction,barcode body defination,\Home\Masters\Product\BarcodeDefination,tCore_BarCodeHeader ,iBodyId,sTemplateId
+8,tCore_BarCodeHeader,ALL-Transaction,"BarCode defination data template name details, etc",\Home\Masters\Product\BarcodeDefination,"tCore_BarCodeBody
+tCore_BarCodePackData
+tCore_BarCodeProduct",sTemplateId,sTemplateId
+9,tCore_BarCodePackData,ALL-Transaction,Bar code pack data details ,\Home\Masters\Product\BarcodeDefination,tCore_BarCodeHeader ,iDataId,sTemplateId
+10,tCore_BarCodePackField,ALL-Transaction,field details of barcode pack data ,\Home\Masters\Product\BarcodeDefination,,iBodyId,
+11,tCore_BarCodeProduct,ALL-Transaction,table contains list of product id which have barcode and their respective templateid,\Home\Masters\Product\BarcodeDefination,tCore_BarCodeHeader,iProductId,sTemplateId
+12,tCore_Batch_0,ALL-Transaction,batch numbers and ids assigned to products and their details,\Home\Settings\ConfigureTransactions\Preferences\Batches->Enable Batch Numbers->Post Transactions,"
+tCore_Data_0 ",iBatchId,iBodyId
+13,tCore_Bins_0,ALL-Transaction,Stores data of those transactions involving Bins,\Home\Settings\ConfigureTransactions\Preferences\Bins->Enable Bins->Post Transactions after assigning bins to warehouse and products,tCore_Data_0 ,iBinTransId,iBodyId
+14,tCore_Bins_AuditLogDetails,ALL-Transaction,Audit log of bins masters,\Home\Masters\Bins,"tCore_MasterAuditLog 
+cCore_Fields ",,iAuditId                                        iFeildId
+15,tCore_BinsAlloc_0,ALL-Transaction,Stores bin allocation data,\Home\Masters\Bins,tCore_Bins_0 ,iBinTransId,iBinTransId
+16,tCore_BPMonthlyDetails,ALL-Transaction,Stores monthly budget plan data,\Financials\FinalAccounts\BudgetPlanning,"
+tCore_BPTypeDetails ",iBPDetailsId,iBPDetailsId
+17,tCore_BPTypeDetails,ALL-Transaction,Stores budget plan type and revision details,\Financials\FinalAccounts\BudgetPlanning,"mCore_Account                                         tCore_BudgetRevision 
+tCore_BPMonthlyDetails
+tCore_BPWeeklyDetails",iBPDetailsId,iAccountId                                   iRevisionId                             iBPDetailsId              
+18,tCore_BPWeeklyDetails,ALL-Transaction,Stores weekly budget plan data,\Financials\FinalAccounts\BudgetPlanning,tCore_BPTypeDetails ,iBPDetailsId,iBPDetailsId
+19,tCore_BudgetPlanning,ALL-Transaction,Stores all infformation of the budget planning screen,\Financials\FinalAccounts\BudgetPlanning,tCore_BudgetRevision,iBudgetPlanId,
+20,tCore_BudgetRevision,ALL-Transaction,Stores budget revision details,\Financials\FinalAccounts\BudgetPlanning,"tCore_BudgetPlanning 
+tCore_BPTypeDetails",iRevisionId,iBudgetPlanId                              iRevisionId
+21,tCore_CancelCheque_0,ALL-Transaction,Stores details of cheques that are cancelled,\Financials\Transactions\CashAndBank\CancelCheque,,iCancelChequeId,
+22,tCore_CartonRFID_0,ALL-Transaction,Stores radio frequency identification data present on carton to extract product details that are contained by that carton,\Home\Settings\ConfigureDocuments\Preferences\RFID->Create template->Select related voucher->Settings->EnableRFID,,iId,
+23,tCore_ChequeSeries_0,ALL-Transaction,Stores data provided in the cheque series screen,\Financials\Transactions\CashAndBank\DefineChequeSeries,,iChequeSeries,
+24,tCore_City_AuditLogDetails,ALL-Transaction,Stores city audit log data,\Home\Masters\City,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                        iFeildId
+25,tCore_Company_Details,ALL-Transaction,Stores company details data,\Home\Company\EditCompany,mCore_Company ,iCompanyId,iCompanyId
+26,tCore_CostCenter_AuditLogDetails,ALL-Transaction,Table contains costcenter audit log details,\Home\Masters\CostCenter,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                        iFeildId
+27,tCore_Country_AuditLogDetails,ALL-Transaction,Stores country masters audit logs,\Home\Masters\County,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                        iFeildId
+28,tCore_CreditLimitAuthUsers,ALL-Transaction,Credit limit authorizations based on users,\Home\Settings\TransactionAuthorization,mCore_DefineCreditLimitByFATag ,iAuthUserId,iId
+29,tCore_CTBodyTags,ALL-Transaction,Body tags and template details associated with recurring journals,\Financials\Transactions\AutoPostings\RecurringJournals,tCore_RJTemplateDetails_0 ,iTemplateDetailsId,iTemplateDetailsId
+30,tCore_CTTags,ALL-Transaction,Table stores internal tags information for recurring journals,\Financials\Transactions\AutoPostings\RecurringJournals,tCore_RJTemplate_0 ,iTemplateId,iTemplateId
+31,tCore_Data_0,ALL-Transaction,"Stores body data of transactions for current year such as Net amount, Book A/c ID, Default accounting tag's value,default inventory tag's value,etc",Select any voucher-> post transactions,"mCore_Account 
+mCore_Account 
+mCore_Department 
+tCore_Header_0 
+mCore_Department                                                                      This table is referenced by multiple tables. The following are prominenetly used transaction related tables referencing this table:                                        tCore_Batch_0                                                                             tCore_Bin_0                                                                    tCore_Data_FX_0                                                            tCore_Data_Tags_0                                                               tCore_Refrn_0                                                              tCore_Indta_0                                                                   tCore_TransAuth_0",iBodyId                                   iTransactionId,iBookNo                                          iCode                                                 iFaTag                                              IheaderId                                     iInvTag                                           iBodyId      
+32,tCore_Data_FX_0,ALL-Transaction,Stores currency related data.Table gets populated with respect to base currency if currency Is not activated for the company The transaction currency value is mapped against the base currency value for each voucher row,Select any voucher-> post transactions,"tCore_Data_0 
+mCore_Currency ",iBodyId,iBodyId                                      iCurrencyId
+33,tCore_Data_Tags_0,ALL-Transaction,"Stores master tags information in transactions. When we define master dependency in document customization, This table stores that information transaction wise as it displays the value selected for that master. Default Accounting and Inventory tags are not stored in this table.",Select any voucher->Add Master Dependency -> post transactions,tCore_Data_0 ,iBodyId,iBodyId
+34,tCore_Data1023_0,ALL-Transaction,Stock Adjustment related body data,\Stock adjustment->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+35,tCore_Data1024_0,ALL-Transaction,Stores Receipts from production body data,\receipts from production->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+36,tCore_Data1056_0,ALL-Transaction,Stores Returns from Shop Floor body data,\returns from shop floor->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+37,tCore_Data1280_0,ALL-Transaction,Stores Goods Receipt Uncosted body data ,\material receipts note->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+38,tCore_Data1536_0,ALL-Transaction,Stores Job Work Receipts body data ,\job work receipts->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+39,tCore_Data1792_0,ALL-Transaction,Stores sales returns body data ,\sales returns->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+40,tCore_Data2_0,ALL-Transaction,Stores body data information related to TDS etc ,\Financials\Transactions\Journals\TDS JV,"
+tCore_Data_0 ",iBodyId                                           mTDS,iBodyId
+41,tCore_Data2048_0,ALL-Transaction,Stores body data for excesses in stocks,\excesses in stocks->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+42,tCore_Data2304_0,ALL-Transaction,Stores body data for purchase quotations,\purchase quatations->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+43,tCore_Data256_0,ALL-Transaction,Stores body data for opening balances ,\opening balances->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+44,tCore_Data2560_0,ALL-Transaction,Stores body data for purchase orders,\purchase orders->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+45,tCore_Data2561_0,ALL-Transaction,Stores body data for job orders,\job orders->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+46,tCore_Data2816_0,ALL-Transaction,Stores body data for production process,\production process->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+47,tCore_Data3072_0,ALL-Transaction,Stores body data for stocks transfer,\stock transfer->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+48,tCore_Data3328_0,ALL-Transaction,Stores body data for sales invoice,\sales invoice->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+49,tCore_Data3329_0,ALL-Transaction,Stores body data for cash sales ,\cash sales->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+50,tCore_Data3330_0,ALL-Transaction,Stores body data for hire purchase sales,\hire purchase sales->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+51,tCore_Data3331_0,ALL-Transaction,Stores body data for POS sales,\POS sales ->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+52,tCore_Data3584_0,ALL-Transaction,Stores body data for non-standard journal entries,\non->Post Transactionstandard journal entries->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+53,tCore_Data3585_0,ALL-Transaction,Stores body data for Inter-Departmental JV,\inter->Post Transactiondepartmental JV->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+54,tCore_Data3586_0,ALL-Transaction,Stores body data for Debit Notes (Linewise),\debit notes(linewise)->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+55,tCore_Data3587_0,ALL-Transaction,Stores body data Credit Notes (Linewise)/Payroll,\credit notes(linewise)\payroll->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+56,tCore_Data3588_0,ALL-Transaction,Stores body data for Fixed Asset Depreciation Voucher,\fixed asset depreciation voucher->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+57,tCore_Data3840_0,ALL-Transaction,Stores body data for debit note,\debit note->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+58,tCore_Data4096_0,ALL-Transaction,Stores body data for credit note,\credit note->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+59,tCore_Data4097_0,ALL-Transaction,Stores body data for payroll posting,\payroll posting->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+60,tCore_Data4608_0,ALL-Transaction,Stores body data for receipt,\receipts->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+61,tCore_Data4864_0,ALL-Transaction,Stores body data for payment,\payments->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+62,tCore_Data512_0,ALL-Transaction,Stores body data  for opening stocks,\opening stocks->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+63,tCore_Data5120_0,ALL-Transaction,Stores body data for petty cash,\petty cash->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+64,tCore_Data5376_0,ALL-Transaction,Stores body data for shortages in stock,\shortages in stock->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+65,tCore_Data5632_0,ALL-Transaction,Stores body data for sales order,\sales order->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+66,tCore_Data5633_0,ALL-Transaction,Stores body data  for production order,\production order->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+67,tCore_Data5888_0,ALL-Transaction,Stores body data for post dated receipts,\post dated receipts->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+68,tCore_Data6144_0,ALL-Transaction,Stores body data for delivery notes,\delivery notes->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+69,tCore_Data6400_0,ALL-Transaction,Stores body data for purchases returns,\purchase returns->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+70,tCore_Data6656_0,ALL-Transaction,Stores body data for issues to production,\issues to production->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+71,tCore_Data6912_0,ALL-Transaction,Stores body data for job work issues,\job work issues->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+72,tCore_Data7168_0,ALL-Transaction,Stores body data for post dated payments ,\post dated payments->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+73,tCore_Data7424_0,ALL-Transaction,Stores body data for sales quotations,\sales quotation->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+74,tCore_Data768_0,ALL-Transaction,Stores body data for purchase vouchers,\purchase vouchers->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+75,tCore_Data7680_0,ALL-Transaction,Stores body data for job order,\job orders->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+76,tCore_Data7936_0,ALL-Transaction,Stores body data for material requisition,\material requisition->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+77,tCore_Data8192_0,ALL-Transaction,Stores body data for request for quote,\request for quote->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+78,tCore_Data8448_0,ALL-Transaction,Stores body data for forex JV,\forex JV->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+79,tCore_Data8704_0,ALL-Transaction,Stores body data for journal entries,\journal entries->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+80,tCore_DataDocs1023_0,ALL-Transaction,Stores Data docs for stock adjustment,\Stock adjustment->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+81,tCore_DataDocs1024_0,ALL-Transaction,Data docs for receipts from production,\receipts from production->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+82,tCore_DataDocs1056_0,ALL-Transaction,Data docs for returns from shop floor,\returns from shop floor->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+83,tCore_DataDocs1280_0,ALL-Transaction,Data docs for material receipts note,\material receipts note->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+84,tCore_DataDocs1536_0,ALL-Transaction,Data docs for job work receipts,\job work receipts->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+85,tCore_DataDocs1792_0,ALL-Transaction,Data docs for sales returns,\sales returns->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+86,tCore_DataDocs2048_0,ALL-Transaction,Data docs for excesses in stocks,\excesses in stocks->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+87,tCore_DataDocs2304_0,ALL-Transaction,Data docs for purchase quatations,\purchase quatations->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+88,tCore_DataDocs256_0,ALL-Transaction,Data docs for opening balances,\opening balances->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+89,tCore_DataDocs2560_0,ALL-Transaction,Data docs for purchase orders,\purchase orders->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+90,tCore_DataDocs2561_0,ALL-Transaction,Data docs for job orders,\job orders->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+91,tCore_DataDocs2816_0,ALL-Transaction,Data docs for production process,\production process->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+92,tCore_DataDocs3072_0,ALL-Transaction,Data docs for stock transfer,\stock transfer->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+93,tCore_DataDocs3328_0,ALL-Transaction,Data docs for sales invoice,\sales invoice->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+94,tCore_DataDocs3329_0,ALL-Transaction,Data docs for cash sales,\cash sales->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+95,tCore_DataDocs3330_0,ALL-Transaction,Data docs for hire purchase sales,\hire purchase sales->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+96,tCore_DataDocs3331_0,ALL-Transaction,Data docs for POS sales ,\POS sales ->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+97,tCore_DataDocs3584_0,ALL-Transaction,Data docs for non-standard journal entries,\non->Post Transactionstandard journal entries->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+98,tCore_DataDocs3585_0,ALL-Transaction,Data docs for inter-departmental JV,\inter->Post Transactiondepartmental JV->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+99,tCore_DataDocs3586_0,ALL-Transaction,Data docs for debit notes(linewise),\debit notes(linewise)->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+100,tCore_DataDocs3587_0,ALL-Transaction,Data docs for credit notes(linewise)/payroll,\credit notes(linewise)\payroll->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+101,tCore_DataDocs3588_0,ALL-Transaction,Data docs for fixed asset depreciation voucher,\fixed asset depreciation voucher->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+102,tCore_DataDocs3840_0,ALL-Transaction,Data docs for debit note,\debit note->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+103,tCore_DataDocs4096_0,ALL-Transaction,Data docs for credit note,\credit note->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+104,tCore_DataDocs4097_0,ALL-Transaction,Data docs for payroll posting,\payroll posting->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+105,tCore_DataDocs4608_0,ALL-Transaction,Data docs for receipts,\receipts->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+106,tCore_DataDocs4864_0,ALL-Transaction,Data docs for payments,\payments->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+107,tCore_DataDocs512_0,ALL-Transaction,Data docs for opening stocks,\opening stocks->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+108,tCore_DataDocs5120_0,ALL-Transaction,Data docs for petty cash,\petty cash->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+109,tCore_DataDocs5376_0,ALL-Transaction,Data docs for shortages in stock,\shortages in stock->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+110,tCore_DataDocs5632_0,ALL-Transaction,Data docs for sales order,\sales order->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+111,tCore_DataDocs5633_0,ALL-Transaction,Data docs for production order,\production order->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+112,tCore_DataDocs5888_0,ALL-Transaction,Data docs for post dated receipts,\post dated receipts->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+113,tCore_DataDocs6144_0,ALL-Transaction,Data docs for delivery notes,\delivery notes->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+114,tCore_DataDocs6400_0,ALL-Transaction,Data docs for purchase returns,\purchase returns->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+115,tCore_DataDocs6656_0,ALL-Transaction,Data docs for issues to production,\issues to production->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+116,tCore_DataDocs6912_0,ALL-Transaction,Data docs for job work issues,\job work issues->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+117,tCore_DataDocs7168_0,ALL-Transaction,Data docs for post dated payments,\post dated payments->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+118,tCore_DataDocs7424_0,ALL-Transaction,Data docs for sales quotation,\sales quotation->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+119,tCore_DataDocs768_0,ALL-Transaction,Data docs for purchase vouchers,\purchase vouchers->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+120,tCore_DataDocs7680_0,ALL-Transaction,Data docs for job orders,\job orders->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+121,tCore_DataDocs7936_0,ALL-Transaction,Data docs for material requisition,\material requisition->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+122,tCore_DataDocs8192_0,ALL-Transaction,Data docs for request for quote,\request for quote->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+123,tCore_DataDocs8448_0,ALL-Transaction,Data docs for forex JV,\forex JV->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+124,tCore_DataDocs8704_0,ALL-Transaction,Data docs for journal entries,\journal entries->Post Transaction,"
+tCore_Data_0 ",iBodyId,iBodyId
+125,tCore_DataSkid_0,ALL-Transaction,Stores Skid related data. Skid is a storage pallet without bottom deck that can be utilized to store stocks with the help of forklift.,\Home\Settings\ConfigureTransactions\WarehouseManagement->Allow Skid,tCore_Data_0 ,iBodyId,iBodyId
+126,tCore_Department_AuditLogDetails,ALL-Transaction,Department masters audit logs,\Home\Masters\Department->Edit department entry,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                             ifieldId
+127,tCore_Docs1023_0,ALL-Transaction,Header docs for Stock adjustment,\Stock adjustment->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+128,tCore_Docs1024_0,ALL-Transaction,Header docs for receipts from production,\receipts from production->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+129,tCore_Docs1056_0,ALL-Transaction,Header docs for returns from shop floor,\returns from shop floor->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+130,tCore_Docs1280_0,ALL-Transaction,Header docs for material receipts note,\material receipts note->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+131,tCore_Docs1536_0,ALL-Transaction,Header docs for job work receipts,\job work receipts->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+132,tCore_Docs1792_0,ALL-Transaction,Header docs for sales returns,\sales returns->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+133,tCore_Docs2048_0,ALL-Transaction,Header docs for excesses in stocks,\excesses in stocks->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+134,tCore_Docs2304_0,ALL-Transaction,Header docs for purchase quatations,\purchase quatations->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+135,tCore_Docs256_0,ALL-Transaction,Header docs for opening balances,\opening balances->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+136,tCore_Docs2560_0,ALL-Transaction,Header docs for purchase orders,\purchase orders->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+137,tCore_Docs2561_0,ALL-Transaction,Header docs for job orders,\job orders->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+138,tCore_Docs2816_0,ALL-Transaction,Header docs for production process,\production process->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+139,tCore_Docs3072_0,ALL-Transaction,Header docs for stock transfer,\stock transfer->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+140,tCore_Docs3328_0,ALL-Transaction,Header docs for sales invoice,\sales invoice->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+141,tCore_Docs3329_0,ALL-Transaction,Header docs for cash sales,\cash sales->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+142,tCore_Docs3330_0,ALL-Transaction,Header docs for hire purchase sales,\hire purchase sales->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+143,tCore_Docs3331_0,ALL-Transaction,Header docs for POS sales ,\POS sales ->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+144,tCore_Docs3584_0,ALL-Transaction,Header docs for non-standard journal entries,\non->Post Transactionstandard journal entries->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+145,tCore_Docs3585_0,ALL-Transaction,Header docs for inter-departmental JV,\inter->Post Transactiondepartmental JV->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+146,tCore_Docs3586_0,ALL-Transaction,Header docs for debit notes(linewise),\debit notes(linewise)->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+147,tCore_Docs3587_0,ALL-Transaction,Header docs for credit notes(linewise)/payroll,\credit notes(linewise)\payroll->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+148,tCore_Docs3588_0,ALL-Transaction,Header docs for fixed asset depreciation voucher,\fixed asset depreciation voucher->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+149,tCore_Docs3840_0,ALL-Transaction,Header docs for debit note,\debit note->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+150,tCore_Docs4096_0,ALL-Transaction,Header docs for credit note,\credit note->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+151,tCore_Docs4097_0,ALL-Transaction,Header docs for payroll posting,\payroll posting->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+152,tCore_Docs4608_0,ALL-Transaction,Header docs for receipts,\receipts->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+153,tCore_Docs4864_0,ALL-Transaction,Header docs for payments,\payments->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+154,tCore_Docs512_0,ALL-Transaction,Header docs for opening stocks,\opening stocks->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+155,tCore_Docs5120_0,ALL-Transaction,Header docs for petty cash,\petty cash->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+156,tCore_Docs5376_0,ALL-Transaction,Header docs for shortages in stock,\shortages in stock->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+157,tCore_Docs5632_0,ALL-Transaction,Header docs for sales order,\sales order->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+158,tCore_Docs5633_0,ALL-Transaction,Header docs for production order,\production order->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+159,tCore_Docs5888_0,ALL-Transaction,Header docs for post dated receipts,\post dated receipts->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+160,tCore_Docs6144_0,ALL-Transaction,Header docs for delivery notes,\delivery notes->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+161,tCore_Docs6400_0,ALL-Transaction,Header docs for purchase returns,\purchase returns->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+162,tCore_Docs6656_0,ALL-Transaction,Header docs for issues to production,\issues to production->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+163,tCore_Docs6912_0,ALL-Transaction,Header docs for job work issues,\job work issues->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+164,tCore_Docs7168_0,ALL-Transaction,Header docs for post dated payments,\post dated payments->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+165,tCore_Docs7424_0,ALL-Transaction,Header docs for sales quotation,\sales quotation->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+166,tCore_Docs768_0,ALL-Transaction,Header docs for purchase vouchers,\purchase vouchers->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+167,tCore_Docs7680_0,ALL-Transaction,Header docs for job orders,\job orders->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+168,tCore_Docs7936_0,ALL-Transaction,Header docs for material requisition,\material requisition->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+169,tCore_Docs8192_0,ALL-Transaction,Header docs for request for quote,\request for quote->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+170,tCore_Docs8448_0,ALL-Transaction,Header docs for forex JV,\forex JV->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+171,tCore_Docs8704_0,ALL-Transaction,Header docs for journal entries,\journal entries->Post Transaction,tCore_Header_0,iHeaderId,iHeaderId
+172,tCore_EntryDetails_0,ALL-Transaction,Stores entry details,Not Applicable,,iEntryId,
+173,tCore_EOD_0,ALL-Transaction,POS related end of day data,\PointofSale\MainScreen\PointofSale,"tCore_EODCardWiseDiffAmount_0
+tCore_EODCurrency_0
+tCore_EODDenomination_0
+tCore_EODDenominationDetail_0
+tCore_EODProductDetail_0
+tCore_EODWastage_0",iEODId,iEODId
+174,tCore_EODCardWiseDiffAmount_0,ALL-Transaction,Stores EOD diffference amount cardwise,\PointofSale\MainScreen\PointofSale,tCore_EOD_0 ,iEODId,iEODId
+175,tCore_EODCurrency_0,ALL-Transaction,Stores currency data for EOD ,\PointofSale\MainScreen\PointofSale,tCore_EOD_0 ,iEODId,iEODId
+176,tCore_EODDenomination_0,ALL-Transaction,Stores EOD denomination header data,\PointofSale\MainScreen\PointofSale,tCore_EOD_0 ,iEODId,iEODId
+177,tCore_EODDenominationDetail_0,ALL-Transaction,Stores EOD denomination body data,\PointofSale\MainScreen\PointofSale,tCore_EOD_0 ,iEODId,iEODId
+178,tCore_EODProductDetail_0,ALL-Transaction,Stores product details on EOD basis,\PointofSale\MainScreen\PointofSale,tCore_EOD_0 ,iEODId,iEODId
+179,tCore_EODWastage_0,ALL-Transaction,Stores product wastage data on EOD basis ,\PointofSale\MainScreen\PointofSale,tCore_EOD_0 ,iEODId,iEODId
+180,tCore_ExportSyncLogFailed,ALL-Transaction,Contains error or failed logs for export synchronization,\Home\Company\Synchornization\SynchornizationDefinition,,iSyncId,
+181,tCore_ExportSyncLogHeader,ALL-Transaction,Contains header details for export Synchornization,\Home\Company\Synchornization\SynchornizationDefinition,"tCore_ExportSyncMasterLogDetail
+tCore_ExportSyncTransLogDetail_0",iExportSyncLogHeaderId,iExportSyncLogHeaderId
+182,tCore_ExportSyncMasterLogDetail,ALL-Transaction,Stores master log information for export Sync,\Home\Company\Synchornization\SynchornizationDefinition,tCore_ExportSyncLogHeader ,iExportSyncLogDetailId,iExportSyncLogHeaderId
+183,tCore_ExportSyncTransLogDetail_0,ALL-Transaction,Stores transaction log details for export sync ,\Home\Company\Synchornization\SynchornizationDefinition,tCore_ExportSyncLogHeader ,iExportSyncLogDetailId,iExportSyncLogHeaderId
+184,tCore_ExPostData_0,ALL-Transaction,Stores received data details,\Home\Utilities\RepostVouchers,,iExTransId,
+185,tCore_ExPostHeader_0,ALL-Transaction,Stores received data header information,\Home\Utilities\RepostVouchers,,iExTransId,
+186,tCore_ExternalData_0,ALL-Transaction,Stores External data details,Add Attachments ,tCore_ExternalHeader_0 ,iExTransId,iExTransId
+187,tCore_ExternalHeader_0,ALL-Transaction,Stores external data  header information,Add Attachments ,tCore_ExternalData_0,iExTransId,iExTransId
+188,tCore_GridCustomizationDetails_0,ALL-Transaction,Contains grid customization body data,Not Applicable,tCore_GridCustomizationHeader_0 ,iCustomizationId,iCustomizationId
+189,tCore_GridCustomizationHeader_0,ALL-Transaction,contains grid customization header data,Not Applicable,tCore_GridCustomizationDetails_0,iCustomizationId,iCustomizationId
+190,tCore_Header_0,ALL-Transaction,"Stores header information for all transactions in focus8 application. The primary key of this table i.e. iHeaderId forms the reference key for multiple tables. With every transaction posted iHeaderId is incremented. Voucher type, voucher no, Login details,transaction date etc are stored in this table",\Select any Voucher->Post entry,"mSec_Users 
+This Table is referenced by multiple tables",iHeaderId,iModifiedBy                                iUserId                                             iHeaderId      
+191,tCore_Header_2_0,ALL-Transaction,"Stores header data for transactions related to Letter of Credits,Payment terms etc in production module",\Select any production Voucher->Post entry,tCore_Header_0 ,iHeaderId,iHeaderId
+192,tCore_Header_Stocks_0,ALL-Transaction,Stores stock header data in production module,\Select any production Voucher->Post entry,tCore_Header_0 ,iHeaderId,iHeaderId
+193,tCore_HeaderData1023_0,ALL-Transaction,Stores header data for Stock adjustment,\Stock adjustment->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+194,tCore_HeaderData1024_0,ALL-Transaction,Stores header data for receipts from production,\receipts from production->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+195,tCore_HeaderData1056_0,ALL-Transaction,Stores header data for returns from shop floor,\returns from shop floor->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+196,tCore_HeaderData1280_0,ALL-Transaction,Stores header data for material receipts note,\material receipts note->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+197,tCore_HeaderData1536_0,ALL-Transaction,Stores header data for job work receipts,\job work receipts->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+198,tCore_HeaderData1792_0,ALL-Transaction,Stores header data for sales returns,\sales returns->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+199,tCore_HeaderData2048_0,ALL-Transaction,Stores header data for excesses in stocks,\excesses in stocks->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+200,tCore_HeaderData2304_0,ALL-Transaction,Stores header data for purchase quatations,\purchase quatations->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+201,tCore_HeaderData256_0,ALL-Transaction,Stores header data for opening balances,\opening balances->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+202,tCore_HeaderData2560_0,ALL-Transaction,Stores header data for purchase orders,\purchase orders->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+203,tCore_HeaderData2561_0,ALL-Transaction,Stores header data for job orders,\job orders->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+204,tCore_HeaderData2816_0,ALL-Transaction,Stores header data for production process,\production process->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+205,tCore_HeaderData3072_0,ALL-Transaction,Stores header data for stock transfer,\stock transfer->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+206,tCore_HeaderData3328_0,ALL-Transaction,Stores header data for sales invoice,\sales invoice->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+207,tCore_HeaderData3329_0,ALL-Transaction,Stores header data for cash sales,\cash sales->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+208,tCore_HeaderData3330_0,ALL-Transaction,Stores header data for hire purchase sales,\hire purchase sales->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+209,tCore_HeaderData3331_0,ALL-Transaction,Stores header data for POS sales ,\POS sales ->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+210,tCore_HeaderData3584_0,ALL-Transaction,Stores header data for non-standard journal entries,\non->Post Transactionstandard journal entries->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+211,tCore_HeaderData3585_0,ALL-Transaction,Stores header data for inter-departmental JV,\inter->Post Transactiondepartmental JV->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+212,tCore_HeaderData3586_0,ALL-Transaction,Stores header data for debit notes(linewise),\debit notes(linewise)->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+213,tCore_HeaderData3587_0,ALL-Transaction,Stores header data for credit notes(linewise)Stores header data for payroll,\credit notes(linewise)\payroll->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+214,tCore_HeaderData3588_0,ALL-Transaction,Stores header data for fixed asset depreciation voucher,\fixed asset depreciation voucher->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+215,tCore_HeaderData3840_0,ALL-Transaction,Stores header data for debit note,\debit note->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+216,tCore_HeaderData4096_0,ALL-Transaction,Stores header data for credit note,\credit note->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+217,tCore_HeaderData4097_0,ALL-Transaction,Stores header data for payroll posting,\payroll posting->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+218,tCore_HeaderData4608_0,ALL-Transaction,Stores header data for receipts,\receipts->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+219,tCore_HeaderData4864_0,ALL-Transaction,Stores header data for payments,\payments->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+220,tCore_HeaderData512_0,ALL-Transaction,Stores header data for opening stocks,\opening stocks->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+221,tCore_HeaderData5120_0,ALL-Transaction,Stores header data for petty cash,\petty cash->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+222,tCore_HeaderData5376_0,ALL-Transaction,Stores header data for shortages in stock,\shortages in stock->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+223,tCore_HeaderData5632_0,ALL-Transaction,Stores header data for sales order,\sales order->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+224,tCore_HeaderData5633_0,ALL-Transaction,Stores header data for production order,\production order->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+225,tCore_HeaderData5888_0,ALL-Transaction,Stores header data for post dated receipts,\post dated receipts->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+226,tCore_HeaderData6144_0,ALL-Transaction,Stores header data for delivery notes,\delivery notes->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+227,tCore_HeaderData6400_0,ALL-Transaction,Stores header data for purchase returns,\purchase returns->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+228,tCore_HeaderData6656_0,ALL-Transaction,Stores header data for issues to production,\issues to production->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+229,tCore_HeaderData6912_0,ALL-Transaction,Stores header data for job work issues,\job work issues->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+230,tCore_HeaderData7168_0,ALL-Transaction,Stores header data for post dated payments,\post dated payments->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+231,tCore_HeaderData7424_0,ALL-Transaction,Stores header data for sales quotation,\sales quotation->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+232,tCore_HeaderData768_0,ALL-Transaction,Stores header data for purchase vouchers,\purchase vouchers->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+233,tCore_HeaderData7680_0,ALL-Transaction,Stores header data for job orders,\job orders->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+234,tCore_HeaderData7936_0,ALL-Transaction,Stores header data for material requisition,\material requisition->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+235,tCore_HeaderData8192_0,ALL-Transaction,Stores header data for request for quote,\request for quote->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+236,tCore_HeaderData8448_0,ALL-Transaction,Stores header data for forex JV,\forex JV->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+237,tCore_HeaderData8704_0,ALL-Transaction,Stores header data for journal entries,\journal entries->Post Transaction,tCore_Header_0 ,iHeaderId,iHeaderId
+238,tCore_Hirepurchase_0,ALL-Transaction,Stores transactions involving hire purchase,Customize any voucher->HirePurchase->Assign Voucher types->Assign hirePurchaseAccounts->Transact in POS,tCore_Header_0 ,iHeaderId,iHeaderId
+239,tCore_HoldStock_0,ALL-Transaction,Data of Transactions involving holding/unholding of stocks are stored in this table,\Inventory\Transactions\Hold/Unhold Stock,,iId,
+240,tCore_HPDownPayment_0,ALL-Transaction,Stores hire purchase downpayment details. ,\Home\Settings\ConfigureTransactions\HirePurchase->Assign Vouchers for payments->Post HP transactions->Enter payment transaction in specified payment voucher,"
+tCore_HPHeader_0 ",iHirePurchaseId,iHirePurchaseId
+241,tCore_HPExchangeDetails_0,ALL-Transaction,Stores exchange details related to hire purchase,Customize any voucher->HirePurchase->Assign Voucher types->Assign hirePurchaseAccounts->Transact in POS,"
+tCore_HPHeader_0 ",iHirePurchaseId,iHirePurchaseId
+242,tCore_HPExternalFinance_0,ALL-Transaction,Stores external finance data in transactions,Customize any voucher->HirePurchase->Assign external finance voucher,"
+tCore_HPHeader_0 ",iHirePurchaseId,iHirePurchaseId
+243,tCore_HPHeader_0,ALL-Transaction,Holds hire purchase header data,Post HirePurchase Transactions in POS,"tCore_HPDownPayment_0
+tCore_HPExchangeDetails_0
+tCore_HPExternalFinance_0
+tCore_HPInstallment_0
+tCore_HPInstallmentDetails_0",iHirePurchaseId,iHirePurchaseId
+244,tCore_HPInstallment_0,ALL-Transaction,Holds payment installments header information,Post installments entry in payment method voucher defined in configure transaction preferences of hire purchase in POS,"
+tCore_HPHeader_0 ",iHirePurchaseId,iHirePurchaseId
+245,tCore_HPInstallmentDetails_0,ALL-Transaction,Holds payment installment body data,Post installments entry in payment method voucher defined in configure transaction preferences of hire purchase in POS,"
+tCore_HPHeader_0 ",iHirePurchaseId,iHirePurchaseId
+246,tCore_ibals_0,ALL-Transaction,"Stores valuation of inventory, stocks received and stocks issued details",Post inventory transactions,,iProduct,
+247,tCore_ImportSyncErrorLog,ALL-Transaction,stores Synchronization error logs while importing ,\Home\Company\Synchronization,,iImportSyncLogDetailId,
+248,tCore_ImportSyncLogDetail,ALL-Transaction,Stores import synchronization log body data,\Home\Company\Synchronization,tCore_ImportSyncLogHeader ,iImportSyncLogDetailId,iImportSyncLogHeaderId
+249,tCore_ImportSyncLogHeader,ALL-Transaction,Stores import synchronization log header data,\Home\Company\Synchronization,tCore_ImportSyncLogDetails,iImportSyncLogHeaderId,iImportSyncLogDetailId
+250,tCore_InboxOutbox_0,ALL-Transaction,Inter company transactions maps and transfers transactions between companies having linked processes between them such as sales transaction of company A becomes purchase transaction of company B. This table holds transactions data present in inbox/outbox. iStatus value = 1 indicates transaction is in inbox and iStatus = 2 indicates transaction is in outbox,\Home\Company\InterCompanyTransactions\Inbox/Outbox,,iInboxOutboxId,
+251,tCore_Indta_0,ALL-Transaction,"Table contains default data stored in transaction such as product ID,quantity,unit,rate,gross etc with against iBodyId of the transaction",Post any transaction,"tCore_Data_0 
+mCore_Product                                                        mCore_Units ",iBodyId,iBodyId                                     iProduct                                           iUnit
+252,tCore_IndtaBodyScreenData_0,ALL-Transaction,"Stores screen fields data in transaction body such as dicount,sgst,cgst etc",Post any transaction with required fields ,,iBodyId,
+253,tCore_IndtaFooterScreenData_0,ALL-Transaction,Holds calculative(screen) field details in transaction footer such as Shipping charges etc,Post any transaction with required fields ,,iHeaderId,
+254,tCore_LCPostingDetails,ALL-Transaction,Stores letter of credit posting details based in LC screen,\Financials\receivableAndPayableAnalysis\LetterofCredit,,iLCId,
+255,tCore_Links_0,ALL-Transaction,Stores linked transactional data ,Link two vouchers-> post transactions in base and call link in linked voucher,mCore_LinkPath_0 ,iRefId,iLinkId
+256,tCore_Location_AuditLogDetails,ALL-Transaction,Stores edited information for lacation master,\Home\Masters\Location->Select any location->edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                           ifieldId
+257,tCore_MasterAuditLog,ALL-Transaction,Stores audit trail information for masters,\Home\Masters->select any master type->select a master->edit,"cCore_MasterDef 
+This table is referenced by multiple tables",iAuditId,iMasterTypeId                               iAuditId
+258,tCore_MasterAuth,ALL-Transaction,Stores master based authorization data,\Home\Settings\MasterAuthorization,"mCore_AuthorizationDetails_0 
+cCore_MasterDef 
+tCore_MasterAuthUsers",iAuthId,iAuthNodeId                     iMasterTypeId                             iAuthId
+259,tCore_MasterAuthUsers,ALL-Transaction,This table stores master authorized users details,\Home\Settings\MasterAuthorization->UserSelection,tCore_MasterAuth ,iAuthUserId,iAuthId
+260,tCore_MaxIds_0,ALL-Transaction,Stores max ids ,,,iMaxHeaderId,
+261,tCore_OTPLogin,ALL-Transaction,This table populates when a new user is created with a password policy in which OTP based login option is checked,\Home\Security\PasswordPolicy->OTPbasedLogin,"tSec_UserLog 
+mSec_Users ",iOPTId,iLogSessionId                              iUserId
+262,tCore_PDCLinks_0,ALL-Transaction,Stores linked transactional data for post dated cheques,,,iPDCBaseTransId,
+263,tCore_POS_0,ALL-Transaction,Stores Point Of Ssales transactions data,\PointOfSales\MainScreen\PointOfSales,tCore_Data_0 ,iBodyId,iBodyId
+264,tCore_PostInterestDetails_0,ALL-Transaction,Stores finance term details related to interest rates posting in financial transaction ,\Financials\CreditManagement\FinancialTerms,mCore_Account                       mCore_FinanceTermsDetails ,iPostInterestId,iAccountId                       iFinanceTermDetailsId
+265,tCore_PostRJDetails_0,ALL-Transaction,Stores recurring journal postings body data,\Financials\Transactions\AutoPostings\PostRecurringJournal,mCore_Account                                     tCore_PostRJHeader_0 ,iBodyId,iBookId                                           iCode                                          iHeaderId
+266,tCore_PostRJHeader_0,ALL-Transaction,Stores recurring journal postings header data,\Financials\Transactions\AutoPostings\PostRecurringJournal,"tCore_RecurringJournalDetails_0 
+tCore_PostRJDetails_0",iHeaderId,iRJDetailsId                               iHeaderId
+267,tCore_Product_AuditLogDetails,ALL-Transaction,Holds audit log details of product masters,\Home\Masters\Product\Product->edit any product ,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                           ifieldId
+268,tCore_RecurringJournal_0,ALL-Transaction,Stores recurring journals header data for current year,\Financials\Transactions\AutoPostings\RecurringJournal,tCore_RecurringJournal_0,iRecurringJournalId,iRecurringJournalId
+269,tCore_RecurringJournalDetails_0,ALL-Transaction,Stores recurring journals body data for current year,\Financials\Transactions\AutoPostings\RecurringJournal,tCore_RecurringJournal_0 ,iRJDetailsId,iRecurringJournalId
+270,tCore_Refrn_0,ALL-Transaction,stores reference details of financial transactions associated with trade postings,Post financial transaction,"mCore_Account 
+tCore_Data_0 
+cCore_MasterDef 
+mCore_Product ",iBodyId                                          iRef,iAccount                                          iBodyId                                    iMasterTypeId                         iProduct
+271,tCore_Region_AuditLogDetails,ALL-Transaction,Region based audit trails are posted in this tables,\Home\Masters\Region->edit any region ,"tCore_MasterAuditLogiFieldId
+cCore_Fields ",iAuditId,iAuditId                                           ifieldId
+272,tCore_Reminders_0,ALL-Transaction,Stores reminder terms data for current year,\Home\CreditManagement\ReminderTerms,tCore_Reminders_Consolidation_0,iReminderId,iReminderId
+273,tCore_Reminders_Consolidation_0,ALL-Transaction,Stores reminder consolidation details,\Home\CreditManagement\ReminderTerms,"mCore_Account 
+tCore_Reminders_0                                                     tCore_Reminders_Details_0",iReminderConsId,iAccount                            iReminderId                          iReminderConsId
+274,tCore_Reminders_Details_0,ALL-Transaction,Store details of reminder ,\Home\CreditManagement\ReminderTerms,tCore_Reminders_Consolidation_0 ,iReminderConsId               iRowIndex,iReminderConsId
+275,tCore_ReservedStock_0,ALL-Transaction,Stores reserved stocks data ,"Select product->properties->Reservations->reserve by Quantity
+Select base transaction and check reserve by quantity option
+Enable reserve stock->provide reserve quantity in base transaction",,iReqTransactionId,
+276,tCore_RFID_0,ALL-Transaction,This table stores radio frequency identification data,\Home\Settings\ConfigureTransactions->enable RFID,tCore_Data_0 ,iBodyId,iBodyId
+277,tCore_RJTemplate_0,ALL-Transaction,This table stores recurring journal template data,\Financials\Transactions\AutoPostings\RecurringJournalTemplate,"mCore_Account 
+tCore_RJTemplate_0
+tCore_RJTemplateDetails_0",iTemplateId,iTemplateId                             iAccountId                                    IcontraAccountId
+278,tCore_RJTemplateDetails_0,ALL-Transaction,This table stores recurring journal template's detailed data,\Financials\Transactions\AutoPostings\RecurringJournalTemplate,"mCore_Account 
+tCore_RJTemplate_0                             tCore_RJTemplateDetails_0",iTemplateDetailsId,iAccountId                         iTemplateId                        iTemplateDetailsId           
+279,tCore_Rma_0,ALL-Transaction,This table stores return merchandise authorization data ,\Home\Settings\ConfigureTransactions->Support RMA,tCore_Data_0 ,iBodyId                                      sRmaNo,iBodyId
+280,tCore_Scheduler,ALL-Transaction,Reports scheduler data is stored in this table,,,iModuleId,
+281,tCore_Scheme_0,ALL-Transaction,Schemes related data is stored in this table,\Home\Masters\Schemes\Schemes->Post Transactions,tCore_Data_0 ,iBodyId,iBodyId
+282,tCore_Skid_0,ALL-Transaction,stores Skid information,\SkidDefinition,,iId,
+283,tCore_State_AuditLogDetails,ALL-Transaction,State master audit trail information is stored in this table,\Home\Masters\State->Edit Entry,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                           ifieldId
+284,tCore_StockAllocation_0,ALL-Transaction,Holds Stock allocation details,\StockAllocation,,iInTransId,
+285,tCore_Synchronization,ALL-Transaction,Synchronization related header data is stored in this table,\Home\Company\Synchornization\SynchronizationDefinition,"tCore_SynchronizationDetails
+tCore_SynchronizationFilter",iSyncId,iSyncId
+286,tCore_SynchronizationDetails,ALL-Transaction,Synchronization related body data is stored in this table,\Home\Company\Synchornization\SynchronizationDefinition,tCore_Synchronization ,iSyncId,iSyncId
+287,tCore_SynchronizationFilter,ALL-Transaction,This table holds data involving filters for synchronization,\Home\Company\Synchornization\SynchronizationDefinition,tCore_Synchronization ,iSyncId,iSyncId
+288,tCore_SyncScheduleImport,ALL-Transaction,Scheduled imports for synchronization details,\Home\Company\Synchornization\ScheduleImport,,iSyncId,
+289,tCore_TaxCode_AuditLogDetails,ALL-Transaction,Master audit logs for Tax code master,Edit any transaction,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                           ifieldId
+290,tCore_TransAuditLog_0,ALL-Transaction,Transactions audit logs data is stored in this table,Select transaction->edit,tSec_UserLog                                                    cCore_Vouchers_0                                                                       This table is referenced by multiple tables,iAuditId,isessionId                                    iVoucherType                            iAuditId
+291,tCore_TransAuditLog1023_0,ALL-Transaction,Maintains audit log data for modifications done in Stock adjustment,\Stock adjustment->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+292,tCore_TransAuditLog1024_0,ALL-Transaction,Maintains audit log data for modifications done in receipts from production,\receipts from production->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+293,tCore_TransAuditLog1056_0,ALL-Transaction,Maintains audit log data for modifications done in returns from shop floor,\returns from shop floor->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+294,tCore_TransAuditLog1280_0,ALL-Transaction,Maintains audit log data for modifications done in material receipts note,\material receipts note->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+295,tCore_TransAuditLog1536_0,ALL-Transaction,Maintains audit log data for modifications done in job work receipts,\job work receipts->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+296,tCore_TransAuditLog1792_0,ALL-Transaction,Maintains audit log data for modifications done in sales returns,\sales returns->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+297,tCore_TransAuditLog2048_0,ALL-Transaction,Maintains audit log data for modifications done in excesses in stocks,\excesses in stocks->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+298,tCore_TransAuditLog2304_0,ALL-Transaction,Maintains audit log data for modifications done in purchase quatations,\purchase quatations->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+299,tCore_TransAuditLog256_0,ALL-Transaction,Maintains audit log data for modifications done in opening balances,\opening balances->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+300,tCore_TransAuditLog2560_0,ALL-Transaction,Maintains audit log data for modifications done in purchase orders,\purchase orders->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+301,tCore_TransAuditLog2561_0,ALL-Transaction,Maintains audit log data for modifications done in job orders,\job orders->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+302,tCore_TransAuditLog2816_0,ALL-Transaction,Maintains audit log data for modifications done in production process,\production process->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+303,tCore_TransAuditLog3072_0,ALL-Transaction,Maintains audit log data for modifications done in stock transfer,\stock transfer->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+304,tCore_TransAuditLog3328_0,ALL-Transaction,Maintains audit log data for modifications done in sales invoice,\sales invoice->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+305,tCore_TransAuditLog3329_0,ALL-Transaction,Maintains audit log data for modifications done in cash sales,\cash sales->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+306,tCore_TransAuditLog3330_0,ALL-Transaction,Maintains audit log data for modifications done in hire purchase sales,\hire purchase sales->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+307,tCore_TransAuditLog3331_0,ALL-Transaction,Maintains audit log data for modifications done in POS sales ,\POS sales ->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+308,tCore_TransAuditLog3584_0,ALL-Transaction,Maintains audit log data for modifications done in non-standard journal entries,\non->Edit Transactionstandard journal entries->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+309,tCore_TransAuditLog3585_0,ALL-Transaction,Maintains audit log data for modifications done in inter-departmental JV,\inter->Edit Transactiondepartmental JV->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+310,tCore_TransAuditLog3586_0,ALL-Transaction,Maintains audit log data for modifications done in debit notes(linewise),\debit notes(linewise)->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+311,tCore_TransAuditLog3587_0,ALL-Transaction,Maintains audit log data for modifications done in credit notes(linewise)Maintains audit log data for modifications done in payroll,\credit notes(linewise)\payroll->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+312,tCore_TransAuditLog3588_0,ALL-Transaction,Maintains audit log data for modifications done in fixed asset depreciation voucher,\fixed asset depreciation voucher->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+313,tCore_TransAuditLog3840_0,ALL-Transaction,Maintains audit log data for modifications done in debit note,\debit note->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+314,tCore_TransAuditLog4096_0,ALL-Transaction,Maintains audit log data for modifications done in credit note,\credit note->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+315,tCore_TransAuditLog4097_0,ALL-Transaction,Maintains audit log data for modifications done in payroll posting,\payroll posting->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+316,tCore_TransAuditLog4608_0,ALL-Transaction,Maintains audit log data for modifications done in receipts,\receipts->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+317,tCore_TransAuditLog4864_0,ALL-Transaction,Maintains audit log data for modifications done in payments,\payments->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+318,tCore_TransAuditLog512_0,ALL-Transaction,Maintains audit log data for modifications done in opening stocks,\opening stocks->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+319,tCore_TransAuditLog5120_0,ALL-Transaction,Maintains audit log data for modifications done in petty cash,\petty cash->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+320,tCore_TransAuditLog5376_0,ALL-Transaction,Maintains audit log data for modifications done in shortages in stock,\shortages in stock->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+321,tCore_TransAuditLog5632_0,ALL-Transaction,Maintains audit log data for modifications done in sales order,\sales order->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+322,tCore_TransAuditLog5633_0,ALL-Transaction,Maintains audit log data for modifications done in production order,\production order->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+323,tCore_TransAuditLog5888_0,ALL-Transaction,Maintains audit log data for modifications done in post dated receipts,\post dated receipts->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+324,tCore_TransAuditLog6144_0,ALL-Transaction,Maintains audit log data for modifications done in delivery notes,\delivery notes->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+325,tCore_TransAuditLog6400_0,ALL-Transaction,Maintains audit log data for modifications done in purchase returns,\purchase returns->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+326,tCore_TransAuditLog6656_0,ALL-Transaction,Maintains audit log data for modifications done in issues to production,\issues to production->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+327,tCore_TransAuditLog6912_0,ALL-Transaction,Maintains audit log data for modifications done in job work issues,\job work issues->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+328,tCore_TransAuditLog7168_0,ALL-Transaction,Maintains audit log data for modifications done in post dated payments,\post dated payments->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+329,tCore_TransAuditLog7424_0,ALL-Transaction,Maintains audit log data for modifications done in sales quotation,\sales quotation->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+330,tCore_TransAuditLog768_0,ALL-Transaction,Maintains audit log data for modifications done in purchase vouchers,\purchase vouchers->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+331,tCore_TransAuditLog7680_0,ALL-Transaction,Maintains audit log data for modifications done in job orders,\job orders->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+332,tCore_TransAuditLog7936_0,ALL-Transaction,Maintains audit log data for modifications done in material requisition,\material requisition->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+333,tCore_TransAuditLog8192_0,ALL-Transaction,Maintains audit log data for modifications done in request for quote,\request for quote->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+334,tCore_TransAuditLog8448_0,ALL-Transaction,Maintains audit log data for modifications done in forex JV,\forex JV->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+335,tCore_TransAuditLog8704_0,ALL-Transaction,Maintains audit log data for modifications done in journal entries,\journal entries->Edit Transaction,cCore_Fields                                   tCore_TransAuditLog_0 ,iLogId,"iFieldId
+iAuditId    "
+336,tCore_TransAuth_0,ALL-Transaction,Stores transaction authorization data. Every single transaction that requisites authorization are stored in this table in order of ibodyid,\Home\Settings\TransactionAuthorizations->Select voucher->Create authorization ,"mCore_AuthorizationDetails_0 
+tCore_Data_0 
+tCore_TransAuthUsers_0",iAuthId,iAuthNodeId                               iBodyId                                         iAuthId
+337,tCore_TransAuthUsers_0,ALL-Transaction,Authorized user details and authorization data are stored in this table,"\Home\Settings\TransactionAuthorizations->Select voucher->Create authorization 
+->UserSelection",tCore_TransAuth_0 ,iAuthUserId,iAuthId
+338,tCore_Units_AuditLogDetails,ALL-Transaction,Stores units audit trail data,\Home\Masters\Product\Units,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                               iFieldId
+339,tCore_UsageLog,ALL-Transaction,Stores usage logs data for usage of application,\Home\Security\UsageLog,"mCore_Menu 
+tSec_UserLog ",iUserLogId,iUserLogId                                   iMenuId
+340,tCore_VoucherCustomizationDetails_0,ALL-Transaction,Stores voucher customization body data->internalTable,Not Applicable,tCore_VoucherCustomizationHeader_0,iDetailId,iHeaderId
+341,tCore_VoucherCustomizationHeader_0,ALL-Transaction,Stores voucher customization header data->internalTable,Not Applicable,tCore_VoucherCustomizationDetails_0,iHeaderId,iHeaderId
+342,tCore_Warehouse_AuditLogDetails,ALL-Transaction,Stores warehouse masters audit log details,\Home\Masters\Warehouse->Edit Warehouse to get this table populated,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,iAuditId                                               iFieldId
+,,,,,,,
+Security Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,mSec_Actions,Security,"Stores actions on profile,role or users that are to be restricted",Default,"mSec_MenuExceptions
+mSec_MenuSpecificRights
+mSec_ProfileDetails
+mSec_RolesExtraRights",iActionId,iActionId
+2,mSec_MenuExceptions,Security,Menu specific action exceptions,Default,mSec_Actions                                                  mCore_Menu ,iMenuId,"iActionId
+iMenuId"
+3,mSec_MenuSpecificRights,Security,Menu specific actionable rights ,Default,mSec_Actions                                                  mCore_Menu ,iMenuId,"iActionId
+iMenuId"
+4,mSec_MenuTypeRights,Security,Menu type and actions are stored in this table,Default,,"iMenuType
+iActionId",
+5,mSec_NetworkPolicy,Security,Stores network policy data ,\Home\Security\NetworkPolicy,,iIPRangeId,
+6,mSec_PasswordPolicy,Security,Stores password policy details,\Home\Security\PasswordPolicy,"mSec_RoleHeader
+mSec_Users",iPwdPolicyId,iPwdPolicyId
+7,mSec_ProfileDetails,Security,Stores profile detailed information ,\Home\Security\CreateProfile->Assign Rights,mSec_Actions                                                  mCore_Menu                                        mSec_ProfileHeader ,iProfileId                             iMenuId                             iActionId,iProfileId                             iMenuId                             iActionId
+8,mSec_ProfileHeader,Security,Stores profile header information,\Home\Security\CreateProfile,"mSec_ProfileDetails
+mSec_RolesProfiles",iProfileId,iProfileId
+9,mSec_RoleHeader,Security,Stores role header data,\Home\Security\CreateRole,"mSec_PasswordPolicy           cCore_VoucherPanelRoles_0
+cCore_VoucherViewRoles_0
+mSec_RolesExtraRights
+mSec_RolesMasters
+mSec_RolesMasterTrees
+mSec_RolesProfiles
+mSec_RoleTransRights
+mSec_Users_Roles",iRoleId,"iPwdPolicyId
+iRoleId"
+10,mSec_RolesExtraRights,Security,Stores role additional overlapping the rights provided to mapped profile,\Home\Security\CreateRole->AssignProfile->Additions,"mSec_Actions                                                 mCore_Menu 
+mSec_RoleHeader ",iRoleId,"iRoleId
+iMenuId
+iActionId"
+11,mSec_RolesMasters,Security,Stores role accessible master information,\Home\Security\CreateRole->AssignProfile->RestrictionForEntry,cCore_MasterDef                                     mSec_RoleHeader ,iRoleId,"iMasterTypeId
+iRoleId"
+12,mSec_RolesMasterTrees,Security,Stores information involving restriction to master trees for a role,\Home\Security\CreateRole->AssignProfile->RestrictionForTrees,cCore_MasterDef                                  mSec_RoleHeader ,iRoleId,"iMasterTypeId
+iRoleId"
+13,mSec_RolesProfiles,Security,Table holds roles masters mapped to profiles,\Home\Security\CreateRole->AssignProfile,"
+Sec_ProfileHeader                                mSec_RoleHeader ",iRoleId,"iProfileId
+iRoleId"
+14,mSec_RoleTransRights,Security,Stores transaction previleges data for roles,\Home\Security\CreateRole->AssignProfile->TransactionRights,mSec_RoleHeader ,iRoleId,iRoleId
+15,mSec_UserComputers,Security,Stores user device information ,\Home\Security\CreateUser\Restrictions,Sec_UserDomains ,"
+iDomainResId                                        sComputerName",iDomainResId
+16,mSec_UserDomains,Security,Stores focus users domain data,\Home\Security\CreateUser\Restrictions,mSec_Users                                     mSec_UserComputers,iDomainRestrictionId,iUserId              iDomainRestrictionId
+17,mSec_UserMasterRestriction,Security,Stores master restriction data for users ,\Home\Security\CreateUser\RestrictionsFor Entry,mSec_Users ,iUserId,iUserId
+18,mSec_Users,Security,Table contains users information assigned to use application,\Home\Security\CreateUser,"cCore_LanguageSupported                           mSec_Users 
+cCore_LanguageSupported               mSec_PasswordPolicy                            mCore_TimeZone 
+This table is referenced by multiple tables",iUserId,"iUserId  
+iTimeZone                         iPwdPolicyId                  iLanguage                   iAltLanguage                    iGroupId"
+19,mSec_Users_Roles,Security,Stores mapping data of users with roles,\Home\Security\CreateUser->UserInformation->Provide ERP Role,mSec_RoleHeader ,iUserId                                                                      iYearId,iERPRole
+20,mSec_UsersPOS,Security,Stores Pos users data,\Home\Security\CreateUser,mSec_Users ,iUserId,iUserId
+21,tSec_PasswordHistory,Security,Stores password history data for each users,\Home\Security\CreateUser,mSec_Users ,iUserId,iUserId
+22,tSec_UserLog,Security,Stores user log data ,"\Home\Security\CreateUser->Login as user
+\Home\Security\UsageLog","mSec_Users 
+Core_SettingAuditLog_0                         tCore_OTPLogin                         tCore_TransAuditLog_0
+tCore_UsageLog
+tSec_UserLog",iSessionId,"iSessionId
+iUserId"
+23,tSec_UserLogDetails,Security,Stores user log details,"\Home\Security\CreateUser->Login as user
+\Home\Security\UsageLog","mCore_Menu 
+tSec_UserLog ",iSessionId,"iSessionId
+iMenuId"
+,,,,,,,
+Fixed Asset Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,mFixA_AssetCapitalization,Fixed Assets-Masters,Stores capitalization of assets data,\FixedAsset\Transaction\CapitalizationOfAsset,,iMasterId,
+2,mFixA_AssetChgValBody_0,Fixed Assets-Masters,Stores body details of add asset value or reduce asset value voucher,"\FixedAsset\Transaction\AddAssetValue
+\FixedAsset\Transaction\ReduceAssetValue",mFixA_FixedAsset                 mFixA_AssetChgValHeader_0 ,iChgValDetailId,iAssetId                            iChgValHeaderId          
+3,mFixA_AssetChgValHeader_0,Fixed Assets-Masters,Stores header details of add asset value or reduce asset value voucher,"\FixedAsset\Transaction\AddAssetValue
+\FixedAsset\Transaction\ReduceAssetValue",mFixA_FixedAsset                 mFixA_AssetChgValBody_0,iChgValHeaderId,iAssetId                            iChgValHeaderId          
+4,mFixA_AssetDisposalBody_0,Fixed Assets-Masters,Table holds disposal of asset vouchers body data,\FixedAsset\Transaction\DisposalOfAsset,AssetDisposalHeader_0                             mFixA_FixedAsset ,iAssetDisDetId,"iAssetId
+iAssetDisHeaderId"
+5,mFixA_AssetDisposalHeader_0,Fixed Assets-Masters,Table holds disposal of asset vouchers header data,\FixedAsset\Transaction\DisposalOfAsset,mFixA_FixedAsset                 mFixA_AssetDisposalBody_0,iAssetDisHeaderId,"iAssetId
+iAssetDisHeaderId"
+6,mFixA_AssetTransfer_0,Fixed Assets-Masters,Contains transfer of assets vouchers data,\FixedAsset\Transaction\TransferOfAsset,mFixA_FixedAsset ,iTransferId,iAssetId
+7,mFixA_AssetUsage,Fixed Assets-Masters,Contains Assets usage data,\FixedAsset\Transaction\AssetUsage,"mFixA_FixedAsset 
+",iUsageId,iAsset
+8,mFixA_FixedAsset,Fixed Assets-Masters,Stores fixed assets masters data,\Home\Masters\FixedAssets,"mSec_Users 
+mFixA_AssetChgValBody_0
+mFixA_AssetChgValHeader_0
+mFixA_AssetDisposalBody_0
+mFixA_AssetDisposalHeader_0
+mFixA_AssetTransfer_0
+mFixA_AssetUsage
+mFixA_FixedAssetLanguage
+mFixA_FixedAssetTreeDetails
+mFixA_FixedAssetTreeDetails
+muFixA_FixedAsset
+muMrp_WorkCenter",iMasterId,"iCreatedBy                      iModifiedBy                  iFixedAsset                     iParentAsset
+iParentId
+iAssetId"
+9,mFixA_FixedAssetLanguage,Fixed Assets-Masters,Stores fixed assets language data,\Home\Masters\FixedAssets,0Core_LanguageSupported                             mFixA_FixedAsset ,iMasterId,iMasterId                     iLanguageId
+10,mFixA_FixedAssetTree,Fixed Assets-Masters,Stores fixed assets tree data,\Home\Masters\FixedAssets,"mFixA_FixedAssetTreeDetails
+FixA_FixedAssetTreeFields",iTreeId,iTreeId
+11,mFixA_FixedAssetTreeDetails,Fixed Assets-Masters,Stores fixed assets tree details data,\Home\Masters\FixedAssets,"
+mFixA_FixedAsset 
+mFixA_FixedAsset                           mFixA_FixedAssetTree ",iTreeId,"iMasterId
+IparentId
+iTreeId"
+12,mFixA_FixedAssetTreeFields,Fixed Assets-Masters,Stores fixed assets tree fields data,\Home\Masters\FixedAssets,cCore_MasterFields                    mFixA_FixedAssetTree ,iTreeId                             iSequence,"iFieldId
+iTreeId"
+13,mFixA_Insurance,Fixed Assets-Masters,Stores insurance masters data,\Home\Masters\Insurance,"mSec_Users 
+mFixA_InsuranceLanguage
+mFixA_InsuranceTreeDetails
+mFixA_InsuranceTreeDetails
+muFixA_FixedAsset_InsuranceDetails",iMasterId,"iInsuranceCompanyName iParentId                             iCreatedBy                      iModifiedBy
+iMasterId"
+14,mFixA_InsuranceLanguage,Fixed Assets-Masters,Stores insurance language data,\Home\Masters\Insurance->Give alias information,cCore_LanguageSupported                      FixA_Insurance ,iMasterId,"iMasterId               
+iLanguageId"
+15,mFixA_InsuranceTree,Fixed Assets-Masters,Stores insurance tree data,\Home\Masters\Insurance,"mFixA_InsuranceTreeDetails
+mFixA_InsuranceTreeFields",iTreeId,iTreeId
+16,mFixA_InsuranceTreeDetails,Fixed Assets-Masters,Stores insurance tree details data,\Home\Masters\Insurance,mFixA_Insurance                           mFixA_InsuranceTree ,iMasterId,"iMasterId
+iParentId
+iTreeId"
+17,mFixA_InsuranceTreeFields,Fixed Assets-Masters,Stores insurance tree fields data,\Home\Masters\Insurance->settings->add field,cCore_MasterFields                       mFixA_InsuranceTree ,iTreeId                             iSequence,"iFieldId                          
+iTreeId"
+18,mFixA_PostDepreciation_0,Fixed Assets-Masters,Holds data fetched in post depreciation entreies voucher,\FixedAsset\Transactions\PostDepreciationEntries,,iAssetId,
+19,tFixA_FixedAsset_AuditLogDetails,Fixed Assets-Transactions,Audit log for fixed asset master,\Home\Masters\FixedAssets->Edit any fixed asset,tCore_MasterAuditLog                                 cCore_Fields,iAuditId,"iAuditId                
+iFieldId"
+20,tFixA_Insurance_AuditLogDetails,Fixed Assets-Transactions,Audit log for Insurance master,\Home\Masters\Insurance->Edit any insurance,tCore_MasterAuditLog                                 cCore_Fields,iAuditId,"iAuditId                
+iFieldId"
+,,,,,,,
+Quality Control Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,mQC_ProductTestMapping,QC,Contains map test to product data,\QualityControl\Transactions\MapTestToProducts,"mCore_Product 
+mQC_TestDefinitionHeader ",iMappingId,iTestDefHeaderId             iProductId
+2,mQC_Qcfailurereason,QC,Stores QC failure reason masters data,\Home\Master\QC\QCFailureReason,"mSec_Users                   mQC_QcfailurereasonLanguage
+mQC_QcfailurereasonTreeDetails
+mQC_QcfailurereasonTreeDetails",iMasterId,iParentId                         iModifiedBy                        iCreatedBy                      iMasterId
+3,mQC_QcfailurereasonLanguage,QC,Stores QC failure reason language data,\Home\Master\QC\QCFailureReason,cCore_LanguageSupported         mQC_Qcfailurereason ,iMasterId,"iLanguageId  
+iMasterId"
+4,mQC_QcfailurereasonTree,QC,Stores QC failure reason tree data,\Home\Master\QC\QCFailureReason,"mQC_QcfailurereasonTreeDetails
+mQC_QcfailurereasonTreeFields",iTreeId,iTreeId
+5,mQC_QcfailurereasonTreeDetails,QC,Stores QC failure reason tree details data,\Home\Master\QC\QCFailureReason,mQC_Qcfailurereason         mQC_QcfailurereasonTree ,iTreeId,"iMasterId
+iParentId
+iTreeId"
+6,mQC_QcfailurereasonTreeFields,QC,Stores QC failure reason tree fields data,\Home\Master\QC\QCFailureReason,cCore_MasterFields              mQC_QcfailurereasonTree ,iTreeId                                            iSequence,"iFieldId
+iTreeId                       "
+7,mQC_QCParameters,QC,Stores QC parameters masters data,\Home\Master\QC\QCParameters,"mSec_Users                                                      
+mQC_QCParametersLanguage
+mQC_QCParametersTreeDetails
+mQC_TestDefinitionBody
+tQC_TestingBody_0",iMasterId,"iParameterId                    iParentId
+iMasterId                      IModifiedBy                            iCreatedBy"
+8,mQC_QCParametersLanguage,QC,Stores QC parameters language data,\Home\Master\QC\QCParameters,cCore_LanguageSupported            mQC_QCParameters ,iMasterId,iMasterId                                    iLanguageId
+9,mQC_QCParametersTree,QC,Stores QC parameters tree data,\Home\Master\QC\QCParameters,"mQC_QCParametersTreeDetails
+mQC_QCParametersTreeFields",iTreeId,iTreeId
+10,mQC_QCParametersTreeDetails,QC,Stores QC parameters tree details data,\Home\Master\QC\QCParameters,mQC_QCParameters                         QCParametersTree ,iTreeId,"iMasterId
+iParentId
+iTreeId"
+11,mQC_QCParametersTreeFields,QC,Stores QC parameters tree fields data,\Home\Master\QC\QCParameters,cCore_MasterFields               mQC_QCParametersTree ,iTreeId                                            iSequence,"iFieldId            
+iTreeId                       "
+12,mQC_TestDefinitionBody,QC,Holds test defination body data,\QualityControl\Transactions\TestDefinition,"mQC_QCParameters                mQC_TestDefinitionHeader 
+tQC_TestingBody_0",iTestDefBodyId,iTestDefBodyId       iTestDefHeaderId   iParameterId
+13,mQC_TestDefinitionHeader,QC,Holds test defination header data,\QualityControl\Transactions\TestDefinition,"mQC_ProductTestMapping
+mQC_TestDefinitionBody
+tQC_RequisitionBody_0
+tQC_TestingHeader_0",iTestDefHeaderId,iTestDefHeaderId
+14,tQC_Qcfailurereason_AuditLogDetails,QC,Audit log for QC failure reason,\Home\Master\QC\QCFailureReason,"tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                              
+iFieldId"
+15,tQC_QCParameters_AuditLogDetails,QC,Audit log for QC Parameters,\Home\Master\QC\QCParameters,"tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                              
+iFieldId"
+16,tQC_RequisitionBody_0,QC,Table stores requistion body details,\QualityControl\Transactions\Requisition,"tQC_RequisitionHeader_0 
+mQC_TestDefinitionHeader 
+tQC_TestingHeader_0",iReqBodyId,iReqHeaderId                  iTestDefHeaderId            iReqBodyId
+17,tQC_RequisitionHeader_0,QC,Table stores requistion header details,\QualityControl\Transactions\Requisition,"tQC_RequisitionBody_0
+tQC_TestingHeader_0",iReqHeaderId,iReqHeaderId
+18,tQC_TestingBody_0,QC,Stores testing details ,\QualityControl\Transactions\SampleCheck,mQC_QCParameters              mQC_TestDefinitionBody                  tQC_TestingHeader_0 ,iTestBodyId,iParameterId          iTestDefBodyId      iTestHeaderId
+19,tQC_TestingHeader_0,QC,Stores testing header details,\QualityControl\Transactions\SampleCheck,"mCore_Product 
+tQC_RequisitionBody_0 
+tQC_RequisitionHeader_0 
+mQC_TestDefinitionHeader 
+tQC_TestingBody_0",iTestHeaderId,iProductId                       iReqBodyId                iReqHeaderId               iTestDefHeaderId              iTestHeaderId
+,,,,,,,
+Maintainance Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,mMnt_Breakdownstandardreason,MNT,Stores Breakdown standard reason masters data,\Home\Masters\Maintainance\BreakDownStandardReason,"mSec_Users mMnt_BreakdownstandardreasonLanguage
+mMnt_BreakdownstandardreasonTreeDetails",iMasterId,"iCreatedBy                     iModifiedBy
+iMasterId
+iParentId"
+2,mMnt_BreakdownstandardreasonLanguage,MNT,Stores Breakdown standard reason language data,\Home\Masters\Maintainance\BreakDownStandardReason,cCore_LanguageSupported mMnt_Breakdownstandardreason ,iMasterId,iMasterId                     iLanguageId
+3,mMnt_BreakdownstandardreasonTree,MNT,Stores Breakdown standard reason tree data,\Home\Masters\Maintainance\BreakDownStandardReason,"mMnt_BreakdownstandardreasonTreeDetails
+mMnt_BreakdownstandardreasonTreeFields",iTreeId,iTreeId
+4,mMnt_BreakdownstandardreasonTreeDetails,MNT,Stores Breakdown standard reason tree details data,\Home\Masters\Maintainance\BreakDownStandardReason,mMnt_Breakdownstandardreason mMnt_Breakdownstandardreason mMnt_BreakdownstandardreasonTree ,iTreeId,"iMasterId                          iParentId                        
+iTreeId"
+5,mMnt_BreakdownstandardreasonTreeFields,MNT,Stores Breakdown standard reason tree fields data,\Home\Masters\Maintainance\BreakDownStandardReason,cCore_MasterFields mMnt_BreakdownstandardreasonTree ,iTreeId                             iSequence,"iFieldId                                
+iTreeId"
+6,tMnt_Breakdownstandardreason_AuditLogDetails,MNT,Audit log for breakdown standard reason,\Home\Masters\Maintainance\BreakDownStandardReason,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId                           
+iFieldId"
+,,,,,,,
+Material Requisition and Planning Tables:,,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,mMRP_BOMBody,MRP - Masters,Stores bills of masterial body data,\Production\Transaction\BillOfMaterial,mCore_Product                       mMRP_BomVariantHeader           mMRP_BomExtraBody,iBomBodyId,"iProductId                        iVariantId               
+iBomBodyId"
+2,mMRP_BomExtraBody,MRP - Masters,Stores BOM additional body details,\Production\Transaction\BillOfMaterial,mMRP_BOMBody ,iBomBodyId,iBomBodyId
+3,mMRP_BomExtraHeader,MRP - Masters,Stores BOM additional header details,\Production\Transaction\BillOfMaterial,mMRP_BomHeader ,iBomId,iBomId
+4,mMRP_BomHeader,MRP - Masters,Stores bills of masterial header data,\Production\Transaction\BillOfMaterial,"mMRP_BomExtraHeader
+mMRP_BomVariantHeader",iBomId,iBomId
+5,mMRP_BomVariantHeader,MRP - Masters,Stores variant details of BOM,\Production\Transaction\BillOfMaterial,mMRP_BomHeader                                 mMRP_BOMBody,iVariantId,iBomId                                iVariantId
+6,mMrp_Capacity,MRP - Masters,Stores plant capacity masters data,\Home\Masters\MRP\Capacity,"mSec_Users 
+mMrp_CapacityLanguage
+mMrp_CapacityTreeDetails
+mMrp_CapacityTreeDetails
+muMrp_WorkCenter_Capacity_Details",iMasterId,"iCreatedBy
+iModifiedBy                
+iMasterId
+iParentId                      
+iCapcity"
+7,mMrp_CapacityLanguage,MRP - Masters,Stores plant capacity language data,\Home\Masters\MRP\Capacity,cCore_LanguageSupported                        mMrp_Capacity ,"iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+8,mMrp_CapacityTree,MRP - Masters,Stores plant capacity tree data,\Home\Masters\MRP\Capacity,"mMrp_CapacityTreeDetails
+mMrp_CapacityTreeFields",iTreeId,iTreeId
+9,mMrp_CapacityTreeDetails,MRP - Masters,Stores plant capacity tree details data,\Home\Masters\MRP\Capacity,"mMrp_Capacity 
+mMrp_CapacityTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+10,mMrp_CapacityTreeFields,MRP - Masters,Stores plant capacity tree fields data,\Home\Masters\MRP\Capacity,cCore_MasterFields                           mMrp_CapacityTree ,iTreeId                             iSequence,"iFieldId                                
+iTreeId"
+11,mMRP_ExtraFields,MRP - Masters,,,,Id,
+12,mMrp_Holiday,MRP - Masters,Stores plant holiday masters data,\Home\Masters\MRP\Holiday,"mSec_Users 
+mMrp_HolidayLanguage
+mMrp_HolidayTreeDetails",iMasterId,"iCreatedBy                
+iModifiedBy                
+iMasterId                     
+iParentId                      "
+13,mMrp_HolidayLanguage,MRP - Masters,Stores plant holiday language data,\Home\Masters\MRP\Holiday,cCore_LanguageSupported                      mMrp_Holiday ,"iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+14,mMrp_HolidayTree,MRP - Masters,Stores plant holiday tree data,\Home\Masters\MRP\Holiday,"mMrp_HolidayTreeDetails
+mMrp_HolidayTreeFields",iTreeId,iTreeId
+15,mMrp_HolidayTreeDetails,MRP - Masters,Stores plant holiday tree details data,\Home\Masters\MRP\Holiday,mMrp_Holiday                                                 mMrp_Holiday                                   mMrp_HolidayTree ,iTreeId,"iMasterId
+iParentId                     
+iTreeId"
+16,mMrp_HolidayTreeFields,MRP - Masters,Stores plant holiday tree fields data,\Home\Masters\MRP\Holiday,cCore_MasterFields                            mMrp_HolidayTree ,iTreeId                             iSequence,"iFieldId                                
+iTreeId"
+17,mMrp_MaintenanceParameter,MRP - Masters,Stores maintainance parameter masters data,\Home\Masters\MRP\MaintainanceParameter,"mSec_Users 
+mMrp_MaintenanceParameterLanguage
+mMrp_MaintenanceParameterTreeDetails",iMasterId,"iCreatedBy                
+iModifiedBy                
+iMasterId                     
+iParentId                      "
+18,mMrp_MaintenanceParameterLanguage,MRP - Masters,Stores maintainance parameter language data,\Home\Masters\MRP\MaintainanceParameter,cCore_LanguageSupported mMrp_MaintenanceParameter ,"iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+19,mMrp_MaintenanceParameterTree,MRP - Masters,Stores maintainance parameter tree data,\Home\Masters\MRP\MaintainanceParameter,"mMrp_MaintenanceParameterTreeDetails
+mMrp_MaintenanceParameterTreeFields",iTreeId,iTreeId
+20,mMrp_MaintenanceParameterTreeDetails,MRP - Masters,Stores maintainance parameter tree details data,\Home\Masters\MRP\MaintainanceParameter,mMrp_MaintenanceParameter mMrp_MaintenanceParameterTree ,iTreeId,"iMasterId
+iParentId                     
+iTreeId"
+21,mMrp_MaintenanceParameterTreeFields,MRP - Masters,Stores maintainance parameter tree fields data,\Home\Masters\MRP\MaintainanceParameter,cCore_MasterFields mMrp_MaintenanceParameterTree ,iTreeId                             iSequence,"iFieldId                                
+iTreeId"
+22,mMrp_Plant,MRP - Masters,Stores plant masters data,\Home\Masters\MRP\Plant,"mSec_Users 
+mMrp_PlantLanguage
+mMrp_PlantTreeDetails
+muMrp_Capacity",iMasterId,"iCreatedBy
+iModifiedBy                
+iMasterId                     
+iParentId                        
+iPlant             "
+23,mMrp_PlantLanguage,MRP - Masters,Stores plant language data,\Home\Masters\MRP\Plant,cCore_LanguageSupported                              mMrp_Plant ,"iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+24,mMrp_PlantTree,MRP - Masters,Stores plant tree data,\Home\Masters\MRP\Plant,"mMrp_PlantTreeDetails
+mMrp_PlantTreeFields",iTreeId,iTreeId
+25,mMrp_PlantTreeDetails,MRP - Masters,Stores plant tree details data,\Home\Masters\MRP\Plant,"mMrp_Plant                                           
+mMrp_PlantTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+26,mMrp_PlantTreeFields,MRP - Masters,Stores plant tree fields data,\Home\Masters\MRP\Plant,cCore_MasterFields                                 mMrp_PlantTree ,iTreeId                             iSequence,"iFieldId
+iTreeId"
+27,mMrp_SafetyInstructions,MRP - Masters,Stores safety instructions masters data,\Home\Masters\MRP\SafetyInstruction,"mSec_Users 
+mMrp_SafetyInstructionsLanguage
+mMrp_SafetyInstructionsTreeDetails",iMasterId,"iCreatedBy                
+iModifiedBy                
+iMasterId                     
+iParentId                       "
+28,mMrp_SafetyInstructionsLanguage,MRP - Masters,Stores safety instructions language data,\Home\Masters\MRP\SafetyInstruction,"mSec_Users                 mMrp_SafetyInstructionsLanguage
+mMrp_SafetyInstructionsTreeDetails","iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+29,mMrp_SafetyInstructionsTree,MRP - Masters,Stores safety instructions tree data,\Home\Masters\MRP\SafetyInstruction,"mMrp_SafetyInstructionsTreeDetails
+mMrp_SafetyInstructionsTreeFields",iTreeId,iTreeId
+30,mMrp_SafetyInstructionsTreeDetails,MRP - Masters,Stores safety instructions tree details data,\Home\Masters\MRP\SafetyInstruction,"mMrp_SafetyInstructions 
+mMrp_SafetyInstructions 
+mMrp_SafetyInstructionsTree ",iTreeId,"iMasterId                    
+iParentId                     
+iTreeId"
+31,mMrp_SafetyInstructionsTreeFields,MRP - Masters,Stores safety instructions tree fields data,\Home\Masters\MRP\SafetyInstruction,cCore_MasterFields           mMrp_SafetyInstructionsTree ,iTreeId                             iSequence,"iFieldId                                
+iTreeId"
+32,mMrp_SupplyArea,MRP - Masters,Stores supply area masters data,\Home\Masters\MRP\SupplyArea,"mSec_Users 
+mMrp_SupplyAreaLanguage
+mMrp_SupplyAreaTreeDetails
+muMrp_WorkCenter",iMasterId,"iCreatedBy                
+iModifiedBy                
+iMasterId                     
+iParentId                       iSupplyarea"
+33,mMrp_SupplyAreaLanguage,MRP - Masters,Stores supply area language data,\Home\Masters\MRP\SupplyArea,cCore_LanguageSupported                mMrp_SupplyArea ,"iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+34,mMrp_SupplyAreaTree,MRP - Masters,Stores supply area tree data,\Home\Masters\MRP\SupplyArea,"mMrp_SupplyAreaTreeDetails
+mMrp_SupplyAreaTreeFields",iTreeId,iTreeId
+35,mMrp_SupplyAreaTreeDetails,MRP - Masters,Stores supply area tree details data,\Home\Masters\MRP\SupplyArea,mMrp_SupplyArea                        mMrp_SupplyAreaTree ,iTreeId,"iMasterId                    
+iParentId                     
+iTreeId"
+36,mMrp_SupplyAreaTreeFields,MRP - Masters,Stores supply area tree fields data,\Home\Masters\MRP\SupplyArea,cCore_MasterFields                    mMrp_SupplyAreaTree ,iTreeId                             iSequence,"iFieldId                               
+iTreeId"
+37,mMrp_WorkCenter,MRP - Masters,Stores work center masters data,\Home\Masters\MRP\WorkCenter,"mSec_Users 
+mMrp_WorkCenterLanguage
+mMrp_WorkCenterTreeDetails",iMasterId,"iCreatedBy                
+iModifiedBy                
+iMasterId                     
+iParentId                       "
+38,mMrp_WorkCenterLanguage,MRP - Masters,Stores work center language data,\Home\Masters\MRP\WorkCenter,cCore_LanguageSupported              mMrp_WorkCenter ,"iMasterId
+iLanguageId","iMasterId
+iLanguageId"
+39,mMrp_WorkCenterTree,MRP - Masters,Stores work center tree data,\Home\Masters\MRP\WorkCenter,"mMrp_WorkCenterTreeDetails
+mMrp_WorkCenterTreeFields",iTreeId,iTreeId
+40,mMrp_WorkCenterTreeDetails,MRP - Masters,Stores work center tree details data,\Home\Masters\MRP\WorkCenter,mMrp_WorkCenter                           mMrp_WorkCenter                       mMrp_WorkCenterTree ,iTreeId,"iMasterId                    
+iParentId                     
+iTreeId"
+41,mMrp_WorkCenterTreeFields,MRP - Masters,Stores work center tree fields data,\Home\Masters\MRP\WorkCenter,cCore_MasterFields                      mMrp_WorkCenterTree ,iTreeId                             iSequence,"iFieldId                                
+iTreeId"
+42,tMrp_Capacity_AuditLogDetails,MRP - Transactions,Audit log for capacity,\Home\Masters\MRP\Capacity,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+43,tMrp_ForecastBody,MRP - Transactions,Stores production forecast body details ,\Production\Transaction\0,tMrp_ForecastHeader ,iForeecastBodyId,iForecastId
+44,tMrp_ForecastHeader,MRP - Transactions,Stores production forecast header details ,\Production\Transaction\0,tMrp_ForecastBody,iForecastId,
+45,tMrp_Holiday_AuditLogDetails,MRP - Transactions,Audit log for holiday masters,\Home\Masters\MRP\Holiday,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+46,tMrp_MaintenanceParameter_AuditLogDetails,MRP - Transactions,Audit log for maintainance parameters,\Home\Masters\MRP\MaintainanceParameter,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+47,tMrp_PIO_0,MRP - Transactions,Stores PIO data for current year,\Production\Transaction\0,tMrp_PIODetails_0,iPIOId,iPIOId
+48,tMrp_PIODetails_0,MRP - Transactions,Stores PIO details for current year,\Production\Transaction\0,tMrp_PIO_0,iId,iPIOId
+49,tMrp_Plant_AuditLogDetails,MRP - Transactions,Audit log for plant masters ,\Home\Masters\MRP\Plant,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+50,tMrp_ProdOrder_0,MRP - Transactions,Stores production orders vouchers header data,\Production\Transaction\0,tMrp_ProdOrderBody_0,iProdOrderId,iProdOrderId
+51,tMrp_ProdOrderBody_0,MRP - Transactions,Stores production orders vouchers body data,\Production\Transaction\0,tMrp_ProdOrder_0 ,iMasterID,iProdOrderId
+52,tMrp_SafetyInstructions_AuditLogDetails,MRP - Transactions,Audit log for safety instructions,\Home\Masters\MRP\SafetyInstruction,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+53,tMrp_SupplyArea_AuditLogDetails,MRP - Transactions,Audit log for supply area,\Home\Masters\MRP\SupplyArea,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+54,tMrp_WorkCenter_AuditLogDetails,MRP - Transactions,Audit log for work center master,\Home\Masters\MRP\WorkCenter,"
+tCore_MasterAuditLog                                
+cCore_Fields ",iAuditId,"iAuditId                             
+iFieldId"
+,,,,,,,
+Point of Sales Tables:,,,,,,,
+"Generic Path for enabling POS: 
+--\Home\Settings\SettingsWizard->Enable POS
+--Define POS details in \Home\Security\Users->POS Tab
+--Define Outlet,Counter in POS masters
+--In counter->Assign Outlet->Assign user
+--Log in with POS assigned user by providing login,outlet and counter credentials
+",,,,,,,
+Serial No,Object Name,Module,Objective,Document that updates the table,Linked Tables, Identity Field,Linked Field
+1,cPos_BillPrintFormat,Point of Sales,Stores POS bill format header information,\POS\Utilities\BillPrintingFormat,"cPos_BillPrintFormatBody
+cPos_BillPrintFormatLogo",iPrintFormatId,iPrintFormatId
+2,cPos_BillPrintFormatBody,Point of Sales,Stores POS bill format body information,\POS\Utilities\BillPrintingFormat,cPos_BillPrintFormat ,iPrintFormatDetailId,iPrintFormatId
+3,cPos_BillPrintFormatLogo,Point of Sales,Stores POS bill format logo information,\POS\Utilities\BillPrintingFormat,Pos_BillPrintFormat ,iLogoId,iPrintFormatId
+4,cPos_BodyPanel,Point of Sales,Stores customization data for body panel,\POS\Utilities\BillPrintingFormat,mCore_Account                     cPos_BodyPanelExemptCalculation,iId,iHeaderId                          iTemplateId                    iAccountToPost
+5,cPos_BodyPanelExemptCalculation,Point of Sales,Stores customization data for boy panel exempt fields for calculation,\POS\MainScreen\MainScreen,cPos_BodyPanel ,iHeaderId,iHeaderId
+6,cPos_BottomPanel,Point of Sales,Stores customization data for Bottom panel,\POS\MainScreen\MainScreen,"cPos_Layouts 
+cPos_Templates 
+cPos_LeftPanel",iId,iLayoutId                          iTemplateId               iBottomPanelId
+7,cPos_DefaultHeaderFields,Point of Sales,Stores customization data for default fields ,\POS\MainScreen\MainScreen,cPos_Templates ,iTemplateId,iTemplateId
+8,cPos_DefLeftPanelBody,Point of Sales,Stores customization data for default left panel body,\POS\MainScreen\MainScreen,cPos_DefLeftPanelHeader                         mCore_Product ,iId,"iProductId
+iParentId
+iLeftPanelHeaderId"
+9,cPos_DefLeftPanelHeader,Point of Sales,Stores customization data for default left panel header,\POS\MainScreen\MainScreen,"cPos_Layouts 
+cPos_Templates 
+cPos_DlpBody",iId,"iLayoutId
+iTemplateId
+iHeaderId]"
+10,cPos_ExternalModule,Point of Sales,Stores customization data for POS external modules,,,iId,
+11,cPos_HeaderExtraFields,Point of Sales,Stores customization data for header extra fields,\POS\MainScreen\MainScreen,"cPos_Templates 
+cCore_Vouchers_0 ",iTemplateId,iTemplateId                 iVoucherType
+12,cPos_Layouts,Point of Sales,Stores customization data for POS layouts,\POS\MainScreen\MainScreen->Setting->Set Layout,"cPos_BottomPanel
+cPos_DlpHeader",iId,iLayoutId
+13,cPos_LeftPanel,Point of Sales,Stores customization data for left panel,\POS\MainScreen\MainScreen->leftPanelCustomizationScreen,"cPos_BottomPanel 
+cPos_Templates ",iId,iBottomPanelId             iTemplateId
+14,cPos_RestComboItemDetails,Point of Sales,Stores customization data for restaurant combo item details,\POS\MainScreen\MainScreen->Setting,"mCore_Product                                       cPos_RestCourse                                          
+mCore_Units ",iMenuItemId,"iComboId                      
+iCourseId                        
+iUnit            "
+15,cPos_RestCourse,Point of Sales,Stores customization data for restaurant course,\POS\MainScreen\MainScreen->Setting,"cPos_RestMenuFormat 
+cPos_RestComboItemDetails
+cPos_RestCourseBodyDetails
+cPos_RestCourseLayout",iMasterId,"iCourseFormatId        
+iCourseId                            iMasterId"
+16,cPos_RestCourseBodyDetails,Point of Sales,Stores customization data for course body ,\POS\MainScreen\MainScreen->Setting,mCore_Product                                       cPos_RestCourse ,iMasterId,"iMasterId                       
+iComboId"
+17,cPos_RestCourseLayout,Point of Sales,Stores customization data for course layout,\POS\MainScreen\MainScreen->Setting,cPos_RestCourse ,iLayoutId,iCourseId
+18,cPos_RestMenu,Point of Sales,Stores customization data for menu,\POS\MainScreen\MainScreen->Setting,"cPos_RestMenuFormat          cPos_RestMenuTemplate                cPos_RestMenuItem
+cPos_RestMenuLanguage
+cPos_RestMenuLayout",iRestMenuId,iMenuTemplateId        iRestMenuId       iMenuFormatId
+19,cPos_RestMenuFormat,Point of Sales,Stores customization data for menu format,\POS\MainScreen\MainScreen->Setting,"cPos_RestMenuFormat
+cPos_RestMenu
+cPos_RestMenuImage
+cPos_RestMenuItem
+mCore_Set",iMenuFormatId,iCourseFormatId     iMenuFormatId
+20,cPos_RestMenuImage,Point of Sales,Stores customization data for menu image,\POS\MainScreen\MainScreen->Setting,cPos_RestMenuFormat ,iMenuFormatId,iMenuFormatId
+21,cPos_RestMenuItem,Point of Sales,Stores customization data for menu item,\POS\MainScreen\MainScreen->Setting,cPos_RestMenuFormat                          mCore_Product                                         cPos_RestMenu ,iMenuItemId,iRestMenuId                 iProductId                     iMenuFormatId
+22,cPos_RestMenuLanguage,Point of Sales,Stores customization data for menu language,\POS\MainScreen\MainScreen->Setting,cCore_LanguageSupported                      cPos_RestMenu ,"iRestMenuId
+iLanguageId","iRestMenuId
+iLanguageId"
+23,cPos_RestMenuLayout,Point of Sales,Stores customization data for menu layout,\POS\MainScreen\MainScreen->Setting,cPos_RestMenu ,iLayoutId,iRestMenuId
+24,cPos_RestMenuTemplate,Point of Sales,Stores customization data for menu template,\POS\MainScreen\MainScreen->Setting,"cPos_Templates 
+cPos_RestMenu",iMenuTemplateId,"iMenuTemplateId
+iTemplateId"
+25,cPos_SecondScreenDetails,Point of Sales,Stores customization data for second screen,\POS\MainScreen\MainScreen->Setting,,iDisplayType,
+26,cPos_Templates,Point of Sales,Stores customization data for 0,\POS\MainScreen\MainScreen->Select Template,"cPos_BodyPanel
+cPos_BottomPanel
+cPos_DefaultHeaderFields
+cPos_DlpHeader
+cPos_HeaderExtraFields
+cPos_LeftPanel
+cPos_RestMenuTemplate",iId,iTemplateId
+27,mPos_BankCardType,Point of Sales,Stores POS bank card type masters data,\Home\Masters\PointOfSales\BankCardType,"mSec_Users
+mPos_BankCardTypeLanguage
+mPos_BankCardTypeTreeDetails
+mPos_BankCardTypeTreeDetails
+tPos_PaymentCardDetails",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iParentId 
+iBankType"
+28,mPos_BankCardTypeLanguage,Point of Sales,Stores POS bank card type language data,\Home\Masters\PointOfSales\BankCardType,"cCore_LanguageSupported 
+mPos_BankCardType ","iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+29,mPos_BankCardTypeTree,Point of Sales,Stores POS bank card type tree data,\Home\Masters\PointOfSales\BankCardType,"mPos_BankCardTypeTreeDetails
+mPos_BankCardTypeTreeFields",iTreeId,iTreeId
+30,mPos_BankCardTypeTreeDetails,Point of Sales,Stores POS bank card type tree details data,\Home\Masters\PointOfSales\BankCardType,mPos_BankCardType                       mPos_BankCardType               mPos_BankCardTypeTree ,iTreeId,"iMasterId
+iParentId
+iTreeId"
+31,mPos_BankCardTypeTreeFields,Point of Sales,Stores POS bank card type tree fields data,\Home\Masters\PointOfSales\BankCardType,cCore_MasterFields                     mPos_BankCardTypeTree ,"iTreeId
+iSequence","iFieldId
+iTreeId"
+32,mPos_CashInOut,Point of Sales,Stores cash in and cash out header data based on outlet,\POS\MainScreen\MainScreen->Transactions,"mCore_Account                                         mCore_Currency 
+mPos_Counter 
+mPos_Outlet 
+mPos_Counter           
+mPos_CashInOutBody
+mPos_CashInOutDenomination",iOutletId,"iAccountId
+iBaseCurrencyId
+iFCounterId
+iOutletId
+iTCounterId
+iUserId
+iCashInOutId"
+33,mPos_CashInOutBody,Point of Sales,Stores cash in and cash out body data based on outlet,\POS\MainScreen\MainScreen->Transactions,mPos_CashInOut                                    mCore_Currency ,iCashInOutId,"iCashInOutId
+iCurrencyId"
+34,mPos_CashInOutDenomination,Point of Sales,Cash denomination data,\POS\MainScreen\MainScreen->Transactions,"mPos_CashInOut 
+mCore_Currency                   mCore_DenominationDetails ",iCashInOutId,"iCashInOutId       
+iCurrencyId
+iDenominationId"
+35,mPos_Category,Point of Sales,Stores Category masters data,\Home\Masters\PointOfSales\Category,"mSec_Users 
+mPos_CategoryLanguage
+mPos_CategoryTreeDetails
+uCore_Bins
+muCore_Product
+muCore_Product",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iParentId 
+iCategory
+iAlternateCategory
+iCategory"
+36,mPos_CategoryLanguage,Point of Sales,Stores Category language data,\Home\Masters\PointOfSales\Category,"cCore_LanguageSupported 
+mPos_Category ","iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+37,mPos_CategoryTree,Point of Sales,Stores Category tree data,\Home\Masters\PointOfSales\Category,"mPos_CategoryTreeDetails
+mPos_CategoryTreeFields",iTreeId,iTreeId
+38,mPos_CategoryTreeDetails,Point of Sales,Stores Category tree details data,\Home\Masters\PointOfSales\Category,"mPos_Category 
+mPos_Category 
+mPos_CategoryTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+39,mPos_CategoryTreeFields,Point of Sales,Stores Category tree fields data,\Home\Masters\PointOfSales\Category,"Core_MasterFields 
+mPos_CategoryTree ","iTreeId
+iSequence","iFieldId
+iTreeId"
+40,mPos_Counter,Point of Sales,Stores Counter masters data,\Home\Masters\PointOfSales\Counter,"mSec_Users 
+mPos_CashInOut
+mPos_CounterLanguage
+CounterTreeDetails
+mPos_HoldTransaction
+mPos_MsgBrdCasting
+mPos_MsgBrdCasting_Dtls",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iParentId 
+iCounterId
+iFromCounterId
+iToCounterId
+iTCounterId
+iFCounterId"
+41,mPos_CounterLanguage,Point of Sales,Stores Counter language data,\Home\Masters\PointOfSales\Counter,"cCore_LanguageSupported 
+mPos_Counter ","iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+42,mPos_CounterTree,Point of Sales,Stores Counter tree data,\Home\Masters\PointOfSales\Counter,"mPos_CounterTreeDetails
+mPos_CounterTreeFields",iTreeId,iTreeId
+43,mPos_CounterTreeDetails,Point of Sales,Stores Counter tree details data,\Home\Masters\PointOfSales\Counter,"mPos_Counter 
+mPos_CounterTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+44,mPos_CounterTreeFields,Point of Sales,Stores Counter tree fields data,\Home\Masters\PointOfSales\Counter,"cCore_MasterFields 
+mPos_CounterTree ","iTreeId
+iSequence","iFieldId
+iTreeId"
+45,mPos_CreaditNote_Redemption,Point of Sales,Stores credit note data,POS\Utilities\CreditNote,mPos_CreditNote ,iId,iCreditNoteId
+46,mPos_CreditNote,Point of Sales,Stores credit note data,POS\Utilities\CreditNote,"mPos_CreditNote_Redemption
+mPos_CreditNote_Amount
+mPos_CreditNote_ConvertPoints
+mPos_CreditNote_Return",iId,iCreditNoteId
+47,mPos_CreditNote_Amount,Point of Sales,Stores credit note data,POS\Utilities\CreditNote,mPos_CreditNote ,iId,iCreditNoteId
+48,mPos_CreditNote_ConvertPoints,Point of Sales,Stores credit note data,POS\Utilities\CreditNote,"mPos_CreditNote 
+mPos_Member 
+mPos_MemberType ",iId,"iCreditNoteId
+iMemberTypeId 
+iMemberId"
+49,mPos_CreditNote_Return,Point of Sales,Stores credit note data,POS\Utilities\CreditNote,mPos_CreditNote ,iId,iCreditNoteId
+50,mPos_Dekitting,Point of Sales,Stores dekitting pos information,\Home\Masters\PointOfSales\Dekitting,mCore_Product ,iId,iProductId
+51,mPos_EmployeeDiscountDefinition,Point of Sales,Stores employee based discount definition master data ,\Home\Masters\PointOfSales\EmployeeDiscountDefinition,mPay_Employee ,iId,iEmployeeId
+52,mPos_EPayment,Point of Sales,Stores E-Payment masters data,\Home\Masters\PointOfSales\EPayment,"mSec_Users 
+mPos_EPaymentLanguage
+mPos_EPaymentTreeDetails
+tPos_PaymentCardDetails",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iParentId 
+iEPaymentType"
+53,mPos_EPaymentLanguage,Point of Sales,Stores E-Payment language data,\Home\Masters\PointOfSales\EPayment,"cCore_LanguageSupported 
+mPos_EPayment ","iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+54,mPos_EPaymentTree,Point of Sales,Stores E-Payment tree data,\Home\Masters\PointOfSales\EPayment,"mPos_EPaymentTreeDetails
+mPos_EPaymentTreeFields",iTreeId,iTreeId
+55,mPos_EPaymentTreeDetails,Point of Sales,Stores E-Payment tree details data,\Home\Masters\PointOfSales\EPayment,"mPos_EPayment 
+mPos_EPaymentTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+56,mPos_EPaymentTreeFields,Point of Sales,Stores E-Payment tree fields data,\Home\Masters\PointOfSales\EPayment,"cCore_MasterFields 
+mPos_EPaymentTree ","iTreeId
+iSequence","iFieldId
+iTreeId"
+57,mPos_Member,Point of Sales,Stores member masters data,\Home\Masters\PointOfSales\Member\Member,"mSec_Users 
+mPos_CreditNote_ConvertPoints
+mPos_GiftVoucherSales
+mPos_HomeDelivery
+mPos_Member_PointsAvl
+mPos_MemberLanguage
+mPos_MemberPointsAcquired
+mPos_MemberTreeDetails
+mPos_ResvTblDtls
+muPos_Member_CardDetails
+tPos_SchemesAppliedBody3",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iMemberId
+iPrimaryMemberToMergeCard"
+58,mPos_Member_PointsAvl,Point of Sales,Stores member points data,\Home\Masters\PointOfSales\Member\MemberPointsDefinition->Post transactions for member  satisfying points evaluation criteria,mPos_Member ,iMasterId,iMasterId
+59,mPos_MemberCardDefinition,Point of Sales,Stores member card definition masters data,\Home\Masters\PointOfSales\Member\MemberCardDefinition,"mSec_Users 
+mPos_MemberCardDefinitionLanguage
+mPos_MemberCardDefinitionTreeDetails
+mPos_MemberCardReg
+muPos_Member_CardDetails_Details",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iParentId 
+iCardDefId
+iCardName"
+60,mPos_MemberCardDefinitionLanguage,Point of Sales,Stores member card definition language data,\Home\Masters\PointOfSales\Member\MemberCardDefinition,cCore_LanguageSupported mPos_MemberCardDefinition ,"iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+61,mPos_MemberCardDefinitionTree,Point of Sales,Stores member card definition tree data,\Home\Masters\PointOfSales\Member\MemberCardDefinition,"mPos_MemberCardDefinitionTreeDetails
+mPos_MemberCardDefinitionTreeFields",iTreeId,iTreeId
+62,mPos_MemberCardDefinitionTreeDetails,Point of Sales,Stores member card definition tree details data,\Home\Masters\PointOfSales\Member\MemberCardDefinition,mPos_MemberCardDefinition mPos_MemberCardDefinitionTree ,iTreeId,"iMasterId
+iParentId
+iTreeId"
+63,mPos_MemberCardDefinitionTreeFields,Point of Sales,Stores member card definition tree fields data,\Home\Masters\PointOfSales\Member\MemberCardDefinition,cCore_MasterFields mPos_MemberCardDefinitionTree ,"iTreeId
+iSequence","iFieldId
+iTreeId"
+64,mPos_MemberCardReg,Point of Sales,Table holds member card registration series data,\Home\Masters\PointOfSales\Member\MemberCardRegistrationSeries,mPos_MemberCardDefinition ,iId,iCardDefId
+65,mPos_MemberExtraDetails,Point of Sales,Stores members additional details,\Home\Masters\PointOfSales\Member\MemberType,,iMasterId,
+66,mPos_MemberLanguage,Point of Sales,Stores member language data,\Home\Masters\PointOfSales\Member\Member,"cCore_LanguageSupported 
+mPos_Member ","iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+67,mPos_MemberPointsAcquired,Point of Sales,Stores points information acquired by members,\Home\Masters\PointOfSales\Member\MemberPointsDefinition,"mPos_Member 
+mPos_MemberPointsRedemption",iId,"iMemberId
+iMemberPointsId"
+68,mPos_MemberPointsDef,Point of Sales,Stores members points defination header screen data,\Home\Masters\PointOfSales\Member\MemberPointsDefinition,"mPos_MemberType 
+mPos_MemberPointsDefBody",iId,"iMemberTypeId
+iMemberPointsDefId"
+69,mPos_MemberPointsDefBody,Point of Sales,Stores member points defination body data,\Home\Masters\PointOfSales\Member\MemberPointsDefinition,"mPos_MemberPointsDef 
+mPos_MemberPointsDefBody1",iId,"iMemberPointsDefId
+iMemberPontsDefBodyId"
+70,mPos_MemberPointsDefBody1,Point of Sales,Stores member points defination body data,\Home\Masters\PointOfSales\Member\MemberPointsDefinition,"mPos_MemberPointsDefBody 
+mCore_Product ",iMemberPointsDefBodyId,iMemberPointsDefBodyId iProductId
+71,mPos_MemberPointsDefCriteria,Point of Sales,Criteria for member points,\Home\Masters\PointOfSales\Member\MemberPointsDefinition,mPos_MemberPointsDefBody ,iMemberPontsDefBodyId,iMemberPontsDefBodyId
+72,mPos_MemberPointsOpening,Point of Sales,Stores opening points for members,\Home\Masters\PointOfSales\Member\MemberPointsOpeningBalance,,iId,
+73,mPos_MemberPointsRedemption,Point of Sales,Stores redeemed points information for POS members,\Home\Masters\PointOfSales\Member\MemberPointsDefinition,mPos_MemberPointsAcquired ,iId,iMemberPointsId
+74,mPos_MemberTree,Point of Sales,Stores member tree data,\Home\Masters\PointOfSales\Member\Member,"mPos_MemberTreeDetails
+mPos_MemberTreeFields",iTreeId,iTreeId
+75,mPos_MemberTreeDetails,Point of Sales,Stores member tree details data,\Home\Masters\PointOfSales\Member\Member,"mPos_Member mPos_Member 
+mPos_MemberTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+76,mPos_MemberTreeFields,Point of Sales,Stores member tree fields data,\Home\Masters\PointOfSales\Member\Member,"cCore_MasterFields 
+mPos_MemberTree ","iTreeId
+iSequence","iFieldId
+iTreeId"
+77,mPos_Outlet,Point of Sales,Stores outlet masters data,\Home\Masters\PointOfSales\Outlet,"mSec_Users
+This table is referenced by multiple tables ",iMasterId,"iCreatedBy
+iModifiedBy
+iMasterId 
+iOutletId"
+78,mPos_OutletLanguage,Point of Sales,Stores outlet language data,\Home\Masters\PointOfSales\Outlet,"cCore_LanguageSupported 
+mPos_Outlet","iMasterId 
+iLanguageId","iMasterId 
+iLanguageId"
+79,mPos_OutletPreferences_0,Point of Sales,Stores outlet preferences for current year,\Home\Masters\PointOfSales\Outlet,mPos_Outlet ,"iOutletId
+sPrefType",iOutletId
+80,mPos_OutletTree,Point of Sales,Stores outlet tree data,\Home\Masters\PointOfSales\Outlet,"mPos_OutletTreeDetails
+mPos_OutletTreeFields",iTreeId,iTreeId
+81,mPos_OutletTreeDetails,Point of Sales,Stores outlet tree details data,\Home\Masters\PointOfSales\Outlet,"mPos_Outlet 
+mPos_OutletTree ",iTreeId,"iMasterId
+iParentId
+iTreeId"
+82,mPos_OutletTreeFields,Point of Sales,Stores outlet tree fields data,\Home\Masters\PointOfSales\Outlet,"cCore_MasterFields 
+mPos_OutletTree ","iTreeId
+iSequence","iFieldId
+iTreeId"
+83,mPos_Preferences_0,Point of Sales,Stores POS screen utility preferences for current year,\POS\Utility\Preference,,sPrefType,
+84,tPos_ActionApproved,Point of Sales,Stores approved actions data,\POS\MainScreen,mSec_Users,"iTransactionId
+sVoucherNo",iApprovedBy
+85,tPos_BankCardType_AuditLogDetails,Point of Sales,Audit log for bank card type,\Home\Masters\PointOfSales\BankCardType->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+86,tPos_Category_AuditLogDetails,Point of Sales,Audit log for category master,\Home\Masters\PointOfSales\Category->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+87,tPos_Counter_AuditLogDetails,Point of Sales,Audit log for counter master,\Home\Masters\PointOfSales\Counter->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+88,tPos_CreditSaleBody_0,Point of Sales,Stores credit sales body data,Post Credit Transactions,,iCrNoteTransId,
+89,tPos_CreditSaleHeader_0,Point of Sales,Stores credit sales header data,Post Credit Transactions,mCore_Account ,iId,iCustomerId
+90,tPos_DeliveryTimeInterval_AuditLogDetails,Point of Sales,Audit log for delivery time interval,\Home\Masters\PointOfSales\DeliveryTimeInterval->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+91,tPos_DiscountVoucherDefinition_AuditLogDetails,Point of Sales,Audit log for discount voucher defination masters,\Home\Masters\PointOfSales\DiscountVoucher\DiscountVoucher\Definition->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+92,tPos_EPayment_AuditLogDetails,Point of Sales,Audit log for epayment masters,\Home\Masters\PointOfSales\EPayment->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+93,tPos_Floor_AuditLogDetails,Point of Sales,Audit log for POS floor masters,\Home\Masters\PointOfSales\TableManagement\Floor->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+94,tPos_GiftVoucherDefinition_AuditLogDetails,Point of Sales,Audit log for gift voucher defination,\Home\Masters\PointOfSales\GiftVoucher\GiftVoucherDefinition->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+95,tPos_Guest_AuditLogDetails,Point of Sales,Audit log for guest,\Home\Masters\PointOfSales\TableManagement\Guest->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+96,tPos_KitchenDisplaySystem_AuditLogDetails,Point of Sales,Audit log for kitchen display system,\Home\Masters\PointOfSales\KitchenDisplaySystem->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+97,tPos_Member_AuditLogDetails,Point of Sales,Audit log for pos menbers master,\Home\Masters\PointOfSales\Member\Member->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+98,tPos_MemberCardDefinition_AuditLogDetails,Point of Sales,Audit log for member card defination,\Home\Masters\PointOfSales\Member\MemberCardDefinition->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+99,tPos_MemberType_AuditLogDetails,Point of Sales,Audit log for member type ,\Home\Masters\PointOfSales\Member\MemberType->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+100,tPos_Outlet_AuditLogDetails,Point of Sales,Audit log for outlet master,\Home\Masters\PointOfSales\Outlet->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+101,tPos_PaymentBody,Point of Sales,Stores POS payment vouchers body data,Post POS payment Transactions,"mCore_Currency 
+tPos_PaymentHeader 
+tPos_PaymentDenomination",iId,"iPaidCurrencyId
+iPaymentHeaderId
+iPaymentBodyId"
+102,tPos_PaymentCardDetails,Point of Sales,Stores payment card details in POS system,Post POS payment Transactions,"mPos_BankCardType 
+mPos_EPayment 
+tPos_PaymentHeader",iPaymentHeaderId,"iPaymentHeaderId
+iEPaymentType
+iBankType"
+103,tPos_PaymentDenomination,Point of Sales,Stores payment denomination data in POS system,Post POS payment Transactions,"mCore_DenominationDetails 
+tPos_PaymentBody ",iPaymentBodyId,"iPaymentBodyId
+iDenominationId"
+104,tPos_PaymentHeader,Point of Sales,Stores POS payment header information,Post POS payment Transactions,"mCore_Currency 
+tPos_PaymentBody
+tPos_PaymentCardDetails",iId,"iPaymentHeaderId
+iBaseCurrencyId"
+105,tPos_ReturnRemarks_AuditLogDetails,Point of Sales,Audit log for return remarks,\Home\Masters\PointOfSales\ReturnRemark->Edit,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+106,tPos_SchemesApplied,Point of Sales,Stores applied schemes header data,Home->Masters->Scheme,tPos_SchemesAppliedBody1,iId,iSchAppHeaderId
+107,tPos_SchemesAppliedBody1,Point of Sales,Stores applied schemes body data,Home->Masters->Scheme,"tPos_SchemesApplied mCore_Units 
+tPos_SchemesAppliedBody2
+tPos_SchemesAppliedBody3",iId,"iSchAppHeaderId
+iUnitId
+iSchAppBody1Id"
+108,tPos_SchemesAppliedBody2,Point of Sales,Stores applied schemes body data,Home->Masters->Scheme,tPos_SchemesAppliedBody1 ,iSchAppBody1Id,iSchAppBody1Id
+109,tPos_SchemesAppliedBody3,Point of Sales,Stores applied schemes body data,Home->Masters->Scheme,"mPos_Member 
+tPos_SchemesAppliedBody1 ",iSchAppBody1Id,"iSchAppBody1Id
+iMemberId"
+110,tPos_Section_AuditLogDetails,Point of Sales,Audit log for POS section,\Home\Masters\PointOfSales\TableManagement\Section->Edit Master,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+111,tPos_Table_AuditLogDetails,Point of Sales,Audit log for POS table masters,\Home\Masters\PointOfSales\TableManagement\Table->Edit Master,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+112,tPos_TblMergeStatus,Point of Sales,Stores table merge status for rest POS,\POS\MainScreen\MainScreen->Select Panel having table merge status shortcut->Set merge table status,mPos_ResvTblDtls ,iSourceReserveId,sDestinationVoucherNo
+113,tPos_TblStatus,Point of Sales,Stores table status information,\POS\MainScreen\MainScreen->Select Panel having table status shortcut->Set table status,"
+mPos_ResvTblDtls 
+mPos_Table ",iTransId,"iTransId
+iReserveId
+iTableId"
+114,tPos_TransactionInfo,Point of Sales,Stores transaction information in POS,\POS\MainScreen\MainScreen->PostTransactions,,iSalesTransId,
+115,tPos_VoidRemarks_AuditLogDetails,Point of Sales,Audit log for void remarks,\Home\Masters\PointOfSales\TableManagement\VoidRemarks->Edit Master,"tCore_MasterAuditLog 
+cCore_Fields ",iAuditId,"iAuditId
+iFieldId"
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
