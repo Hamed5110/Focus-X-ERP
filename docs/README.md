@@ -19,6 +19,7 @@ Use the dictionary to find table purpose, identity fields, and linked tables. Th
 | [CORE-TABLES.md](CORE-TABLES.md) | Core transaction & master tables we use |
 | [VOUCHER-TYPES-AND-AMOUNTS.md](VOUCHER-TYPES-AND-AMOUNTS.md) | Voucher type IDs, Credit vs Voucher amount |
 | [PROJECT-TRACKING-III.md](PROJECT-TRACKING-III.md) | Atlas Project Tracking III algorithm |
+| [APPLY-CUSTOMIZATION-ERROR.md](APPLY-CUSTOMIZATION-ERROR.md) | Fix `Input string was not in a correct format` |
 
 ## Environment (this company)
 

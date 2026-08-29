@@ -1,76 +1,36 @@
 SELECT
     acc.sName AS Name,
-    CAST(ISNULL(doc.SODate, 0) AS decimal(18, 0)) AS [Sales Order Date],
-    ISNULL(acc.CPRCRNumber, N'') AS [CPR/CR Number],
-    acc.sCode AS Code,
-    ISNULL(acc.iCityName, N'') AS City,
-    ISNULL(acc.sTelNo, N'') AS [Phone No.],
-    ISNULL(acc.SalesmannameName, N'') AS [Salesman name],
-    ISNULL(acc.DesignernameName, N'') AS [Designer name],
-    ISNULL(acc.PipelineName, N'') AS Pipeline,
-    ISNULL(acc.SiteStatusName, N'') AS [Site Status],
     CAST(ISNULL(doc.ContractAmt, 0) AS decimal(18, 2)) AS [Total Contract Amount],
     CAST(ISNULL(fa.AdvRctAmt, 0) AS decimal(18, 2)) AS [Adv. Rct Amount],
+    /* Balance = Total Contract Amount - Adv. Rct Amount (signed contract) */
     CAST(ISNULL(doc.ContractAmt, 0) - ISNULL(fa.AdvRctAmt, 0) AS decimal(18, 2)) AS [Balance Amount],
-    CAST(ISNULL(doc.SjoAmt, 0) AS decimal(18, 2)) AS [Sales Job Order],
-    CAST(ISNULL(doc.ProdNoteAmt, 0) AS decimal(18, 2)) AS [Production Note Amount],
-    ISNULL(acc.SalesModuleName, N'') AS [Sales Module],
-    CAST(ISNULL(doc.ContractAmt, 0) - ISNULL(doc.SjoAmt, 0) AS decimal(18, 2)) AS [Sales Job Order Balance],
-    CAST(ISNULL(acc.PlanValue, 0) AS decimal(18, 2)) AS [Plan Value],
-    ISNULL(acc.Planningmonth, N'') AS [Planning month],
-    ISNULL(acc.AccountControllerName, N'') AS [Account Controller],
-    ISNULL(acc.FinalMeasurementEmployeenameName, N'') AS [Final Measurement - Employee name],
-    ISNULL(acc.FinalMeasurementStatusName, N'') AS [Final Measurement Status],
-    ISNULL(acc.ReportStatusName, N'') AS [Account2.Report Status],
-    CAST(ISNULL(acc.ComprehensiveReportAtlas, 0) AS decimal(18, 2)) AS [Comprehensive Report Atlas],
-    CAST(ISNULL(acc.SJOprocessing, 0) AS decimal(18, 2)) AS [SJO processing],
-    ISNULL(acc.AdvancePaymentStatusName, N'') AS [Advance Payment Status],
-    CAST(0 AS decimal(18, 0)) AS iDate
+    CAST(ISNULL(acc.PlanValue, 0) AS decimal(18, 2)) AS [Plan Value]
 FROM (
     SELECT
         iMasterId,
         MAX(sName) AS sName,
-        MAX(sCode) AS sCode,
-        MAX(CPRCRNumber) AS CPRCRNumber,
-        MAX(iCityName) AS iCityName,
-        MAX(sTelNo) AS sTelNo,
-        MAX(SalesmannameName) AS SalesmannameName,
-        MAX(DesignernameName) AS DesignernameName,
-        MAX(PipelineName) AS PipelineName,
-        MAX(SiteStatusName) AS SiteStatusName,
-        MAX(SalesModuleName) AS SalesModuleName,
-        MAX(PlanValue) AS PlanValue,
-        MAX(Planningmonth) AS Planningmonth,
-        MAX(AccountControllerName) AS AccountControllerName,
-        MAX(FinalMeasurementEmployeenameName) AS FinalMeasurementEmployeenameName,
-        MAX(FinalMeasurementStatusName) AS FinalMeasurementStatusName,
-        MAX(ReportStatusName) AS ReportStatusName,
-        MAX(CAST(ComprehensiveReportAtlas AS int)) AS ComprehensiveReportAtlas,
-        MAX(CAST(SJOprocessing AS int)) AS SJOprocessing,
-        MAX(AdvancePaymentStatusName) AS AdvancePaymentStatusName
+        MAX(PlanValue) AS PlanValue
     FROM dbo.vaCore_Account
     WHERE ReportStatus = 3
       AND ISNULL(bGroup, 0) = 0
     GROUP BY iMasterId
 ) acc
 LEFT JOIN (
+    /* Signed contract net (Focus "Reverse Sign" convention): minus-valued SO
+       vouchers net against normal ones inside SUM; if they dominate, the
+       account total shows with a minus (e.g. Abdulrahman Abdullah -205). */
     SELECT
         AccName,
-        MIN(SODate) AS SODate,
-        ROUND(ABS(SUM(CASE WHEN iVoucherType = 5634 THEN VoucherAmt ELSE 0 END)), 0) AS ContractAmt,
-        ROUND(ABS(SUM(CASE WHEN iVoucherType = 5635 THEN VoucherAmt ELSE 0 END)), 0) AS SjoAmt,
-        ROUND(ABS(SUM(CASE WHEN iVoucherType = 6145 THEN VoucherAmt ELSE 0 END)), 0) AS ProdNoteAmt
+        ROUND(SUM(VoucherAmt) * -1, 0) AS ContractAmt
     FROM (
         SELECT
             a.sName AS AccName,
-            h.iVoucherType,
             h.iHeaderId,
-            MIN(CASE WHEN h.iVoucherType = 5634 THEN h.iDate END) AS SODate,
             MAX(h.fNet) AS VoucherAmt
         FROM dbo.tCore_Header_0 h
         INNER JOIN dbo.tCore_Data_0 d
             ON d.iHeaderId = h.iHeaderId
-           AND h.iVoucherType IN (5634, 5635, 6145)
+           AND h.iVoucherType = 5634
            AND d.iFaTag = 2040
            AND d.iBookNo > 0
            AND ISNULL(d.iType, 0) = 0
@@ -81,7 +41,7 @@ LEFT JOIN (
            AND ISNULL(d.bVoid, 0) = 0
         INNER JOIN dbo.mCore_Account a
             ON a.iMasterId = d.iBookNo
-        GROUP BY a.sName, h.iVoucherType, h.iHeaderId
+        GROUP BY a.sName, h.iHeaderId
     ) DocHdr
     GROUP BY AccName
 ) doc ON doc.AccName = acc.sName
