@@ -46,6 +46,7 @@ FROM (
         acc.sName AS Name,
         CAST(ISNULL(doc.ContractAmt, 0) AS decimal(18, 2)) AS [Total Contract Amount],
         CAST(ISNULL(fa.AdvRctAmt, 0) AS decimal(18, 2)) AS [Adv. Rct Amount],
+        /* Balance = Total Contract Amount - Adv. Rct Amount (signed contract) */
         CAST(ISNULL(doc.ContractAmt, 0) - ISNULL(fa.AdvRctAmt, 0) AS decimal(18, 2)) AS [Balance Amount],
         CAST(ISNULL(acc.PlanValue, 0) AS decimal(18, 2)) AS [Plan Value]
     FROM (
@@ -60,6 +61,8 @@ FROM (
         GROUP BY iMasterId
     ) acc
     INNER JOIN (
+        /* Cube row-inclusion rule: account''s OWN master has >= 1 direct
+           Atlas (2040) authorized live document (SO or any credit type). */
         SELECT DISTINCT d.iBookNo AS iMasterId
         FROM dbo.tCore_Header_0 h
         INNER JOIN dbo.tCore_Data_0 d
@@ -73,6 +76,8 @@ FROM (
            AND ISNULL(h.bVersion, 0) = 0
            AND ISNULL(h.bSuspended, 0) = 0
            AND ISNULL(d.bVoid, 0) = 0
+           /* Cube as-on-date cut-off (packed iDate = Y*65536 + M*256 + D) */
+           AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
         UNION
         SELECT d.iCode
         FROM dbo.tCore_Header_0 h
@@ -89,6 +94,7 @@ FROM (
            AND ISNULL(h.bVersion, 0) = 0
            AND ISNULL(h.bSuspended, 0) = 0
            AND ISNULL(d.bVoid, 0) = 0
+           AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
         UNION
         SELECT d.iBookNo
         FROM dbo.tCore_Header_0 h
@@ -106,8 +112,12 @@ FROM (
            AND ISNULL(h.bVersion, 0) = 0
            AND ISNULL(h.bSuspended, 0) = 0
            AND ISNULL(d.bVoid, 0) = 0
+           AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
     ) act ON act.iMasterId = acc.iMasterId
     LEFT JOIN (
+        /* Signed contract net (Focus "Reverse Sign" convention): minus-valued SO
+           vouchers net against normal ones inside SUM; if they dominate, the
+           account total shows with a minus (e.g. Abdulrahman Abdullah -205). */
         SELECT
             AccName,
             ROUND(SUM(VoucherAmt) * -1, 0) AS ContractAmt
@@ -128,6 +138,7 @@ FROM (
                AND ISNULL(h.bVersion, 0) = 0
                AND ISNULL(h.bSuspended, 0) = 0
                AND ISNULL(d.bVoid, 0) = 0
+               AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
             INNER JOIN dbo.mCore_Account a
                 ON a.iMasterId = d.iBookNo
             GROUP BY a.sName, h.iHeaderId
@@ -135,6 +146,8 @@ FROM (
         GROUP BY AccName
     ) doc ON doc.AccName = acc.sName
     LEFT JOIN (
+        /* Cube Adv = sum of 6 Credit columns then DecimalInColumn=0.
+           Per XML: type 4610 (CRM Adv) DecimalInColumn=0; other credits = 2. */
         SELECT
             AccName,
             ROUND(SUM(
@@ -167,6 +180,7 @@ FROM (
                    AND ISNULL(h.bVersion, 0) = 0
                    AND ISNULL(h.bSuspended, 0) = 0
                    AND ISNULL(d.bVoid, 0) = 0
+                   AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
                 INNER JOIN dbo.mCore_Account a
                     ON a.iMasterId = d.iCode
                 UNION ALL
@@ -189,6 +203,7 @@ FROM (
                    AND ISNULL(h.bVersion, 0) = 0
                    AND ISNULL(h.bSuspended, 0) = 0
                    AND ISNULL(d.bVoid, 0) = 0
+                   AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
                 INNER JOIN dbo.mCore_Account a
                     ON a.iMasterId = d.iBookNo
             ) Cr
@@ -196,7 +211,97 @@ FROM (
         ) ByType
         GROUP BY AccName
     ) fa ON fa.AccName = acc.sName
+    LEFT JOIN (
+        /* Cube duplicate-name rule: a name shared by several Trade-Receivables
+           accounts is ONE cube row whose Report Status = MIN(ReportStatus)
+           over the members that contribute transactions to the cube''s sets
+           (dept 2040: any voucher type via iCode, or 5634/5635/6145 via
+           iBookNo). Keep this account only when its own status equals the
+           name-group status; otherwise the cube files the row under another
+           status report (or hides it when the group status is 0). */
+        SELECT n.sName, MIN(n.ReportStatus) AS GroupStatus
+        FROM (
+            SELECT v.iMasterId, v.sName, v.ReportStatus
+            FROM dbo.vaCore_Account v
+            WHERE v.iTreeId = 0 AND ISNULL(v.bGroup, 0) = 0
+              AND v.iMasterId IN (
+                    SELECT tr.iMasterId
+                    FROM dbo.mCore_AccountTreeDetails tr
+                    WHERE tr.iTreeId = 0
+                      AND tr.iParentId IN (
+                            SELECT iMasterId
+                            FROM dbo.mCore_Account
+                            WHERE sName = ''Trade Receivables''
+                              AND ISNULL(bGroup, 0) = 1
+                          )
+                  )
+              AND v.sName IN (
+                    SELECT v2.sName
+                    FROM dbo.vaCore_Account v2
+                    WHERE v2.iTreeId = 0 AND ISNULL(v2.bGroup, 0) = 0
+                      AND v2.iMasterId IN (
+                            SELECT tr2.iMasterId
+                            FROM dbo.mCore_AccountTreeDetails tr2
+                            WHERE tr2.iTreeId = 0
+                              AND tr2.iParentId IN (
+                                    SELECT iMasterId
+                                    FROM dbo.mCore_Account
+                                    WHERE sName = ''Trade Receivables''
+                                      AND ISNULL(bGroup, 0) = 1
+                                  )
+                          )
+                    GROUP BY v2.sName
+                    HAVING COUNT(DISTINCT v2.iMasterId) > 1
+                  )
+        ) n
+        INNER JOIN (
+            SELECT DISTINCT d.iCode AS iMasterId
+            FROM dbo.tCore_Header_0 h
+            INNER JOIN dbo.tCore_Data_0 d ON d.iHeaderId = h.iHeaderId
+            WHERE d.iFaTag = 2040 AND d.iCode > 0
+              AND ISNULL(h.iAuth, 1) = 1 AND ISNULL(h.bCancelled, 0) = 0
+              AND ISNULL(h.bVersion, 0) = 0 AND ISNULL(h.bSuspended, 0) = 0
+              AND ISNULL(d.bVoid, 0) = 0
+              AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
+            UNION
+            SELECT DISTINCT d.iBookNo
+            FROM dbo.tCore_Header_0 h
+            INNER JOIN dbo.tCore_Data_0 d ON d.iHeaderId = h.iHeaderId
+            WHERE h.iVoucherType IN (5634, 5635, 6145)
+              AND d.iFaTag = 2040 AND d.iBookNo > 0
+              AND ISNULL(h.iAuth, 1) = 1 AND ISNULL(h.bCancelled, 0) = 0
+              AND ISNULL(h.bVersion, 0) = 0 AND ISNULL(h.bSuspended, 0) = 0
+              AND ISNULL(d.bVoid, 0) = 0
+              AND h.iDate <= (YEAR(GETDATE()) * 65536) + (MONTH(GETDATE()) * 256) + DAY(GETDATE())
+        ) c ON c.iMasterId = n.iMasterId
+        GROUP BY n.sName
+    ) grp ON grp.sName = acc.sName
     WHERE acc.iMasterId > 0
+      /* Cube duplicate-name rule: the account row survives only when its own
+         Report Status equals the name-group status (MIN over contributing
+         members). Single-name accounts have no grp row and always pass. */
+      AND (grp.sName IS NULL OR grp.GroupStatus = acc.ReportStatus)
+      /* Cube account-group filter: only accounts under "Trade Receivables"
+         (main account tree, iTreeId = 0). Group id resolved by name. */
+      AND acc.iMasterId IN (
+            SELECT tr.iMasterId
+            FROM dbo.mCore_AccountTreeDetails tr
+            WHERE tr.iTreeId = 0
+              AND tr.iParentId IN (
+                    SELECT iMasterId
+                    FROM dbo.mCore_Account
+                    WHERE sName = ''Trade Receivables''
+                      AND ISNULL(bGroup, 0) = 1
+                  )
+          )
+      /* Cube zero-row suppression (IsPrintZeroValue = false): the cube hides
+         rows whose value columns are all zero, so all-zero accounts (e.g.
+         documents netting to 0) must not be counted either. */
+      AND (
+            ISNULL(doc.ContractAmt, 0) <> 0
+         OR ISNULL(fa.AdvRctAmt, 0) <> 0
+         OR ISNULL(acc.PlanValue, 0) <> 0
+          )
 ) x
 GROUP BY x.ReportStatus
 ORDER BY x.ReportStatus';

@@ -6,7 +6,7 @@ Focus Query wraps your `SELECT` and maps result columns onto a saved **layout**.
 
 | Do not use | Why |
 |---|---|
-| `DECLARE` / variables | Not allowed in Query reports |
+| `DECLARE` / local variables | Not allowed in Query reports. Focus binds `@iStartDate` / `@iEndDate` itself |
 | `ORDER BY` | Focus may wrap as a view |
 | `GO` / `USE` | Multi-batch / context switch breaks the wrapper |
 | `dbo.IntToDate()` returning `datetime` | Layout Date/Decimal mismatch → cast errors |
@@ -36,15 +36,41 @@ Empty date = **`0`**, not `NULL` (Focus period filter often uses `OR iDate = 0`)
 
 Helpers (SSMS only): `dbo.IntToDate`, `dbo.DateToInt` — avoid in Focus Query SELECT lists.
 
-### Period injection column `iDate`
+### Header Date Range — custom Query SQL (verified 10 Sep 2026)
 
-Focus injects the report period onto a result column named **`iDate`**.
+Custom Query reports (`iReportType = 1`, `iSourceType = 1`) do **not** honor the header Date Range unless the SQL uses Focus’s bound period variables. Proven on **70266 Monthly Commission**; same pattern already in **70198** and **70223**.
 
 ```sql
-CAST(0 AS decimal(18, 0)) AS iDate
+AND h.iDate BETWEEN @iStartDate AND @iEndDate
 ```
 
-Hide `iDate` in the layout (`Miscelleneous` / misc option **66**). Do **not** put real Sales Order dates in `iDate` unless you want the period to filter by that date.
+| Do | Do not |
+|---|---|
+| Put `BETWEEN @iStartDate AND @iEndDate` on the header join (`h.iDate` / `ht.iDate`) | `DECLARE @iStartDate` |
+| Keep result `iDate` as packed `decimal(18, 0)` | `CONVERT(DATE, CAST(iDate AS VARCHAR(8)), 112)` — `iDate` is **not** YYYYMMDD |
+| Keep a trailing `WHERE x.iDate > 0` | Return DateTime / `dd/MM/yyyy` as `iDate` |
+| Use packed `DateToInt` (`YEAR*65536 + MONTH*256 + DAY`) | Hard-code a month / `DateToInt(GETDATE())` |
+| Let Focus bind `@iStartDate` / `@iEndDate` from the header | Date-type report parameters — DateTime overflows against packed `iDate` |
+
+Live example: 1 Sep 2026 is packed **`132778241`**, not `20260901`. Style 112 on the packed number is NULL.
+
+`@iStartDate` / `@iEndDate` are packed integers from the header picker. YYYYMMDD bounds return 0 rows. DateTime bounds overflow.
+
+Transaction Set alone does **not** filter custom SQL. Default cube/register reports still use a Transaction Set plus Focus appending onto the first `WHERE`:
+
+```sql
+AND iDate >= Start AND iDate <= End OR iDate = 0
+```
+
+That append is unreliable for custom SQL. Prefer `@iStartDate` / `@iEndDate` on the fact join.
+
+```sql
+CAST(h.iDate AS decimal(18, 0)) AS iDate
+```
+
+`CAST(0 AS iDate)` makes `OR iDate = 0` keep every row.
+
+Hide `iDate` in the layout (`Miscelleneous` / misc option **66**), type **Fraction**. Use a text column such as Month Year for display.
 
 ### Amounts and flags
 

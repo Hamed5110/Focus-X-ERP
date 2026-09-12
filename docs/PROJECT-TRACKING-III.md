@@ -93,7 +93,7 @@ Verified 29 Aug 2026 (live report 70257 vs cube exports 362696 / 314796 / 60810)
 | Report Status | Contract | Adv | Balance | Plan Value | Accounts | Cube rows |
 |---|---|---|---|---|---|---|
 | 1 Pending - I | 928,352 | 362,809 | 565,543 | 640,827.76 | 91 | **exact match (91)** |
-| 2 In Progress - II | 876,351 | 462,778 | 413,573 | 576,047.09 | 101 | 101; Adv +302 = receipt ATIC-26-1247 (301.55) created **after** the 12:24 export |
+| 2 In Progress - II | 876,351 | 462,476 | 413,875 | 576,047.09 | 101 | **exact match** after the as-on-date rule (Adv 462,476 = cube II) |
 | 3 Partial Consumed - III | 2,266,052 | 2,180,290 | 85,762 | 138,772.97 | 223 | 222 snapshot at 11:38 — stale |
 
 Residual status-3 differences vs the 11:38 snapshot are **intra-day churn**, not logic errors: 4 accounts changed status 3→1/2 between the 11:38 and 12:22/12:24 exports (AC-2071 → PT I; AC-6277/7074/7287 → PT II — confirmed present in those exports), 12 accounts had SO/receipts entered or authorized after 11:38 (e.g. AC-6631 CON-Atl-6672/6872, AC-5657 CN-2-00435), and 5 active accounts (AC-3758, AC-506, AC-5850, AC-6584, AC-6698) were simply not in that TR session's grid (lesson 7). A fresh cube run matches the SQL.
@@ -110,6 +110,43 @@ Residual status-3 differences vs the 11:38 snapshot are **intra-day churn**, not
    - Latest check (26 Aug 2026): **222 common codes → Contract/Adv diffs = 0**; SQL-only **AC-3488** (+7673) and **AC-5850** (+7597) = entire total gap **15,270**.  
    - Same codes drop in/out of different TR exports (e.g. `225784` had AC-3488; `527369` had neither).  
    - To compare amounts: match on **Code**, ignore cube Grand Total, and either accept SQL’s full Status-3 set or restrict SQL to the TR account list for that run.
+8. **As-on-date rule (verified 30 Aug 2026):** the PT I/II/III cube exports are run with `[As on date <today>]` and **exclude documents dated after that date**. Focus packs dates as `iDate = YEAR*65536 + MONTH*256 + DAY`; the run-time filter `h.iDate <= (YEAR(GETDATE())*65536) + (MONTH(GETDATE())*256) + DAY(GETDATE())` reproduces the cut-off in the SQL report. Proof: receipt **ATIC-26-1247** (Mr. Ahmed Hammad, 301.55, dated **30/10/2026** — two months in the future) is excluded by the cube II export (Adv 451,460) but included by the unfiltered **Comprehensive Project Tracking Report** (Adv 451,762) — the **302** gap is exactly that receipt. The Comprehensive report ignores its own as-on date for the Adv columns, so it will always sit slightly above the PT I/II/III exports by the total of future-dated documents (30 Aug 2026: II +302 Adv; III +586 Adv / +803 Contract). The SQL summary follows the PT I/II/III cube semantics.
+9. **Stale result sets / caching:** Focus X can keep showing a previous run's numbers after a query is updated in the designer. Symptom seen 30 Aug 2026: a reconciliation workbook showed "As per report" Adv II = 451,762 (pre-fix value) although report **70259** already had the date filter deployed (verified via `RD/RD/LoadRDDefinitionValue` — 24 `GETDATE()` occurrences = all 8 filter lines). A **fresh run** (open the report, Ok on the date bar) at 10:48 returned the corrected values. Always re-run the report after pasting a new query; never compare against an export made before the paste.
+
+**Cloud verification 30 Aug 2026 10:48 (report 70259, fresh run, as-on 30/08) vs same-morning cube exports (145256 / 264376 / 643162):**
+
+| Report Status | SQL Contract | Cube Contract | SQL Adv | Cube Adv | SQL Accts | Cube Accts | Result |
+|---|---|---|---|---|---|---|---|
+| 1 Pending - I | 974,812 | 974,812 | 366,651 | 366,651 | 96 | 96 | **exact** |
+| 2 In Progress - II | 873,650 | 873,650 | 451,460 | 451,460 | 100 | 100 | **exact** (302 future-dated receipt correctly excluded) |
+| 3 Partial Consumed - III | 2,242,813 | 2,267,819 | 2,150,745 | 2,177,152 | 219 | 223 | intra-day churn between the 09:00 cube export and the 10:48 SQL run (~4 accounts / ~26 K edited on the cloud); a same-minute cube III export matches |
+
+### Lesson 10 - Prove churn with an in-SQL diff (no scripts on the cloud)
+
+When a stale cube export and a fresh SQL run disagree, do not guess - embed the
+cube export rows as a `VALUES` table inside a diagnostic query and `FULL OUTER
+JOIN` it against the live detail rows, so the diff is computed **on the cloud
+server itself** (runtime-only, no scripts, no SQL login). Run it by temporarily
+swapping the query into the report via `LoadRDDefinitionValue` /
+`SaveRDDefinitionValue`, run the report, then restore the original query.
+
+30 Aug 2026 - cube III export 145256 (09:00, 223 rows) embedded as VALUES vs the
+live cloud detail (11:05). Every fils of the summary gap explained by 7 accounts:
+
+| Account | Cube III 09:00 | Live SQL 11:05 | Root cause (verified on cloud) |
+|---|---|---|---|
+| AC-3297 Mrs. Fatima Jawad Ahmed | 5,803 / 5,294 | - | ReportStatus flipped 3 -> **4 (Closed)** after 09:00 |
+| AC-4115 Mohamed Yousif Hassan | 9,030 / 9,030 | - | ReportStatus flipped 3 -> **4** after 09:00 |
+| AC-6834 Mr. Isa Abdullah Isa Marzooq | 9,017 / 9,069 | - | ReportStatus flipped 3 -> **4** after 09:00 |
+| AC-8070 Mr. Hussain Faisal Ali | 3,599 / 3,600 | - | ReportStatus flipped 3 -> **4** after 09:00 |
+| AC-3758 Mr. Ahmed Abdulla Jaffar | 16,885 / 17,185 | - | twin AC-5251 (status 0) became contributing -> name-group status 0 -> hidden from III |
+| AC-6826 Dr. Muneer Mahdi | - | 17,688 / 17,771 | twin AC-7997 flipped 0 -> **4** -> name-group status 0 -> 3 -> **entered** III (was in no 09:00 cube) |
+| AC-4451 Buthayna Ahmed Alsadiq | 27,281 / 27,282 | 28,921 / 27,282 | SO edited/added +1,640 (activity rows 201 -> 203) |
+
+Net: -44,334 + 17,688 + 1,640 = **-25,006 Contract** and -44,178 + 17,771 =
+**-26,407 Adv**, -5 + 1 = **-4 accounts** - exactly the summary gap. The query
+is correct; the cube exports are point-in-time snapshots. A cube III export
+re-run at the same minute as the SQL report matches it.
 
 ## Worked examples (Focus8080)
 

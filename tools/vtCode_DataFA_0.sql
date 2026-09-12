@@ -1,0 +1,198 @@
+
+            create view dbo.vtCode_DataFA_0 as					
+						SELECT 
+						tCore_Data_0.iBodyId ,
+                        iTransactionId ,
+                        iSerialNo ,
+                        iCode iBookNo,
+                        iBookNo iCode ,
+                        iFaTag ,
+                        iInvTag ,
+                        iInvSettingTag,
+                        mAmount1 mAmount2,
+                        mAmount2 mAmount1,
+                        mAmount3 ,
+                        mOriginalAmount  ,
+                        iDueDate  ,
+                        bSuspendUpdateStocks  ,
+                        bSuspendUpdateFA  ,
+                        bSuspendLinkSaved  ,
+                        bSuspendBaseSaved  ,
+                        bSuspendReservation  ,
+                        bChecked  ,
+                        bSpecialMeaning  ,
+                        bBrs  ,
+                        bPdc  ,
+                        bCOGS  ,
+                        bForexFlux  ,
+                        bSuspendRef  ,
+                        iType  ,
+                        iAuthStatus  ,
+                        bVoid ,
+                        bPnL ,
+                        bFreeQty ,
+                        bPDCDisc ,
+                        iMainBodyId ,
+                        iLocationId ,
+                        iBrsDate ,
+                        iBankStatus ,
+                        bLocked ,
+						bUpdateFA ,
+
+						tCore_Data_0.iHeaderId ,
+	                    --iDate   ,
+	                    iVoucherType   ,
+	                    sVoucherNo   ,
+                        iUserId  ,
+                        iModifiedBy ,
+                        iCreatedDate ,
+                        iCreatedTime ,
+                        iModifiedDate ,
+                        iModifiedTime ,
+	                    bPostCashEntry   ,
+	                    bTDSCertPrepared   ,
+	                    bTDSPaid   ,
+	                    bUpdateStocks   ,
+	                    --bUpdateFA   ,
+	                    bSuspended   ,
+	                    bCancelled   ,
+                        bVersion   ,
+                        iPrintCount ,
+                        bModifiedDiffLoc  ,
+                        bInternal ,
+                        iSyncReceivedDate ,
+                        iEditingLocation ,
+                        bSynced ,
+                        iTriggerBaseHeaderId ,
+                        iGSTFlag ,
+                        bAmended ,
+                        iEmailCount ,
+                        iSource ,
+                        fNet ,
+                        fOrigNet ,
+                        iRepostId ,
+                        bChequeReturn ,
+                        iAuth ,
+
+						CASE WHEN (tCore_Header_0.iVoucherType & 65280) IN(7168,5888) THEN tCore_Data_0.iDueDate ELSE tCore_Header_0.iDate END[iDate] ,	
+							tCore_Data_0.iCurrencyId  ,
+							iBookNo[iMasterId],
+							CASE WHEN mAmount2 < 0 THEN mAmount2 ELSE 0 END Debit, 
+							CASE WHEN mAmount2 > 0 THEN mAmount2 ELSE 0 END Credit
+							,
+							CASE WHEN mAmount2 < 0 THEN mFxAmount2 ELSE 0 END TranDr, 
+							CASE WHEN mAmount2 > 0 THEN mFxAmount2 ELSE 0 END TranCr,
+							CASE WHEN mAmount2 < 0 THEN fLocalAmount2 ELSE 0 END LocalDr, 
+							CASE WHEN mAmount2 > 0 THEN fLocalAmount2 ELSE 0 END LocalCr
+							FROM 
+							tCore_Data_0 
+							JOIN tCore_Header_0  ON tCore_Data_0.iHeaderId = tCore_Header_0.iHeaderId
+							
+							LEFT JOIN tCore_Data_FX_0  ON tCore_Data_FX_0.iBodyId = tCore_Data_0.iBodyId
+							--LEFT JOIN vtCore_RefrnN_0 vtCore_Refrn_0  ON vtCore_Refrn_0.iBodyId = tCore_Data_0.iBodyId 
+							WHERE --(iBookNo = 2672 )AND 
+                            (tCore_Data_0 .bUpdateFA = 1 ) AND tCore_Data_0.bSuspendUpdateFA = 0  AND tCore_Data_0.iAuthStatus < 2 
+							AND tCore_Header_0.iVoucherType & 65280 <> 256
+							AND tCore_Header_0.bSuspended = 0 
+							
+							UNION ALL
+							SELECT 
+
+							tCore_Data_0.iBodyId ,
+                        iTransactionId ,
+                        iSerialNo ,
+                        iCode ,
+                        iBookNo ,
+                        iFaTag ,
+                        iInvTag ,
+                        iInvSettingTag,
+                        mAmount1 ,
+                        mAmount2 ,
+                        mAmount3 ,
+                        mOriginalAmount  ,
+                        iDueDate  ,
+                        bSuspendUpdateStocks  ,
+                        bSuspendUpdateFA  ,
+                        bSuspendLinkSaved  ,
+                        bSuspendBaseSaved  ,
+                        bSuspendReservation  ,
+                        bChecked  ,
+                        bSpecialMeaning  ,
+                        bBrs  ,
+                        bPdc  ,
+                        bCOGS  ,
+                        bForexFlux  ,
+                        bSuspendRef  ,
+                        iType  ,
+                        iAuthStatus  ,
+                        bVoid ,
+                        bPnL ,
+                        bFreeQty ,
+                        bPDCDisc ,
+                        iMainBodyId ,
+                        iLocationId ,
+                        iBrsDate ,
+                        iBankStatus ,
+                        bLocked ,
+						bUpdateFA ,
+						
+
+
+						tCore_Data_0.iHeaderId ,
+	                    --iDate   ,
+	                    iVoucherType   ,
+	                    sVoucherNo   ,
+                        iUserId  ,
+                        iModifiedBy ,
+                        iCreatedDate ,
+                        iCreatedTime ,
+                        iModifiedDate ,
+                        iModifiedTime ,
+	                    bPostCashEntry   ,
+	                    bTDSCertPrepared   ,
+	                    bTDSPaid   ,
+	                    bUpdateStocks   ,
+	                    --bUpdateFA   ,
+	                    bSuspended   ,
+	                    bCancelled   ,
+                        bVersion   ,
+                        iPrintCount ,
+                        bModifiedDiffLoc  ,
+                        bInternal ,
+                        iSyncReceivedDate ,
+                        iEditingLocation ,
+                        bSynced ,
+                        iTriggerBaseHeaderId ,
+                        iGSTFlag ,
+                        bAmended ,
+                        iEmailCount ,
+                        iSource ,
+                        fNet ,
+                        fOrigNet ,
+                        iRepostId ,
+                        bChequeReturn ,
+                        iAuth 
+
+						,
+							--vtCore_Refrn_0.sDetails sDetails4,
+							--'' sDetails4 ,
+							CASE WHEN (tCore_Header_0.iVoucherType & 65280) IN(7168,5888) THEN tCore_Data_0.iDueDate ELSE tCore_Header_0.iDate END[iDate],
+							tCore_Data_0.iCurrencyId  ,
+							
+							iCode[iMasterId],
+							CASE WHEN mAmount1 < 0 THEN mAmount1 ELSE 0 END Debit, 
+							CASE WHEN mAmount1 > 0 THEN mAmount1 ELSE 0 END Credit,
+							CASE WHEN mFXAmount1 < 0 THEN mFXAmount1 ELSE 0 END TranDr, 
+							CASE WHEN mFXAmount1 > 0 THEN mFXAmount1 ELSE 0 END TranCr,
+							CASE WHEN fLocalAmount1 < 0 THEN fLocalAmount1 ELSE 0 END LocalDr, 
+							CASE WHEN fLocalAmount1 > 0 THEN fLocalAmount1 ELSE 0 END LocalCr
+							FROM 
+							tCore_Data_0  
+							JOIN tCore_Header_0  ON tCore_Data_0.iHeaderId = tCore_Header_0.iHeaderId
+							
+							LEFT JOIN tCore_Data_FX_0  ON tCore_Data_FX_0.iBodyId = tCore_Data_0.iBodyId 
+							--LEFT JOIN vtCore_RefrnN_0 vtCore_Refrn_0  ON vtCore_Refrn_0.iBodyId = tCore_Data_0.iBodyId 
+							WHERE --(iCode = 2672)AND 
+                            (tCore_Data_0 .bUpdateFA = 1 ) AND tCore_Data_0.bSuspendUpdateFA = 0  AND tCore_Data_0.iAuthStatus < 2 
+							AND tCore_Header_0.iVoucherType & 65280 <> 256
+							AND tCore_Header_0.bSuspended = 0

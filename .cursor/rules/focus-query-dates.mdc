@@ -1,0 +1,24 @@
+---
+description: Focus Query date filter — use @iStartDate/@iEndDate on packed iDate
+globs: reports/sql/**/*.sql,docs/FOCUS-QUERY-RULES.md,docs/MONTHLY-COMMISSION.md
+alwaysApply: true
+---
+
+# Focus Query period filter
+
+Custom Query SQL honors the header Date Range only with Focus-bound packed ints:
+
+```sql
+AND h.iDate BETWEEN @iStartDate AND @iEndDate
+```
+
+Verified 10 Sep 2026 on report 70266. Same pattern: 70198, 70223. Details: `docs/FOCUS-QUERY-RULES.md`.
+
+- Do not `DECLARE @iStartDate` / `@iEndDate`
+- `tCore_Header_0.iDate` is packed `YEAR*65536 + MONTH*256 + DAY` (1 Sep 2026 = `132778241`), not YYYYMMDD
+- Result column `iDate` stays `CAST(... AS decimal(18, 0))`, layout Fraction, hidden
+- Do not convert `iDate` to DateTime, `dd/MM/yyyy`, or `CONVERT(..., 112)`
+- Do not add Date-type report parameters (overflow vs packed int)
+- Do not hard-code a month with `DateToInt(GETDATE())`
+- Put `BETWEEN` on the header join; keep a trailing `WHERE x.iDate > 0`
+- Database for this company is **Focus80E0**, not Focus8080

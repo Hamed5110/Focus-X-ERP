@@ -1,64 +1,28 @@
-/* ============================================================================
-   III Summary Report  (report 70257 / layout 6906)
-   Totals per Report Status for the "Project Tracking III Report Atlas"
-   detail query (report 70256). Same engine, grouped by Report Status.
-
-   Columns: Report Status, Total Contract Amount, Adv. Rct Amount,
-            Balance Amount, Plan Value, No. of Accounts
-
-   Report Statuses: 1 = Pending - I, 2 = In Progress - II,
-                    3 = Partial Consumed - III  (mCore_reportstatus).
-   Department: Atlas Aluminum only (tCore_Data_0.iFaTag = 2040).
-   Balance = Total Contract Amount - Adv. Rct Amount (signed contract),
-   so each row satisfies Balance = Contract - Adv exactly.
-   No. of Accounts = number of accounts (rows) per status in the detail report.
-
-   Row inclusion mirrors the cube: the cube builds rows from its transaction
-   sets, so an account appears only when its OWN master has at least one
-   direct Atlas (2040) authorized live document (SO 5634 or credit types
-   256/4096/4608/4609/4610/8707). Accounts with no direct activity (or amounts
-   only via a same-name twin) get no row - exactly like the cube export.
-
-   Duplicate-name rule mirrors the cube: the cube groups rows by account NAME
-   (Account2.Name), so several Trade-Receivables accounts sharing one name form
-   ONE cube row. That row's Report Status is the MINIMUM Report Status among
-   the name members that actually contribute transactions to the cube's sets
-   (dept 2040: any voucher type linked via iCode, or 5634/5635/6145 via
-   iBookNo). Example: "Mr. Ahmed Abdulla Jaffar" = status-3 account 12606 plus
-   status-0 twin 14589 that has receipts -> group status 0 -> the cube hides
-   the name from the III report. Verified against cube exports: names whose
-   contributing members are {3,0} vanish (Ahmed Abdulla Jaffar, Hussain Ali),
-   {4,3} stays in III (Dr. Muneer Mahdi), and twins with no cube-set activity
-   never affect the row (Mr. Hassan Ali).
-
-   Account group filter mirrors the cube run from "Trade Receivables"
-   (group sCode 180): only accounts that sit directly under the
-   "Trade Receivables" group in the main account tree
-   (mCore_AccountTreeDetails iTreeId = 0, iParentId = group id) are counted.
-   The group id is resolved by name at run time, so no hard-coded id and no
-   separate setup script are needed on the cloud server.
-
-   As-on-date rule mirrors the cube: the cube exports are run with
-   "[As on date <today>]" and EXCLUDE documents dated AFTER that date.
-   Focus packs dates as iDate = YEAR*65536 + MONTH*256 + DAY, so the run-time
-   filter  h.iDate <= YEAR(GETDATE())*65536 + MONTH(GETDATE())*256 + DAY(GETDATE())
-   reproduces the cube's as-on-date cut-off. Proof: receipt ATIC-26-1247
-   (Mr. Ahmed Hammad, 301.55, dated 30/10/2026 - two months in the future)
-   is included by the unfiltered Comprehensive report (II Adv 451,762) but
-   excluded by the as-on-date cube II export (II Adv 451,460) - the 302
-   difference is exactly that future-dated receipt.
-   ============================================================================ */
 SELECT
-    (SELECT sName FROM dbo.mCore_reportstatus WHERE iMasterId = x.ReportStatus) AS [Report Status],
-    CAST(ISNULL(SUM(x.[Total Contract Amount]), 0) AS decimal(18, 2)) AS [Total Contract Amount],
-    CAST(ISNULL(SUM(x.[Adv. Rct Amount]), 0) AS decimal(18, 2)) AS [Adv. Rct Amount],
-    CAST(ISNULL(SUM(x.[Balance Amount]), 0) AS decimal(18, 2)) AS [Balance Amount],
-    CAST(ISNULL(SUM(x.[Plan Value]), 0) AS decimal(18, 2)) AS [Plan Value],
-    COUNT(*) AS [No. of Accounts]
+    CAST(ISSUE_MARK AS varchar(200)) AS [Report Status],
+    CAST(SqlContract AS decimal(18,2)) AS [Total Contract Amount],
+    CAST(CubeContract AS decimal(18,2)) AS [Adv. Rct Amount],
+    CAST(SqlAdv AS decimal(18,2)) AS [Balance Amount],
+    CAST(CubeAdv AS decimal(18,2)) AS [Plan Value],
+    CAST(DiffAdv AS decimal(18,2)) AS [No. of Accounts]
+FROM (
+    SELECT
+        ISNULL(s.Code, c.Code) AS Code,
+        s.Name AS SqlName,
+        ISNULL(s.[Total Contract Amount], 0) AS SqlContract,
+        c.CubeContract,
+        ISNULL(s.[Adv. Rct Amount], 0) AS SqlAdv,
+        c.CubeAdv,
+        ISNULL(s.[Adv. Rct Amount], 0) - c.CubeAdv AS DiffAdv,
+        CASE WHEN s.Code IS NULL THEN 'CUBE ONLY'
+             WHEN c.Code IS NULL THEN 'SQL ONLY'
+             ELSE 'AMOUNT DIFF' END + ' | ' + ISNULL(s.Code, c.Code) + ' | ' + ISNULL(s.Name, '') AS ISSUE_MARK
 FROM (
     SELECT
         acc.ReportStatus,
         acc.sName AS Name,
+        acc.iMasterId,
+        (SELECT sCode FROM dbo.mCore_Account mc WHERE mc.iMasterId = acc.iMasterId) AS Code,
         CAST(ISNULL(doc.ContractAmt, 0) AS decimal(18, 2)) AS [Total Contract Amount],
         CAST(ISNULL(fa.AdvRctAmt, 0) AS decimal(18, 2)) AS [Adv. Rct Amount],
         /* Balance = Total Contract Amount - Adv. Rct Amount (signed contract) */
@@ -317,6 +281,238 @@ FROM (
          OR ISNULL(fa.AdvRctAmt, 0) <> 0
          OR ISNULL(acc.PlanValue, 0) <> 0
           )
-) x
-GROUP BY x.ReportStatus
-ORDER BY x.ReportStatus
+
+) s
+FULL OUTER JOIN (
+    VALUES
+('1802137', 0.0, 8580.0),
+('AC-5528', 38579.0, 20678.0),
+('1802452', 0.0, 2550.0),
+('AC-4033', 6174.0, 6174.0),
+('AC-2488', 8418.0, 9540.0),
+('AC-4427', 29382.0, 28043.0),
+('AC-1496', -205.0, 0.0),
+('AC-6038', 8917.0, 3000.0),
+('AC-2048', 8471.0, 9851.0),
+('AC-4891', 18009.0, 42498.0),
+('AC-4451', 27281.0, 27282.0),
+('AC-2577', 5047.0, 3710.0),
+('AC-3803', 7928.0, 6377.0),
+('AC-4150', 12351.0, 12351.0),
+('AC-6859', 3822.0, 3822.0),
+('AC-3978', 8550.0, 8550.0),
+('AC-3239', 8816.0, 8816.0),
+('AC-2720', 7242.0, 7242.0),
+('AC-4203', 4880.0, 4880.0),
+('AC-6842', 8220.0, 8220.0),
+('AC-4027', 6009.0, 6009.0),
+('AC-4267', 10861.0, 10484.0),
+('AC-3078', 8088.0, 8083.0),
+('AC-4448', 8604.0, 8604.0),
+('AC-4115', 9030.0, 9030.0),
+('AC-3647', 8148.0, 8197.0),
+('AC-3488', 7673.0, 7673.0),
+('AC-3593', 7004.0, 2600.0),
+('AC-6837', 4930.0, 4930.0),
+('AC-1886', 7273.0, 7008.0),
+('AC-2285', 7063.0, 6817.0),
+('AC-3946', 4021.0, 4021.0),
+('AC-1425', 3413.0, 4411.0),
+('AC-6204', 11401.0, 5700.0),
+('AC-4166', 8465.0, 8641.0),
+('AC-6898', 3109.0, 3460.0),
+('AC-6596', 6757.0, 6757.0),
+('AC-7821', 3409.0, 1980.0),
+('AC-6542', 15348.0, 14140.0),
+('AC-2669', 11138.0, 11138.0),
+('AC-6467', 9418.0, 9418.0),
+('AC-5642', 7446.0, 7446.0),
+('AC-5983', 3723.0, 3723.0),
+('AC-3252', 17172.0, 17300.0),
+('AC-3733', 15688.0, 15718.0),
+('AC-3133', 8858.0, 8949.0),
+('AC-7356', 4865.0, 4865.0),
+('AC-6276', 8531.0, 8536.0),
+('AC-4669', 4978.0, 5038.0),
+('AC-5530', 14073.0, 14102.0),
+('AC-6389', 13643.0, 13643.0),
+('AC-3758', 16885.0, 17185.0),
+('AC-2391', -464.0, 3049.0),
+('AC-7558', 7876.0, 7876.0),
+('AC-5060', 7586.0, 6000.0),
+('AC-6910', 5137.0, 5137.0),
+('AC-5619', 7870.0, 8020.0),
+('AC-2485', 17488.0, 17475.0),
+('AC-4655', 11958.0, 11958.0),
+('AC-6380', 12767.0, 10470.0),
+('AC-7208', 7294.0, 6294.0),
+('AC-3300', 9051.0, 9224.0),
+('AC-5826', 10598.0, 10600.0),
+('AC-6277', 8762.0, 8762.0),
+('AC-3638', 6737.0, 6724.0),
+('AC-7446', 8793.0, 8793.0),
+('AC-3906', 10324.0, 10324.0),
+('AC-2991', 11201.0, 11202.0),
+('AC-6553', 6872.0, 6452.0),
+('AC-4049', 5937.0, 5988.0),
+('AC-4751', 3935.0, 3934.0),
+('AC-5972', 3342.0, 3342.0),
+('AC-6675', 5594.0, 5594.0),
+('AC-3450', 7737.0, 7850.0),
+('AC-3753', 26842.0, 26990.0),
+('AC-5234', 16747.0, 16417.0),
+('AC-7056', 4345.0, 4345.0),
+('AC-6117', 8608.0, 8594.0),
+('AC-2854', 8345.0, 8345.0),
+('AC-3018', 22765.0, 21390.0),
+('1801312', 81900.0, 40640.0),
+('AC-6333', 15193.0, 15193.0),
+('AC-3567', 10076.0, 4500.0),
+('AC-8140', 6243.0, 6194.0),
+('AC-7590', 3665.0, 3700.0),
+('AC-2519', 10860.0, 9172.0),
+('AC-847', 7533.0, 8213.0),
+('AC-5997', 5206.0, 5206.0),
+('AC-4004', 8521.0, 8880.0),
+('AC-6693', 8562.0, 8562.0),
+('AC-5082', 4095.0, 4095.0),
+('AC-1113', 7371.0, 7371.0),
+('AC-6218', 6853.0, 6853.0),
+('AC-5877', 11647.0, 11647.0),
+('AC-3947', 8541.0, 8541.0),
+('AC-4838', 6468.0, 6468.0),
+('AC-5395', 7806.0, 7616.0),
+('AC-5836', 14667.0, 14667.0),
+('AC-1681', 7321.0, 7321.0),
+('AC-6838', 5749.0, 5678.0),
+('AC-1936', 8013.0, 8620.0),
+('AC-6992', 3342.0, 3342.0),
+('AC-4970', 14326.0, 14326.0),
+('AC-3317', 14088.0, 11000.0),
+('AC-5070', 13804.0, 13890.0),
+('AC-5657', 7330.0, 6689.0),
+('AC-5592', 6106.0, 6106.0),
+('AC-1131', 9587.0, 5762.0),
+('AC-4500', 13923.0, 13923.0),
+('AC-6813', 4512.0, 4525.0),
+('AC-3982', 11244.0, 11241.0),
+('AC-6993', 5701.0, 5630.0),
+('AC-8070', 3599.0, 3600.0),
+('AC-5904', 31122.0, 30842.0),
+('AC-6834', 9017.0, 9069.0),
+('AC-4933', 6445.0, 6445.0),
+('AC-4924', 3168.0, 3168.0),
+('AC-3074', 4313.0, 4310.0),
+('AC-6206', 8600.0, 8600.0),
+('AC-2333', 6102.0, 6100.0),
+('AC-3711', 7803.0, 8063.0),
+('AC-3862', 7823.0, 7248.0),
+('AC-6183', 7283.0, 7283.0),
+('1801192', 21684.0, 19180.0),
+('AC-4202', 8965.0, 9071.0),
+('AC-4710', 17106.0, 17245.0),
+('AC-5697', 5864.0, 5862.0),
+('AC-5598', 12561.0, 12555.0),
+('AC-3373', 11019.0, 13182.0),
+('AC-3070', 8811.0, 8557.0),
+('AC-4974', 10501.0, 10501.0),
+('AC-4810', 7707.0, 7707.0),
+('AC-6588', 4705.0, 4705.0),
+('AC-5921', 4586.0, 4586.0),
+('AC-3398', 11338.0, 11339.0),
+('AC-6025', 8090.0, 8090.0),
+('AC-4429', 8330.0, 8330.0),
+('AC-5185', 6528.0, 6626.0),
+('AC-6707', 1365.0, 1365.0),
+('AC-4903', 11527.0, 11447.0),
+('AC-6104', 7665.0, 7665.0),
+('AC-5796', 23128.0, 23128.0),
+('AC-4006', 18118.0, 18117.0),
+('AC-4108', 5967.0, 3000.0),
+('AC-5213', 8977.0, 8977.0),
+('AC-7050', 12793.0, 12793.0),
+('AC-5942', 7850.0, 7850.0),
+('AC-6589', 5520.0, 5520.0),
+('AC-6337', 7600.0, 7600.0),
+('AC-7059', 6158.0, 6158.0),
+('AC-6125', 17361.0, 17369.0),
+('AC-4943', 16686.0, 16687.0),
+('AC-3832', 12426.0, 12426.0),
+('AC-5556', 7919.0, 7919.0),
+('AC-6221', 5172.0, 5063.0),
+('AC-5059', 5720.0, 5720.0),
+('AC-7071', 3005.0, 3005.0),
+('AC-2979', 12030.0, 12030.0),
+('AC-4516', 7945.0, 7945.0),
+('AC-6199', 5960.0, 5961.0),
+('AC-5408', 4135.0, 4135.0),
+('AC-7294', 6327.0, 6200.0),
+('AC-4109', 9586.0, 8585.0),
+('AC-1926', 40658.0, 10844.0),
+('AC-2246', 10058.0, 9158.0),
+('AC-6734', 8745.0, 8850.0),
+('AC-2447', 42955.0, 44352.0),
+('AC-6061', 26900.0, 26900.0),
+('AC-4567', 10173.0, 9956.0),
+('AC-1163', 4473.0, 4473.0),
+('AC-5324', 12370.0, 12190.0),
+('AC-2762', 8577.0, 8978.0),
+('AC-5996', 1000.0, 600.0),
+('AC-6882', 6777.0, 6800.0),
+('AC-4896', 8223.0, 7623.0),
+('AC-3810', 11345.0, 11465.0),
+('AC-4937', 17368.0, 14704.0),
+('AC-6994', 9625.0, 9625.0),
+('AC-5180', 10002.0, 9436.0),
+('AC-3297', 5803.0, 5294.0),
+('AC-5063', 23793.0, 24056.0),
+('AC-5212', 11098.0, 11205.0),
+('AC-7123', 17758.0, 12057.0),
+('AC-6884', 5388.0, 5388.0),
+('AC-1291', 10383.0, 10384.0),
+('AC-6275', 10182.0, 10182.0),
+('AC-5219', 9902.0, 9213.0),
+('AC-6519', 10287.0, 10287.0),
+('AC-6145', 16002.0, 8000.0),
+('AC-3273', 8466.0, 8466.0),
+('AC-5890', 5251.0, 5251.0),
+('AC-6927', 20201.0, 20200.0),
+('AC-7287', 6504.0, 6504.0),
+('AC-5760', 6014.0, 5987.0),
+('AC-2501', 9571.0, 10053.0),
+('AC-1951', 22000.0, 22000.0),
+('AC-4983', 43921.0, 39612.0),
+('AC-4007', 15357.0, 15654.0),
+('AC-5027', 25268.0, 22084.0),
+('AC-2570', 4550.0, 4550.0),
+('AC-2296', 6678.0, 5000.0),
+('AC-4195', 5196.0, 5196.0),
+('AC-2071', 10257.0, 10257.0),
+('AC-6039', 8391.0, 8899.0),
+('AC-6169', 10203.0, 10203.0),
+('AC-7074', 5764.0, 5764.0),
+('AC-6841', 4611.0, 4611.0),
+('AC-5028', 8390.0, 8390.0),
+('AC-4444', 6473.0, 6473.0),
+('AC-7377', 14800.0, 13800.0),
+('AC-6631', 22520.0, 9147.0),
+('AC-5913', 10166.0, 10166.0),
+('AC-4951', 22746.0, 23539.0),
+('AC-4447', 22000.0, 22000.0),
+('1801573', 0.0, 4384.0),
+('1801721', 7274.0, 7274.0),
+('1801747', 1953.0, 5500.0),
+('1801786', -1214.0, 7330.0),
+('1801793', -7458.0, 8999.0),
+('1801794', 0.0, 7877.0),
+('1801798', 4197.0, 6635.0),
+('AC-4204', 4908.0, 4908.0),
+('AC-4196', 5800.0, 5000.0)
+) AS c(Code, CubeContract, CubeAdv) ON c.Code = s.Code AND s.ReportStatus = 3
+WHERE (s.ReportStatus = 3 OR s.Code IS NULL)
+  AND (s.Code IS NULL OR c.Code IS NULL
+       OR ISNULL(s.[Total Contract Amount],0) <> c.CubeContract
+       OR ISNULL(s.[Adv. Rct Amount],0) <> c.CubeAdv)
+
+) d
+ORDER BY d.ISSUE_MARK

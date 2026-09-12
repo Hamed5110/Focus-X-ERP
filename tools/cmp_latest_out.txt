@@ -1,0 +1,33 @@
+﻿python : C:\Users\Hamed Ali Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\l
+ocal-packages\Python312\site-packages\openpyxl\styles\stylesheet.py:237: UserWarning: Workbook contains no default 
+style, apply openpyxl's default
+At C:\Users\Hamed Ali Khan\AppData\Local\Temp\ps-script-39270609-0f66-49d8-9f06-90438456c970.ps1:107 char:1
++ python "C:\Users\Hamed Ali Khan\Focus-X-ERP\tools\cmp_latest.py" 2>&1 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\Hamed ...npyxl's default:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  warn("Workbook contains no default style, apply openpyxl's default")
+
+FILE Trade_Receivables_180_527369_Project_Tracking_III_Report_Atlas527369_ATLAS_ALUMINUM_W_L_L_.xlsx
+hdr_row 6 headers ['Particulars', 'Sales Order Date', 'Code', 'City', 'Phone No.', 'Salesman name', 'Designer name', 'Pipeline', 'Site Status', 'Total Contract Amount', 'Adv. Rct Amount', 'Balance Amount', 'Sales Job Order', 'Production Note Amount', 'Sales Module', 'Sales Job Order Balance', 'Plan Value', 'Planning month', 'Account  Controller', 'Final Measurement - Employee name', 'Final Measurement Status', 'Comprehensive Report Atlas', 'SJO processing', 'Advance Payment Status']
+n 222 grand {'name': 'Grand Total', 'code': '', 'c': 2262187.0, 'a': 2172780.0, 'b': 89414.0}
+sum rows {'c': 2280871.0, 'a': 2172781.0, 'b': 108090.0}
+
+FILE III_prjoect_SQL352277_ATLAS_ALUMINUM_W_L_L_.xlsx
+hdr_row 6 headers ['Name', 'Sales Order Date', 'CPR/CR Number', 'Code', 'City', 'Phone No.', 'Salesman name', 'Designer name', 'Pipeline', 'Site Status', 'Total Contract Amount', 'Adv. Rct Amount', 'Balance Amount', 'Sales Job Order', 'Production Note Amount', 'Sales Module', 'Sales Job Order Balance', 'Plan Value', 'Planning month', 'Account Controller', 'Final Measurement - Employee name', 'Final Measurement Status', 'Account2.Report Status', 'Comprehensive Report Atlas', 'SJO processing', 'Advance Payment Status']
+n 224 grand {'name': 'Grand Total', 'code': '', 'c': 2296141.0, 'a': 2188051.0, 'b': 108090.0}
+sum rows {'c': 2296141.0, 'a': 2188051.0, 'b': 262904.0}
+
+only cube [] count 0
+only sql ['AC-3488', 'AC-5850'] count 2
+
+==== material |d|>0.51 Contract/Adv ====
+n material 0
+
+==== tiny |d|>0.01 counts ====
+contract tiny 0 adv tiny 0
+CUBE sum c/a 2280871.0 2172781.0
+SQL  sum c/a 2296141.0 2188051.0
+footer cube {'name': 'Grand Total', 'code': '', 'c': 2262187.0, 'a': 2172780.0, 'b': 89414.0}
+footer sql {'name': 'Grand Total', 'code': '', 'c': 2296141.0, 'a': 2188051.0, 'b': 108090.0}
