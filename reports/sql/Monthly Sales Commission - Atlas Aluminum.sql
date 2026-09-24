@@ -3,9 +3,9 @@
 
    Gate + team cliff (NetSuite / SalesCookie style):
      Payment codes CI-001 / CI-004 only (mandatory).
-     A contract is eligible only if collection >= 50% of that contract.
+     A contract is eligible only if collection >= 45% of that contract.
      Eligible contracts ADD their contract amount to Overall Sales.
-     Below 50% is Not Eligible — excluded from Overall Sales and from payout.
+     Below 45% is Not Eligible — excluded from Overall Sales and from payout.
      Collection Eligible Amount = period CI-001/004 receipts on those same
      contracts (cash collected after the gate; not the payout base).
      Rate R is the Atlas cliff on Overall Sales (team, not per salesman).
@@ -63,7 +63,7 @@ FROM (
             CAST(SUM(
                 CASE
                     WHEN p.ContractVal > 0
-                         AND ISNULL(c.LifeColl, 0) * 2 + 1 >= p.ContractVal
+                         AND ISNULL(c.LifeColl, 0) * (100.0 / 45.0) + 1 >= p.ContractVal
                     THEN p.PeriodColl
                     ELSE 0
                 END / n.SplitN
@@ -71,7 +71,7 @@ FROM (
             CAST(SUM(
                 CASE
                     WHEN p.ContractVal > 0
-                         AND ISNULL(c.LifeColl, 0) * 2 + 1 >= p.ContractVal
+                         AND ISNULL(c.LifeColl, 0) * (100.0 / 45.0) + 1 >= p.ContractVal
                     THEN p.ContractVal
                     ELSE 0
                 END / n.SplitN
@@ -79,7 +79,7 @@ FROM (
             CAST(SUM(
                 CASE
                     WHEN p.ContractVal > 0
-                         AND ISNULL(c.LifeColl, 0) * 2 + 1 >= p.ContractVal
+                         AND ISNULL(c.LifeColl, 0) * (100.0 / 45.0) + 1 >= p.ContractVal
                     THEN 0
                     ELSE p.ContractVal
                 END / n.SplitN
@@ -270,7 +270,7 @@ FROM (
                 CAST(SUM(
                     CASE
                         WHEN p.ContractVal > 0
-                             AND ISNULL(c.LifeColl, 0) * 2 + 1 >= p.ContractVal
+                             AND ISNULL(c.LifeColl, 0) * (100.0 / 45.0) + 1 >= p.ContractVal
                         THEN p.ContractVal
                         ELSE 0
                     END / n.SplitN

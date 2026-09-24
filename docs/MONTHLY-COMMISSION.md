@@ -9,14 +9,14 @@ Query files:
 
 Create the two department reports as **new** Query reports (do not overwrite 70266). Atlas is **one row per salesman**. Aknan / combined still include Customer Name. `iDate` stays packed Fraction, hidden.
 Default FA view `vtCode_DataFA_0` keeps `iDate` as packed `tCore_Header_0.iDate`. Custom Query date filter (verified 10 Sep 2026): `h.iDate BETWEEN @iStartDate AND @iEndDate` — Focus binds those from the header Date Range (same as 70198 / 70223). Do not `DECLARE`, do not convert result `iDate`, do not hard-code a month. Result `iDate` stays packed Fraction, hidden. **Month Year** is the readable date. See `docs/FOCUS-QUERY-RULES.md`.
-**Atlas Aluminum** uses only CI-001 / CI-004. The 50% test is the **per-contract gate**. The tier is on **department Overall Sales** (unique **qualified** contract amounts in the period). Payout is **qualified contract amount × team rate**, shown per salesman. **Collection Eligible Amount** is period first-pay cash on those same qualified contracts (NetSuite-style collections column; not the payout base).
+**Atlas Aluminum** uses only CI-001 / CI-004. The 45% test is the **per-contract gate**. The tier is on **department Overall Sales** (unique **qualified** contract amounts in the period). Payout is **qualified contract amount × team rate**, shown per salesman. **Collection Eligible Amount** is period first-pay cash on those same qualified contracts (NetSuite-style collections column; not the payout base).
 
 **Aknan** and the combined file still use the older team rules (second pay auto-eligible; rate on department month total):
 
 | Code | Name | Atlas | Aknan / combined |
 |---|---|---|---|
-| 1 | CI - 001 First Payment Bahrain | In scope; contract ≥ 50% | Contract ≥ 50% |
-| 4 | CI - 004 First Payment KSA | In scope; contract ≥ 50% | Contract ≥ 50% |
+| 1 | CI - 001 First Payment Bahrain | In scope; contract ≥ 45% | Contract ≥ 50% |
+| 4 | CI - 004 First Payment KSA | In scope; contract ≥ 45% | Contract ≥ 50% |
 | 2 / 5 | Second Payment BH / KSA | **Excluded** | Always eligible |
 | 3 / 6 / 7 / 8 | Additional / scrap / maintenance | **Excluded** | Shown, not eligible |
 
@@ -36,19 +36,19 @@ The export is the **old** query + grouping Sum. It is not the Atlas rule set.
 | Atlas rule | Export | New Atlas SQL |
 |---|---|---|
 | Only CI-001 / CI-004 | All codes (002, 008, …) | First pay only |
-| 50% per contract | Same idea, but second pay auto-eligible | Lifetime CI-001/CI-004 on that contract through `@iEndDate` ≥ 50% |
+| 45% per contract | Same idea, but second pay auto-eligible | Lifetime CI-001/CI-004 on that contract through `@iEndDate` ≥ 45% |
 | Tier on **that salesman’s** qualified total in the period | Department team total + equal Share Each | Per salesman; no team split |
 | < 150,000 qualified → 0% | Team 115,783 → 0% (right rate, wrong base) | Every Aug salesman < 150k → **0%** |
 | Inclusive lower / exclusive upper | `>=` cascade (same) | Same |
 
 Export layout Sum still inflates: Team Eligible **12,967,715** = 115,783.17 × 112 rows; Members **672** = 6 × 112.
 
-### Atlas live check (Overall Sales = 50%-qualified contracts only)
+### Atlas live check (Overall Sales = 45%-qualified contracts only)
 
 | Month | All contracts | Eligible (in Overall) | Not Eligible | Collection | Collection Eligible | Rate |
 |---|---:|---:|---:|---:|---:|---|
 | Jul 2026 | 217,496.11 | 113,497.78 | 103,998.33 | 97,062.47 | (see query) | **0%** (< 150k) |
-| Aug 2026 | 114,011.35 | 93,643.80 | 20,367.55 | 55,481.17 | **47,859.56** | **0%** (< 150k) |
+| Aug 2026 (45% gate) | 114,011.34 | **100,444.12** | 13,567.23 | 55,481.17 | **51,209.56** | **0%** (< 150k) |
 
 Old (wrong for Atlas) Aug all-codes: collection 132,205.76, eligible 115,783.18.
 
@@ -58,9 +58,15 @@ Last column `iDate` is packed `dbo.DateToInt` — hide it, type **Fraction**. Do
 
 New Query: `reports/sql/Monthly Sales Commission - Atlas Aluminum Detail.sql`. Do **not** overwrite the salesman summary.
 
-One row per **salesman + customer + contract**. Same CI-001/004 + 50% gate. Extra audit columns: Lifetime Collection, Collection %, Gate Status (Yes/No).
+Sandwich grain: **CON-Atl** (customer + contract no + `ABS(fNet)`) is the contract; **CI-001/004 receipts** are the collection filling. Total Contract Amount is the **sales order net**, not the typed receipt extra (`TotalContractAmt` is only a match hint — Mr. Mohamed Saeed extra 6,500.28 vs CON-Atl-6955 net **4,273.20**).
 
-August 2026 true-mode: 25 customer rows (19 Yes / 6 No). Sum by salesman matches the summary (within 0.02). Overall Sales **93,643.80**. Cash customer 121.00 has no contract value — sits in Total Collection only.
+One row per first-pay receipt on a **passed** CON (45% gate). Failed / no-contract rows are excluded, so Gate Status is always Yes and **Not Eligible Amount** is omitted. Contract / Lifetime / Collection % / Eligible / Commission print on the first receipt of that CON only.
+
+Link order: customer + rounded extra = CON net, else the only CON on that receipt date, else the only CON for the customer. Rows with **no Contract No.** (Cash customer, unmatched receipts) are excluded.
+
+Do **not** Cube-Sum Lifetime, Collection %, Gate, Overall Sales, or Commission Ratio. Four text fields: Contract No/Date, Receipt No/Date. `iDate` last, Fraction, hidden.
+
+August 2026: 31 receipt rows. Collection **55,481.17** matches salesman. Contract / Eligible first-receipt Sum matches within 0.03.
 
 ## Layout (Atlas)
 
