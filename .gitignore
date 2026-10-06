@@ -18,3 +18,6 @@ __pycache__/
 pt3_*.py
 pt3_*.txt
 focus_*.py
+
+# Decompiled Focus vendor code (local reference only)
+tools/decomp_rdbl/
