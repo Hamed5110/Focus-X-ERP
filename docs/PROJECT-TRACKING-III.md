@@ -3,6 +3,8 @@
 Cube: **Project Tracking III Report Atlas** (XML report id **70153**).  
 Query SQL: [`../reports/sql/Project Tracking III Report Atlas.sql`](../reports/sql/Project%20Tracking%20III%20Report%20Atlas.sql)
 
+**Ledger-balance Query (report 70268, Focus80G0):** [`../reports/sql/Project Tracking III Report Atlas Ledger.sql`](../reports/sql/Project%20Tracking%20III%20Report%20Atlas%20Ledger.sql) — rebuilt from cube XML **70153** columns, department **2040**, Report Status **3**. **Balance Amount is FA ledger closing** on `vtCode_DataFA_0` (displayed Debit − Credit, as-on `@iEndDate`), not cube `c11-c12` Contract − Adv. Query type (`iReportType=1`, `iSourceType=1`) with **zero Transaction Set**. Do not import the cube XML into this report, because that recreates the Transaction Set. The Customer Name filter must stay `AND (m.iMasterId = @CustomerName)`. Focus replaces an empty picker with `'' OR 1=1`, so a `CASE @CustomerName …` form fails with error 156 near `OR` (see `FOCUS-QUERY-RULES.md`, Report parameters). Open **70268** only; leave **70245** (still has 2 TranSet rows) unused.
+
 ## Business grain
 
 One row per customer project account with **Report Status = 3** (Partial Consumed - III), department **Atlas Aluminum (2040)**.

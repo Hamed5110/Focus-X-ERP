@@ -64,6 +64,27 @@ AND iDate >= Start AND iDate <= End OR iDate = 0
 
 That append is unreliable for custom SQL. Prefer `@iStartDate` / `@iEndDate` on the fact join.
 
+### Report parameters (error 156 near `OR`)
+
+Verified from FocusX `Focus.RD.BL.dll`, `RDBackend.replace_inputvariables`. For a Query source, Focus does plain text replacement and then runs the SQL. It adds nothing else. There is no date splice, and `ORDER BY` is only added for a primary column.
+
+- `@iStartDate` / `@iEndDate` are replaced with packed ints.
+- A parameter token with a value > 0 is replaced with the master id, e.g. `5247`.
+- A parameter token with an empty picker (0) is replaced with the literal **`'' OR 1=1`**.
+
+So a parameter may only appear as `(column = @Param)`, in parentheses:
+
+```sql
+AND (m.iMasterId = @CustomerName)
+```
+
+- Empty picker gives `(m.iMasterId = '' OR 1=1)`, which returns all rows.
+- A chosen account gives `(m.iMasterId = 5247)`.
+
+Never use `CASE @Param WHEN 0 …`, `ISNULL(@Param, 0)`, `@Param = 0 OR …` or `@Param > 0`. After replacement these become `CASE '' OR 1=1 WHEN …`, which is SQL Server **error 156** (`Incorrect syntax near the keyword 'OR'`) inside `RDReport.GetPagewiseData`. Without the parentheses, the `OR 1=1` cancels the other `WHERE` filters.
+
+Reproduce with `tools/redteam_pt3_or_vv.ps1`.
+
 ```sql
 CAST(h.iDate AS decimal(18, 0)) AS iDate
 ```
